@@ -8,7 +8,7 @@ A single-file local asset-allocation tool. Open in your browser; data stays in y
 
 **直接在本仓库下载（推荐） / Download here on GitHub（recommended）**
 
-- 最新文件：仓库 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 里的 `资产配置大师 by RayFi.html`（或 `rayfi-asset-allocation-share-v1.102.html`）
+- 最新文件：仓库 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 里的 `rayfi-asset-allocation-share-v1.104.html`，根目录另有同内容的 `资产配置大师 by RayFi.html`
 - 也可在本仓库根目录下载同名 HTML（若已放入）
 
 官网 [www.rayfi.top](https://www.rayfi.top) 也有介绍与下载入口（可选广告，非必须）。  
@@ -30,6 +30,7 @@ What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Download each H
 - 多维分析：托管、底层资产、风险、风格、币种、流动性
 - 行情刷新（含国内商品/股指期货按合约乘数计价）
 - 中英界面切换（标题旁 中文 | EN）
+- 使用说明页；导出 JSON 文件名为 `AA_` 加本地时间到分钟（样本名 `AA_random_V1`）
 
 ## 作者 / Author
 
