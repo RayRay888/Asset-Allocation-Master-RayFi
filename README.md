@@ -11,10 +11,17 @@ A single-file local asset-allocation tool. Open in your browser; data stays in y
 - 最新文件：仓库 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 里的 `资产配置大师 by RayFi.html`（或 `rayfi-asset-allocation-share-v1.102.html`）
 - 也可在本仓库根目录下载同名 HTML（若已放入）
 
-官网 [www.rayfi.top](https://www.rayfi.top) 也有介绍与下载入口（可选，非必须）。
+官网 [www.rayfi.top](https://www.rayfi.top) 也有介绍与下载入口（可选广告，非必须）。  
+The site [www.rayfi.top](https://www.rayfi.top) is an optional ad, not required.
 
 > 本公开库提供介绍与可下载成品，**不开放可编辑源码仓库协作**（成品是完整单文件 HTML）。  
 > This public repo ships the ready-to-use HTML for download; the editable development history stays private.
+
+## 更新记录 / Changelog
+
+各版改动见 [CHANGELOG.md](CHANGELOG.md)。从 v1.81 到当前版的成品 HTML，按标签在 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 下载，本地打开即可。
+
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Download each HTML build from [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases).
 
 ## 功能概览 / Features
 
