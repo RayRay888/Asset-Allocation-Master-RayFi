@@ -10,7 +10,7 @@
 body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;font-size:17px;margin:0;background:#f0f3f7;color:#1a1a1a;line-height:1.45}
 header{background:linear-gradient(135deg,#1a3a5c,#2a5a8c);color:#fff;padding:14px 24px;font-size:24px;font-weight:700}
 .tabs{display:flex;gap:8px;background:#14304c;padding:10px 14px 0;align-items:stretch}
-.tabs button{border:none;border-radius:12px 12px 0 0;background:transparent;color:#c5d5e8;padding:18px 44px;min-width:168px;font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.5px;line-height:1.2;box-shadow:inset 0 -3px 0 transparent;transition:background .15s,color .15s,box-shadow .15s,opacity .15s}
+.tabs button{border:none;border-radius:12px 12px 0 0;background:transparent;color:#c5d5e8;padding:20px 84px;min-width:330px;font-size:21px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.5px;line-height:1.2;box-shadow:inset 0 -3px 0 transparent;transition:background .15s,color .15s,box-shadow .15s,opacity .15s}
 .tabs button:hover{background:#1a3a5c;color:#fff}
 .tabs button.on{background:#f0f3f7;color:#1a3a5c;font-weight:800}
 .tabs .spacer{flex:1}
@@ -77,7 +77,7 @@ h2{margin:0 0 10px;font-size:20px;color:#1a3a5c}
 .stat .l{font-size:13px;color:#666}
 .muted{color:#888;font-size:14px}
 @media print{
-  .tabs,header,.no-print,#viewInput,#viewGuide,button.d,button.sm,button.p,.hint{display:none!important}
+  .tabs,header,.no-print,#viewInput,#viewGuide,#viewCommunity,button.d,button.sm,button.p,.hint{display:none!important}
   #viewAnalysis{display:block!important}
   body{background:#fff}
   .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
@@ -176,9 +176,8 @@ header{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .hdrR{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .brand{display:flex;align-items:baseline;gap:10px;font-weight:400;font-size:14px;white-space:nowrap}
 .brand .rf{font-family:"RayFiCaveat","Caveat",cursive;font-size:30px;font-weight:700;letter-spacing:.1px;line-height:1;color:#fff}
-.brand .grp,.brand a{font-size:30px;line-height:1;font-weight:600}
-.brand .grp{color:#dbe7f5}.brand a{color:#cfe3ff;text-decoration:none}
-.brand a{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"PingFang SC",sans-serif;font-weight:500;letter-spacing:.3px;color:#e3efff}.brand a:hover{text-decoration:underline}
+.brand a{font-size:30px;line-height:1;font-weight:500;color:#e3efff;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,"PingFang SC",sans-serif;letter-spacing:.3px}
+.brand a:hover{text-decoration:underline}
 .ver{font-size:12px;font-weight:400;color:#c5d5e8;line-height:1}
 #tbl table.mainTbl input.manualPct,input.manualPct{color:#8e44ad!important;font-weight:800!important;background:#f6eefc!important;border-color:#b07cc6!important}
 .manualTxt{color:#8e44ad}.manualLink{color:#8e44ad;font-weight:700;text-decoration:underline;cursor:pointer;margin:0 2px}
@@ -209,8 +208,8 @@ button.dangerBtn{border-color:#c0392b!important;color:#c0392b!important}button.d
 input.l2tgt{background:#fff!important;border:1px solid #8ab!important;font-weight:700}
 .hdrIcon{width:34px;height:34px;vertical-align:-7px;margin-right:8px;color:#fff}
 .ccyTag{font-weight:700;color:#1a3a5c}.ccySym{margin:0 2px 0 6px;font-weight:700;color:#1a3a5c}.ccyCode{margin-left:4px;font-size:13px;font-weight:700;color:#1a3a5c;background:#e4ecf5;border-radius:4px;padding:1px 5px}
-/* ===== 三页主题：指南琥珀金 / 输入海军蓝 / 分析深青 ===== */
-:root{--ana:#0f5e63;--ana2:#14838a;--anaL:#e3f3f1;--anaB:#b5dcd8;--guide:#a56b00;--guide2:#c9891a;--guideL:#fff8e8;--guideB:#f0d58a}
+/* ===== 四页主题：指南琥珀金 / 输入海军蓝 / 分析深青 / 社区紫 ===== */
+:root{--ana:#0f5e63;--ana2:#14838a;--anaL:#e3f3f1;--anaB:#b5dcd8;--guide:#a56b00;--guide2:#c9891a;--guideL:#fff8e8;--guideB:#f0d58a;--comm:#5b2a7a;--comm2:#9b59b6;--commL:#f8efff}
 .tabs button#tabGuide{background:#8a5a00;color:#ffe7a3;border-bottom:3px solid transparent;opacity:.88;margin:0}
 .tabs button#tabGuide:hover{background:#a56b00;color:#fff8e1;opacity:1}
 .tabs button#tabGuide.on{background:#fff8e8;color:#6b4500;opacity:1;border-bottom-color:#e0a800;box-shadow:0 -3px 12px rgba(176,128,0,.45);font-weight:800}
@@ -237,6 +236,19 @@ body.anaOn{background:#eef6f5}
 #viewGuide .cl li:last-child{border-bottom:none}
 #viewGuide .cl .cv{font-weight:800;color:#8a5a00;font-variant-numeric:tabular-nums}
 #viewGuide .cl .cn{color:#3a3220}
+.tabs button#tabCommunity{background:#5b2a7a;color:#f3d9ff;border-bottom:3px solid transparent;opacity:.9;margin:0;padding:16px 28px;min-width:0;font-size:16px;font-weight:700;letter-spacing:.2px;white-space:nowrap;flex:0 0 auto}
+.tabs button#tabCommunity:hover{background:#743696;color:#fff;opacity:1}
+.tabs button#tabCommunity.on{background:#f8efff;color:#5b2a7a;opacity:1;border-bottom-color:#c77dff;box-shadow:0 -3px 12px rgba(120,60,160,.45);font-weight:800}
+body.communityOn .tabs{background:linear-gradient(90deg,#14304c 0%,#3a1a55 100%)}
+body.communityOn{background:#f7f2fa}
+#viewCommunity .card{border-top:4px solid #9b59b6;box-shadow:0 2px 8px rgba(120,60,160,.10)}
+#viewCommunity h2{color:#5b2a7a;margin:0 0 10px;font-size:20px}
+#viewCommunity .guideBody{font-size:15.5px;line-height:1.75;color:#352640}
+#viewCommunity .guideBody p{margin:0 0 12px}
+#viewCommunity .guideBody ul{margin:6px 0 12px;padding-left:1.35em}
+#viewCommunity .guideBody li{margin:5px 0}
+#viewCommunity a{color:#6b2d8a;font-weight:700;word-break:break-all}
+#viewCommunity a:hover{color:#9b59b6}
 #viewAnalysis .card{border-top:4px solid var(--ana2);box-shadow:0 2px 8px rgba(15,94,99,.10)}
 #viewAnalysis h2{color:var(--ana)}
 #viewAnalysis .stat{background:var(--anaL);border:1px solid var(--anaB)}
@@ -315,39 +327,65 @@ header .hdrProduct{font-weight:inherit}
 </style>
 </head>
 <body>
-<header><span><svg class="hdrIcon" viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true"><path d="M32 9 55 51H9Z"/><path d="M32 19 48 49H16Z"/><path d="M32 29 41 47H23Z"/></svg><span class="hdrProduct" id="hdrProduct">资产配置大师</span> <span style="font-size:.7em;font-weight:400;opacity:.85">by RayFi</span> <span class="langSw" id="langSw" title="Language / 语言"><button type="button" id="langZh" class="on" onclick="setLang('zh')">中文</button><button type="button" id="langEn" onclick="setLang('en')">EN</button></span> <span class="badge" id="hdrBadge" style="background:#ffffff33;color:#fff;margin-left:8px">本地 · 输入/分析</span></span><div class="hdrR"><div class="brand"><span class="rf">RayFi</span><img class="rfAv" alt="RayFi 头像" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAAAAADH8yjkAAAJlklEQVR42u2aa3BV1RXH//tx7ouQBxAQBTECKiohiAoo1EfRQWUoWkWL1IrTKoLVQrV2pq1jGa10dJhWdESZWgVbdUS0js+KtdbHCCKPlIcg8giJkkKIECG59+y9//1wk3Bz77knN6FOv7A+3Xvn3P07e621117nv48gvl2TOAb4fwN0AdeQJAUgIIToKkB0mkWOqsM3SPG/nAGdwqHd29a1+K60YuDA42IAnFPifzUDq7D+iRXbTevXnieecvGo08oAx4LnwTAz3PtjD1AyEvGica0AQAy8emk9SeNYiCF8/I9Og/CkaDeltQDQ7/rnG0nfHSXAZ3UZEhBZJrUCUPFAPWmOCuDMgUoUaSlyTUcjwMnz/0NnjwJgeA/iImh8IYRUHjDoKdLvNsD6deU6z/BphgdM3dlZsPMBrCHvR5EQoYQIyv9K57oOsD55YFmljIhwgo4o/CacEARwPvn5zP6txSfctMJMPyzUAQBHbptVBhGRogDzYpjlQuKAgOQxT/RFtGdUFGRaRjE7JNLIco7zWXcR4ElRsKkYfps/W7MAKcfl/aC7MLwQOhLR7+Rd1B0B1pqfKdEDokuAWFz2q8sX6A4AZzkdSnXp/oWQSnm4Nt8U0DG+dyIuumEyguW0nQIMX0SR7g5AeKpif/B6ywS45AhEZLcA0sNjwU5C5gRegoLonilx8oHAOHfoi97uYseQ2W2I7a8G7u8ZAGU/hsvTGkCgE7QQT/pBhCMAonkXAnsMSkQ8IcJ7FeK9asnw1rEl+M4AXZZMUoa3UPTMB+gEYAKd67T2zrxzctxvcUplxYgdPr+GgCkccRtF47D67Cski1ItAEZeW7XxlZUtALQE0wMLQVhCurYQFm0a4GT+xsuxpT+yV4GH725ZMLWiB1C8mduX3lBZ2pEfi7RXFqnxt4CloDMyxTvxK2mzI7B98ByYzTUHa+OsqJiOXRsbvonH8c2+5m+adu75ch/Qll5UZvVkhjW/Tg5ZmRMBXbu2it7w4elwCDFoEKq3+z3HDAIAU//x2lUfHxIkAGmxA4Iif2/q8w54WS6CwlIaZ43vG5NK+dx912AAkMPnm/Qmc99AJbUWQgiFs6wLKxU+5yO71MHDHJc0xm+tAq8NBBAvjmlg4mZat7oK8R5xAS2EUDgloFTozOU6KnclE1+KCAAc3F+7pn7Ly1b2jqqS3Y3Qb5Y+KZpnr4s2o7yi9qByoGjYcGaOi3SHsZATZOBQakfN5+vqdu5MGQAT7xoSx7Ml5a8/1/TGWSVNdbrkysnr+19y8+uJFqqG9850Kn8MDH+SEwMh0XtYUdu1Ue9+knwQg+u5qjcA6P7/5qoiPGuroITGI7l5mrkftAxDwG4AoM/QMRdcP/eRxaeLXS5lk0MUFhhOEmUTEmIKzY0Q5/OzUqHliK25UdYZWbr1i5ylLqV/+7XR3sW9AABrt8aElIcPS36tmht427xfPLgnFfEVfJ563aLooR8NtTJ/LXLYkGpzoJBatH266bxRJ/Wis7bFxISCcKVjfDeK+6sTt3BW0aavOMrasYLXQUI6hjyj+VzUFgINpHc2KdGv1vjpiRsuxWfOWrfm/Lnk07iBPmfgKX591eX1jo0VWr0cUCoyAY/BE0JKpSFHTFdCCSE0hrfvg5Y1WMgkHUmXOiOx2R52mxOVzemGx12Msl10oYBn4Akho1rf8kmKj6uIFDKGGUfuytqzhjbR+EmfnIv7SBr+DveQftJP8T6U1QS0LkcAltt6CCm0jj1DuhR/DwXEMP9I22n4Fi7cTJJf3oqpxm79s3N2Gu7YQ5Jrxyvv01AALachIjz1HP2Usb69CJ5S+p8ZfrV8NoZxM269MoK7jc+78S9nWn6NnpNu/uG50FGsCI0BDVd58RhmMOVIWn4SiXkoqc28K8tdj08dM+bSeZtJnyvSDePWBy49b9wVS16OY0k4gJY3Iqo2WZ/PTV3NFKehB8Z3XDrtA/iOLlVVvI+27af1CdzPVDjA1Q6QZxuyZTAmMcU1iTjmZHX+1hhjjLEkDR/GIhpaY6xJmnejeDgAkLnypDi+zA1SzulT9Mp6z4z8fjNOy16YSimllAQgcJl6CQJSKamUMkmcHKBvyQ6l2U8hSjp1idm7Dpa3et7Y/JqY5JCx7+9p3fOJvVAlnUhqApESNAgpMFqqv0NxdJVXEdLRWUw5/GF769IIXRRwsez4jxGo3g/Bc862fSEg/7CgyOUHCFRiZTvgEHSiM73I8HngUSYdv1jeuZBifVenr2jNYsM56FsfWipIOtc0XA6oO5I4thNMU3RC65iOF2O0CQB0cJFwRT93tdfv0y6VtAQgVUg3untd44ep49PbuBMNW1CprOhMUrN2FlC5ogAly9lh6AUsT689nx9qLAp6xtFZPYRY0PJk9cQLLu9/3Nho+COBfODNDSdMubJ1l+caI84oRBR0zv6yWAHArwoRzNLSBml4DSr2B4QgV6tw5KZTvaKYLq1huF5mTHsSONb2w4TA63PFEJfiu6rI64lJwbKi8zPqnzM2HYLFUC8ETjlIL0pxLuKxGObllTicn655pn3aE0XF4SAPBQtS5sA5iOqIfiGX4Ni4ZPWB9q97l2+io3U1xWJm8O3owMey4mVnN0Stmh6ZbLIusPqlm9B3+ODBJ5WZvTVrVjTNetRqyoUH8b08SZdH0Xw9rmMJL/Fidhwc9/9pdlWk7d9jHqqls66uF6pSwVJCHnHc6FeupmZSP3QHAp67GnfUfuVYWlJxOkBh1e0LsXS6VV0Rx32+VYKiXkLMPpTlW2cyk8V3tG5bD4xnIXpRppNS3DAO4wcA4zbQ2pzVaHzf9411JH1OQ4fmo0Dl12fy3vI3xgP9ng4V2g3fi+PyvMpmiHZtyW1M3gJg6pb8Qrsz+84QidXdAdBZWnLJCcDAhT5N8BApzgTuzV+3wk9ALJ3hjikALvgo+MzD59MK41qs6x6gtddaPBSIXFPN3Fn4fDeB8g0hZRGFbC2sv60EKLtrN9khR12Kn/aRYllAv9UVAGnINVdpgfKfbmwvoKQzjsv6aCxmM48SQGfIdy4E0PMH/yBJ3ze+IVvmx4BH0s3y0QFIa2meP08BasIft6d/OvTCuUDpXzo5ZBEFH1hbBaxY/HYj0GfkqKGJPes/2QiMfmyk0UdxUJfjJ1bfntEOD52X7HTjFl05cqcTEk3vv/pB3QGRiH/nsqtKgkptV09jA85mXU2dV9KrHLCd66yiyy8N0EG1sgqRcUV33kogWfDZtTj22sMxwDHAtw/4L+0WmxJzE6plAAAAAElFTkSuQmCC"><span class="grp">《全球资产配置躺赚群》</span><a href="https://www.rayfi.top" target="_blank" rel="noopener">www.rayfi.top</a></div><span class="ver" id="appVer"></span></div></header>
-<script>const APP_VERSION='v1.106', APP_UPDATED='2026-11-01';</script>
+<header><span><svg class="hdrIcon" viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true"><path d="M32 9 55 51H9Z"/><path d="M32 19 48 49H16Z"/><path d="M32 29 41 47H23Z"/></svg><span class="hdrProduct" id="hdrProduct">资产配置大师</span> <span style="font-size:.7em;font-weight:400;opacity:.85">by RayFi</span> <span class="langSw" id="langSw" title="Language / 语言"><button type="button" id="langZh" class="on" onclick="setLang('zh')">中文</button><button type="button" id="langEn" onclick="setLang('en')">EN</button></span> <span class="badge" id="hdrBadge" style="background:#ffffff33;color:#fff;margin-left:8px">本地 · 输入/分析</span></span><div class="hdrR"><div class="brand"><span class="rf">RayFi</span><img class="rfAv" alt="RayFi 头像" src="data:image/png;base64,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"><a href="https://www.rayfi.top" target="_blank" rel="noopener">www.rayfi.top</a></div><span class="ver" id="appVer"></span></div></header>
+<script>const APP_VERSION='v1.107', APP_UPDATED='2026-11-01';</script>
 <nav class="tabs no-print">
   <button type="button" id="tabGuide" onclick="switchView('guide')">📖 使用说明</button>
   <button type="button" id="tabInput" class="on" onclick="switchView('input')">✏️ 输入页</button>
   <button type="button" id="tabAnalysis" onclick="switchView('analysis')">📈 分析页</button>
   <span class="spacer"></span>
+  <button type="button" id="tabCommunity" onclick="switchView('community')">《全球资产配置躺赚群》</button>
 </nav>
 
 <div class="wrap">
 <!-- ===== 使用说明 ===== -->
 <div id="viewGuide" class="view">
   <div class="card">
-    <h2 data-i18n="guide.how.title">使用说明 / How to use</h2>
+    <h2 data-i18n="guide.what.title">这是什么</h2>
     <div class="guideBody">
-      <p data-i18n="guide.how.p1">把本 HTML 用浏览器直接打开即可使用（本地文件，无需服务器）。所有持仓与设置只保存在本机浏览器的 localStorage（键名 assetAlloc_share_v2）；下载的页面本身不含真实持仓。</p>
-      <p data-i18n="guide.how.p2">换电脑、换浏览器或清理站点数据前，请在输入页用「导出 JSON」备份；之后用「导入」即可完整恢复。页面内「快照」只存在当前浏览器，不能替代文件备份。</p>
-      <p data-i18n="guide.how.p3">配置树为一级→二级→三级→可选四级。目标% 通常设在三级（或在其下三级皆空时设到二级）；实际% 有金额时按金额自动折算。持仓可填代码、数量、单价与金额；点「刷新价格」拉取行情。商品/股指期货：单价=行情×合约乘数（每手名义），数量填手数（空头为负）。</p>
-      <p data-i18n="guide.how.p4">分析页从托管 vs 底层资产、风险、风格、币种、流动性等维度看组合；顶栏可切换「中文 | EN」。打印时主要输出分析页内容。</p>
+      <p data-i18n="guide.what.p1">「资产配置大师 by RayFi」是一份<strong>单文件本地工具</strong>：用浏览器直接打开 HTML 即可使用，无需安装、无需服务器、也没有账号体系。你的持仓、目标%、托管列表、快照与界面偏好，只保存在<strong>本机浏览器</strong>的 localStorage（键名 <code>assetAlloc_share_v2</code>；界面偏好另用 <code>assetAlloc_share_ui_v2</code>）。从网上下载的 HTML 本身<strong>不含</strong>任何人的真实持仓；首次打开会看到虚构样本组合 <strong>AA_random_V1</strong>（约一亿量级的演示数据），方便你摸清流程后再改成自己的。</p>
+      <p data-i18n="guide.what.p2">设计目标很朴素：把「目标配置」和「实际持仓」放在同一张可编辑的树上，随时看到缺口与再平衡方向；再用多维分析（托管 vs 底层资产、风险、风格、币种、流动性等）对照「钱在哪」和「风险在哪」。它面向认真做全球/多资产配置的个人投资者与家庭办公室式记账，而不是交易终端或投顾推荐引擎。</p>
     </div>
   </div>
   <div class="card">
-    <h2 data-i18n="guide.rayfi.title">全球资产配置与 RayFi</h2>
+    <h2 data-i18n="guide.feat.title">功能一览</h2>
     <div class="guideBody">
-      <p data-i18n="guide.rayfi.p1">RayFi 关注全球资产配置：用清晰的层级与多维分析，帮你看清「钱在哪」和「风险在哪」，并把目标配置与实际持仓对齐。</p>
-      <p data-i18n="guide.rayfi.p2">社区《全球资产配置躺赚群》交流配置思路与工具用法。官网：</p>
-      <p><a href="https://www.rayfi.top" target="_blank" rel="noopener">https://www.rayfi.top</a></p>
+      <p data-i18n="guide.feat.p1"><strong>配置树（一级→二级→三级→可选四级）</strong>：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。</p>
+      <p data-i18n="guide.feat.p2"><strong>持仓字段</strong>：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。</p>
+      <p data-i18n="guide.feat.p3"><strong>托管位置列表</strong>：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。</p>
+      <p data-i18n="guide.feat.p4"><strong>分类标签</strong>：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。</p>
+      <p data-i18n="guide.feat.p5"><strong>分析页六维</strong>：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。</p>
+      <p data-i18n="guide.feat.p6"><strong>汇率与计价</strong>：可选 USD/CNY 等为计价币种；自动拉汇率，失败时可手动填写。</p>
+      <p data-i18n="guide.feat.p7"><strong>快照</strong>：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。</p>
+      <p data-i18n="guide.feat.p8"><strong>导入/导出 JSON</strong>：文件名形如 <code>AA_YYYY-MM-DD HH:mm.json</code>（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。</p>
+      <p data-i18n="guide.feat.p9"><strong>个人信息/税务提示与 AI 提示词</strong>：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。</p>
     </div>
   </div>
   <div class="card">
-    <h2 data-i18n="guide.gh.title">GitHub</h2>
+    <h2 data-i18n="guide.steps.title">怎么用（建议流程）</h2>
     <div class="guideBody">
-      <p data-i18n="guide.gh.p1">公开仓库用于发现与下载可分享的 HTML；另有私有历史仓库未对外开放。</p>
+      <p data-i18n="guide.steps.p1"><strong>1. 首次打开</strong>：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_V1。</p>
+      <p data-i18n="guide.steps.p2"><strong>2. 改成自己的树</strong>：在输入页增删一/二/三级，必要时加四级持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。</p>
+      <p data-i18n="guide.steps.p3"><strong>3. 设定目标%</strong>：在三级（或条件允许时在二级）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。</p>
+      <p data-i18n="guide.steps.p4"><strong>4. 刷新行情与标签</strong>：点「刷新价格」更新可报价标的；检查并修正风险/风格/底层资产/流动性标签。</p>
+      <p data-i18n="guide.steps.p5"><strong>5. 看分析页</strong>：切换到分析页，对照托管 vs 底层资产（例如中国 QDII 买标普：托管算「中」，底层算「美国」），再看风险与流动性结构。</p>
+      <p data-i18n="guide.steps.p6"><strong>6. 备份</strong>：定期「导出 JSON」存网盘；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i18n="guide.tips.title">提示与注意</h2>
+    <div class="guideBody">
+      <p data-i18n="guide.tips.p1"><strong>换版必备份</strong>：新下载的 HTML 不会自动带上你的持仓；数据在浏览器里。替换文件或清站点数据前先导出 JSON。</p>
+      <p data-i18n="guide.tips.p2"><strong>托管 ≠ 底层资产</strong>：托管回答「钱放在哪家/哪国」，底层资产回答「经济风险敞口在哪」。QDII、互认基金、ADR 等尤其容易混——请用分析页左右对照。</p>
+      <p data-i18n="guide.tips.p3"><strong>快照 ≠ 备份</strong>：快照只在当前浏览器；长期保存与迁移请用导出文件。</p>
+      <p data-i18n="guide.tips.p4"><strong>行情可能失败</strong>：网络、代码写法或数据源限流都会导致报价失败，可手填单价。期货请确认乘数与手数符号（空头为负）。</p>
+      <p data-i18n="guide.tips.p5"><strong>非投资建议</strong>：税务与风险提示仅供参考；配置决策请结合自身情况与专业意见。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i18n="guide.gh.title">GitHub 下载</h2>
+    <div class="guideBody">
+      <p data-i18n="guide.gh.p1">公开仓库用于发现与下载可分享的 HTML；另有私有历史仓库<strong>未对外开放</strong>，请勿依赖未公开链接。</p>
       <ul>
         <li data-i18n="guide.gh.readme">项目与 README：</li>
       </ul>
@@ -362,6 +400,7 @@ header .hdrProduct{font-weight:inherit}
     <h2 data-i18n="guide.cl.title">版本更新历史</h2>
     <div class="guideBody">
       <ul class="cl" id="guideChangelog">
+        <li><span class="cv">v1.107</span><span class="cn" data-i18n="guide.cl.107">使用说明扩写；社区页独立靠右；主 Tab 再加宽；右上角去掉群名</span></li>
         <li><span class="cv">v1.106</span><span class="cn" data-i18n="guide.cl.106">标题改为「资产配置明细」；加宽主内容区以包住明细表右侧操作列</span></li>
         <li><span class="cv">v1.105</span><span class="cn" data-i18n="guide.cl.105">群名更正为《全球资产配置躺赚群》</span></li>
         <li><span class="cv">v1.104</span><span class="cn" data-i18n="guide.cl.104">导出 JSON 文件名改为 AA_本地时间到分钟；默认样本标名 AA_random_V1</span></li>
@@ -389,6 +428,39 @@ header .hdrProduct{font-weight:inherit}
         <li><span class="cv">v1.82</span><span class="cn" data-i18n="guide.cl.82">价格刷新与单价展示优化</span></li>
         <li><span class="cv">v1.81</span><span class="cn" data-i18n="guide.cl.81">命名「资产配置大师 by RayFi」；输入/分析双页基础成型</span></li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 社区 / RayFi ===== -->
+<div id="viewCommunity" class="view">
+  <div class="card">
+    <h2 data-i18n="comm.title">《全球资产配置躺赚群》</h2>
+    <div class="guideBody">
+      <p data-i18n="comm.intro.p1">这里介绍 RayFi 的全球资产配置理念，以及社群《全球资产配置躺赚群》。工具本身在「使用说明 / 输入页 / 分析页」完成记账与对照；本页只谈「为什么这样配」和「我们在一起聊什么」。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i18n="comm.phil.title">全球资产配置理念</h2>
+    <div class="guideBody">
+      <p data-i18n="comm.phil.p1">配置不是追逐单一风口，而是承认世界不确定：用跨资产、跨地区、跨币种的组合，让组合在不同宏观环境下仍可坚持长期计划。先想清楚风险预算与目标权重，再谈买卖时机。</p>
+      <p data-i18n="comm.phil.p2">两件必须分清的事：<strong>钱在哪</strong>（托管：银行、券商、钱包所在地），以及<strong>风险在哪</strong>（底层资产的经济敞口）。同一只 QDII 标普基金，钱可能在中国，风险却在美国——混淆二者，再平衡会做错方向。</p>
+      <p data-i18n="comm.phil.p3">实务上：写下可执行的目标%，定期对照实际%，用再平衡回到目标，而不是情绪化加仓。工具帮你把层级、缺口与多维结构摊开；决策仍是你的。</p>
+      <p data-i18n="comm.phil.p4">RayFi 的语气偏长期、多资产、少口号：把账算清楚，比故事更重要。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i18n="comm.group.title">关于《全球资产配置躺赚群》</h2>
+    <div class="guideBody">
+      <p data-i18n="comm.group.p1">《全球资产配置躺赚群》是围绕全球/多资产配置交流思路与工具用法的社群——讨论如何拆层级、设目标、看托管与底层、做再平衡，而不是荐股群或收益排行榜。</p>
+      <p data-i18n="comm.group.p2">本「资产配置大师」单文件工具，正是为支撑社群里的配置工作流：本地记账、目标对照、多维分析、可导出备份。欢迎把用法与改进想法带回群里讨论。</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2 data-i18n="comm.web.title">官网</h2>
+    <div class="guideBody">
+      <p data-i18n="comm.web.p1">更多关于 RayFi 与配置相关内容，请访问：</p>
+      <p><a href="https://www.rayfi.top" target="_blank" rel="noopener">https://www.rayfi.top</a></p>
     </div>
   </div>
 </div>
@@ -492,24 +564,55 @@ const KEY = 'assetAlloc_share_v2';
 const I18N={zh:{
 'doc.title':'资产配置大师 by RayFi（分享版）',
 'hdr.product':'资产配置大师','hdr.badge':'本地 · 输入/分析','hdr.ver':'{v} 分享版 · 更新于 {d}','hdr.avatarAlt':'RayFi 头像',
-'tab.guide':'📖 使用说明','tab.input':'✏️ 输入页','tab.analysis':'📈 分析页',
-'guide.how.title':'使用说明 / How to use',
-'guide.how.p1':'把本 HTML 用浏览器直接打开即可使用（本地文件，无需服务器）。所有持仓与设置只保存在本机浏览器的 localStorage（键名 assetAlloc_share_v2）；下载的页面本身不含真实持仓。',
-'guide.how.p2':'换电脑、换浏览器或清理站点数据前，请在输入页用「导出 JSON」备份；之后用「导入」即可完整恢复。页面内「快照」只存在当前浏览器，不能替代文件备份。',
-'guide.how.p3':'配置树为一级→二级→三级→可选四级。目标% 通常设在三级（或在其下三级皆空时设到二级）；实际% 有金额时按金额自动折算。持仓可填代码、数量、单价与金额；点「刷新价格」拉取行情。商品/股指期货：单价=行情×合约乘数（每手名义），数量填手数（空头为负）。',
-'guide.how.p4':'分析页从托管 vs 底层资产、风险、风格、币种、流动性等维度看组合；顶栏可切换「中文 | EN」。打印时主要输出分析页内容。',
-'guide.rayfi.title':'全球资产配置与 RayFi',
-'guide.rayfi.p1':'RayFi 关注全球资产配置：用清晰的层级与多维分析，帮你看清「钱在哪」和「风险在哪」，并把目标配置与实际持仓对齐。',
-'guide.rayfi.p2':'社区《全球资产配置躺赚群》交流配置思路与工具用法。官网：',
-'guide.gh.title':'GitHub',
-'guide.gh.p1':'公开仓库用于发现与下载可分享的 HTML；另有私有历史仓库未对外开放。',
+'tab.guide':'📖 使用说明','tab.input':'✏️ 输入页','tab.analysis':'📈 分析页','tab.community':'《全球资产配置躺赚群》',
+'guide.what.title':'这是什么',
+'guide.what.p1':'「资产配置大师 by RayFi」是一份单文件本地工具：用浏览器直接打开 HTML 即可使用，无需安装、无需服务器、也没有账号体系。你的持仓、目标%、托管列表、快照与界面偏好，只保存在本机浏览器的 localStorage（键名 assetAlloc_share_v2；界面偏好另用 assetAlloc_share_ui_v2）。从网上下载的 HTML 本身不含任何人的真实持仓；首次打开会看到虚构样本组合 AA_random_V1（约一亿量级的演示数据），方便你摸清流程后再改成自己的。',
+'guide.what.p2':'设计目标很朴素：把「目标配置」和「实际持仓」放在同一张可编辑的树上，随时看到缺口与再平衡方向；再用多维分析（托管 vs 底层资产、风险、风格、币种、流动性等）对照「钱在哪」和「风险在哪」。它面向认真做全球/多资产配置的个人投资者与家庭办公室式记账，而不是交易终端或投顾推荐引擎。',
+'guide.feat.title':'功能一览',
+'guide.feat.p1':'配置树（一级→二级→三级→可选四级）：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。',
+'guide.feat.p2':'持仓字段：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。',
+'guide.feat.p3':'托管位置列表：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。',
+'guide.feat.p4':'分类标签：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。',
+'guide.feat.p5':'分析页六维：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。',
+'guide.feat.p6':'汇率与计价：可选 USD/CNY 等为计价币种；自动拉汇率，失败时可手动填写。',
+'guide.feat.p7':'快照：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。',
+'guide.feat.p8':'导入/导出 JSON：文件名形如 AA_YYYY-MM-DD HH:mm.json（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。',
+'guide.feat.p9':'个人信息/税务提示与 AI 提示词：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。',
+'guide.steps.title':'怎么用（建议流程）',
+'guide.steps.p1':'1. 首次打开：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_V1。',
+'guide.steps.p2':'2. 改成自己的树：在输入页增删一/二/三级，必要时加四级持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。',
+'guide.steps.p3':'3. 设定目标%：在三级（或条件允许时在二级）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。',
+'guide.steps.p4':'4. 刷新行情与标签：点「刷新价格」更新可报价标的；检查并修正风险/风格/底层资产/流动性标签。',
+'guide.steps.p5':'5. 看分析页：切换到分析页，对照托管 vs 底层资产（例如中国 QDII 买标普：托管算「中」，底层算「美国」），再看风险与流动性结构。',
+'guide.steps.p6':'6. 备份：定期「导出 JSON」存网盘；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。',
+'guide.tips.title':'提示与注意',
+'guide.tips.p1':'换版必备份：新下载的 HTML 不会自动带上你的持仓；数据在浏览器里。替换文件或清站点数据前先导出 JSON。',
+'guide.tips.p2':'托管 ≠ 底层资产：托管回答「钱放在哪家/哪国」，底层资产回答「经济风险敞口在哪」。QDII、互认基金、ADR 等尤其容易混——请用分析页左右对照。',
+'guide.tips.p3':'快照 ≠ 备份：快照只在当前浏览器；长期保存与迁移请用导出文件。',
+'guide.tips.p4':'行情可能失败：网络、代码写法或数据源限流都会导致报价失败，可手填单价。期货请确认乘数与手数符号（空头为负）。',
+'guide.tips.p5':'非投资建议：税务与风险提示仅供参考；配置决策请结合自身情况与专业意见。',
+'guide.gh.title':'GitHub 下载',
+'guide.gh.p1':'公开仓库用于发现与下载可分享的 HTML；另有私有历史仓库未对外开放，请勿依赖未公开链接。',
 'guide.gh.readme':'项目与 README：',
 'guide.gh.rel':'Releases（版本下载）：',
 'guide.cl.title':'版本更新历史',
+'guide.cl.107':'使用说明扩写；社区页独立靠右；主 Tab 再加宽；右上角去掉群名',
 'guide.cl.103':'导航加宽；新增「使用说明」页（用法、RayFi/官网、GitHub、版本历史）',
 'guide.cl.104':'导出 JSON 文件名改为 AA_本地时间到分钟；默认样本标名 AA_random_V1',
 'guide.cl.106':'标题改为「资产配置明细」；加宽主内容区以包住明细表右侧操作列',
 'guide.cl.105':'群名更正为《全球资产配置躺赚群》',
+'comm.title':'《全球资产配置躺赚群》',
+'comm.intro.p1':'这里介绍 RayFi 的全球资产配置理念，以及社群《全球资产配置躺赚群》。工具本身在「使用说明 / 输入页 / 分析页」完成记账与对照；本页只谈「为什么这样配」和「我们在一起聊什么」。',
+'comm.phil.title':'全球资产配置理念',
+'comm.phil.p1':'配置不是追逐单一风口，而是承认世界不确定：用跨资产、跨地区、跨币种的组合，让组合在不同宏观环境下仍可坚持长期计划。先想清楚风险预算与目标权重，再谈买卖时机。',
+'comm.phil.p2':'两件必须分清的事：钱在哪（托管：银行、券商、钱包所在地），以及风险在哪（底层资产的经济敞口）。同一只 QDII 标普基金，钱可能在中国，风险却在美国——混淆二者，再平衡会做错方向。',
+'comm.phil.p3':'实务上：写下可执行的目标%，定期对照实际%，用再平衡回到目标，而不是情绪化加仓。工具帮你把层级、缺口与多维结构摊开；决策仍是你的。',
+'comm.phil.p4':'RayFi 的语气偏长期、多资产、少口号：把账算清楚，比故事更重要。',
+'comm.group.title':'关于《全球资产配置躺赚群》',
+'comm.group.p1':'《全球资产配置躺赚群》是围绕全球/多资产配置交流思路与工具用法的社群——讨论如何拆层级、设目标、看托管与底层、做再平衡，而不是荐股群或收益排行榜。',
+'comm.group.p2':'本「资产配置大师」单文件工具，正是为支撑社群里的配置工作流：本地记账、目标对照、多维分析、可导出备份。欢迎把用法与改进想法带回群里讨论。',
+'comm.web.title':'官网',
+'comm.web.p1':'更多关于 RayFi 与配置相关内容，请访问：',
 'guide.cl.102':'中英界面切换（默认中文）',
 'guide.cl.101':'单一版本（仅 share KEY）；旧个人版数据一次性迁入',
 'guide.cl.100':'折叠箭头移到名称框后，同级左对齐',
@@ -618,24 +721,55 @@ const I18N={zh:{
 },en:{
 'doc.title':'Asset Allocation Master by RayFi (Share)',
 'hdr.product':'Asset Allocation Master','hdr.badge':'Local · Input/Analysis','hdr.ver':'{v} Share · Updated {d}','hdr.avatarAlt':'RayFi avatar',
-'tab.guide':'📖 Guide','tab.input':'✏️ Input','tab.analysis':'📈 Analysis',
-'guide.how.title':'How to use',
-'guide.how.p1':'Open this HTML file directly in a browser (local file, no server). Holdings and settings stay only in this browser’s localStorage (key assetAlloc_share_v2); the downloaded page never embeds your real portfolio.',
-'guide.how.p2':'Before changing computers/browsers or clearing site data, Export JSON on the Input tab; Import restores everything. In-page Snapshots live only in this browser and are not a file backup.',
-'guide.how.p3':'The tree is Level 1→2→3→optional Level 4. Target % is usually set at Level 3 (or at Level 2 when all child Level 3 targets are empty). Actual % is amount-driven when amounts exist. Holdings take symbol, qty, price, and amount; use Refresh quotes. Commodity/index futures: unit price = quote × contract multiplier (notional per lot); qty is lots (negative for shorts).',
-'guide.how.p4':'Analysis covers custody vs underlying assets, risk, style, currency, and liquidity. Toggle 中文 | EN in the header. Printing focuses on the Analysis view.',
-'guide.rayfi.title':'Global allocation & RayFi',
-'guide.rayfi.p1':'RayFi focuses on global asset allocation: clear hierarchy and multi-dimension views so you see where cash sits versus where risk lives, and keep targets aligned with holdings.',
-'guide.rayfi.p2':'The community 《全球资产配置躺赚群》 shares allocation ideas and tool tips. Website:',
-'guide.gh.title':'GitHub',
-'guide.gh.p1':'The public repo is for discovery and downloadable HTML. A private history repo exists but is not public.',
+'tab.guide':'📖 Guide','tab.input':'✏️ Input','tab.analysis':'📈 Analysis','tab.community':'RayFi Community',
+'guide.what.title':'What this is',
+'guide.what.p1':'“Asset Allocation Master by RayFi” is a single-file local tool: open the HTML in a browser—no install, no server, no accounts. Holdings, target %, custody list, snapshots, and UI prefs stay only in this browser’s localStorage (key assetAlloc_share_v2; UI prefs assetAlloc_share_ui_v2). The downloaded page never embeds anyone’s real portfolio. First open shows the fictional sample AA_random_V1 (~¥100M demo) so you can learn the flow before replacing it with yours.',
+'guide.what.p2':'The design goal is simple: keep target allocation and actual holdings on one editable tree so gaps and rebalance direction stay visible; then use multi-dimension views (custody vs underlying assets, risk, style, currency, liquidity) to contrast where cash sits versus where risk lives. It is for investors who take global/multi-asset allocation seriously—not a trading terminal or advisory engine.',
+'guide.feat.title':'Feature inventory',
+'guide.feat.p1':'Allocation tree (L1→L2→L3→optional L4): organize asset classes, strategies, and holdings. Target % usually lives at L3 (or at L2 when all child L3 targets are empty). When amounts exist, actual % is amount-driven, with gap vs target for rebalancing.',
+'guide.feat.p2':'Holding fields: name, symbol, qty, unit price, amount, currency. Amount can lock from qty×price or be entered alone. Refresh quotes pulls US/HK/JP/A-share and crypto when possible (manual price on failure). CN commodity/index futures: unit price = quote × contract multiplier (notional per lot); qty is lots (negative for shorts).',
+'guide.feat.p3':'Custody list: maintain broker/bank/wallet names, assign on holdings; Analysis aggregates “where cash sits” by custody region.',
+'guide.feat.p4':'Tags: risk, style, underlying assets, liquidity. Unset tags auto-infer from name/symbol/category (gray italic); edit via the 🏷 button. Analysis shows dual pies and detail tables per dimension.',
+'guide.feat.p5':'Analysis six dimensions: custody, underlying assets, risk, style, currency, liquidity—plus overview, L3 sunburst, and risk/tax tips. Printing focuses on Analysis.',
+'guide.feat.p6':'FX & base currency: choose USD/CNY (etc.); auto FX with manual fallback.',
+'guide.feat.p7':'Snapshots: time-point records in this browser only—not a file backup; lost if you clear data or switch machines.',
+'guide.feat.p8':'Import/export JSON named like AA_YYYY-MM-DD HH:mm.json (local time to the minute), including tree, amounts, targets, custody, settings, and snapshots. Export before changing computers/browsers or replacing the HTML.',
+'guide.feat.p9':'Personal/tax hints and AI prompt export: residency fields feed risk/tax tips and an optional desensitized prompt for LLMs. Bilingual UI (中文|EN). “Reset to defaults” restores AA_random_V1 (two-step confirm; auto JSON backup first).',
+'guide.steps.title':'How to use (suggested flow)',
+'guide.steps.p1':'1. First open: open this HTML in a browser. Explore the sample tree, check base currency and FX; use Reset if you need a fresh AA_random_V1.',
+'guide.steps.p2':'2. Make it yours: on Input, add/remove L1–L3 (and optional L4); fill custody, symbol, qty/price or amount; drag to reorder across parents.',
+'guide.steps.p3':'3. Set targets: enter target % at L3 (or L2 when allowed) toward ~100%; use actual % and gap columns for rebalance direction.',
+'guide.steps.p4':'4. Refresh quotes & tags: Refresh prices for quotable symbols; fix risk/style/underlying/liquidity tags.',
+'guide.steps.p5':'5. Analysis: compare custody vs underlying (e.g. CN QDII S&P: custody “CN”, underlying “US”); review risk and liquidity structure.',
+'guide.steps.p6':'6. Backup: Export JSON to cloud drive regularly; snapshot key moments. Before a new HTML version, export first, then open the new file and Import.',
+'guide.tips.title':'Tips & caveats',
+'guide.tips.p1':'Backup before replacing versions: a new download does not carry your holdings—data lives in the browser. Export JSON before swapping files or clearing site data.',
+'guide.tips.p2':'Custody ≠ underlying assets: custody is where money sits; underlying is economic exposure. QDII, mutual-recognition funds, ADRs confuse the two—use the side-by-side Analysis cards.',
+'guide.tips.p3':'Snapshots ≠ backups: snapshots stay in this browser; use export files for long-term keep and migration.',
+'guide.tips.p4':'Quotes can fail: network, symbol format, or rate limits—enter unit price by hand. For futures, confirm multiplier and lot sign (shorts negative).',
+'guide.tips.p5':'Not advice: risk/tax tips are informational only; decide with your own circumstances and professionals.',
+'guide.gh.title':'GitHub downloads',
+'guide.gh.p1':'The public repo is for discovery and downloadable HTML. A private history repo is not public—do not rely on unpublished links.',
 'guide.gh.readme':'Project & README:',
 'guide.gh.rel':'Releases (version downloads):',
 'guide.cl.title':'Changelog',
+'guide.cl.107':'Expanded Guide manual; dedicated right-aligned Community tab; main tabs widened again; removed group name from header',
 'guide.cl.106':'Title → Asset allocation detail; widen wrap so the detail table ops column fits',
 'guide.cl.105':'Group name → 《全球资产配置躺赚群》',
 'guide.cl.104':'Export JSON filename AA_ local time to the minute; sample labeled AA_random_V1',
 'guide.cl.103':'Wider nav tabs; new Guide page (usage, RayFi/site, GitHub, changelog)',
+'comm.title':'《全球资产配置躺赚群》',
+'comm.intro.p1':'This page covers RayFi’s global allocation philosophy and the community 《全球资产配置躺赚群》. Day-to-day bookkeeping lives on Guide / Input / Analysis; here we talk why we allocate this way and what the group is for.',
+'comm.phil.title':'Global asset-allocation philosophy',
+'comm.phil.p1':'Allocation is not chasing a single hot theme. It accepts uncertainty: multi-asset, multi-region, multi-currency portfolios that can stick to a long-term plan across regimes. Decide risk budget and target weights before timing trades.',
+'comm.phil.p2':'Keep two questions separate: where cash sits (custody: banks, brokers, wallets) versus where risk lives (underlying economic exposure). The same QDII S&P fund may keep cash in China while risk sits in the US—mixing them mis-aims rebalancing.',
+'comm.phil.p3':'In practice: write executable target %, periodically compare to actual %, and rebalance back to targets instead of emotional adds. The tool lays out hierarchy, gaps, and multi-dim structure; decisions remain yours.',
+'comm.phil.p4':'RayFi’s voice is long-term, multi-asset, low-hype: clear books beat stories.',
+'comm.group.title':'About 《全球资产配置躺赚群》',
+'comm.group.p1':'《全球资产配置躺赚群》 is a community for global/multi-asset allocation ideas and tool usage—how to structure levels, set targets, read custody vs underlying, and rebalance—not a stock-tip or return-leaderboard group.',
+'comm.group.p2':'This single-file Asset Allocation Master supports that workflow: local ledger, target vs actual, multi-dim analysis, exportable backups. Bring usage notes and improvement ideas back to the group.',
+'comm.web.title':'Website',
+'comm.web.p1':'More about RayFi and allocation topics:',
 'guide.cl.102':'Chinese/English UI toggle (Chinese default)',
 'guide.cl.101':'Single edition (share KEY only); one-time migrate from old personal data',
 'guide.cl.100':'Collapse arrow after name field; siblings left-aligned',
@@ -773,8 +907,8 @@ function applyLang(){
   const lz=document.getElementById('langZh'), le=document.getElementById('langEn');
   if(lz) lz.classList.toggle('on',!en); if(le) le.classList.toggle('on',en);
   const av=document.getElementById('appVer'); if(av) av.textContent=t('hdr.ver',{v:APP_VERSION,d:APP_UPDATED});
-  const tg=document.getElementById('tabGuide'), ti=document.getElementById('tabInput'), ta=document.getElementById('tabAnalysis');
-  if(tg) tg.textContent=t('tab.guide'); if(ti) ti.textContent=t('tab.input'); if(ta) ta.textContent=t('tab.analysis');
+  const tg=document.getElementById('tabGuide'), ti=document.getElementById('tabInput'), ta=document.getElementById('tabAnalysis'), tc=document.getElementById('tabCommunity');
+  if(tg) tg.textContent=t('tab.guide'); if(ti) ti.textContent=t('tab.input'); if(ta) ta.textContent=t('tab.analysis'); if(tc) tc.textContent=t('tab.community');
   applyStaticI18n();
   // structured static blocks that need composed text
   const sn=document.querySelector('.shareLocalNote'); if(sn) sn.innerHTML='<b>'+t('share.note.b')+'</b>'+t('share.note');
@@ -2614,18 +2748,21 @@ document.getElementById('imp').onchange=e=>{
 };
 
 function switchView(v){
-  const mode=(v==='analysis'||v==='guide')?v:'input';
-  const guide=mode==='guide', analysis=mode==='analysis', input=mode==='input';
-  const vg=document.getElementById('viewGuide'), vi=document.getElementById('viewInput'), va=document.getElementById('viewAnalysis');
+  const mode=(v==='analysis'||v==='guide'||v==='community')?v:'input';
+  const guide=mode==='guide', analysis=mode==='analysis', community=mode==='community', input=mode==='input';
+  const vg=document.getElementById('viewGuide'), vi=document.getElementById('viewInput'), va=document.getElementById('viewAnalysis'), vc=document.getElementById('viewCommunity');
   if(vg) vg.classList.toggle('on',guide);
   if(vi) vi.classList.toggle('on',input);
   if(va) va.classList.toggle('on',analysis);
-  const tg=document.getElementById('tabGuide'), ti=document.getElementById('tabInput'), ta=document.getElementById('tabAnalysis');
+  if(vc) vc.classList.toggle('on',community);
+  const tg=document.getElementById('tabGuide'), ti=document.getElementById('tabInput'), ta=document.getElementById('tabAnalysis'), tc=document.getElementById('tabCommunity');
   if(tg) tg.classList.toggle('on',guide);
   if(ti) ti.classList.toggle('on',input);
   if(ta) ta.classList.toggle('on',analysis);
+  if(tc) tc.classList.toggle('on',community);
   document.body.classList.toggle('guideOn',guide);
   document.body.classList.toggle('anaOn',analysis);
+  document.body.classList.toggle('communityOn',community);
   try{ localStorage.setItem(KEY+'_view', mode); }catch(e){}
 }
 
@@ -2867,7 +3004,7 @@ try{ applyLang(); }catch(e){ console.error(e); }
 render();
 try{
   const v=localStorage.getItem(KEY+'_view');
-  if(v==='analysis'||v==='input'||v==='guide') switchView(v);
+  if(v==='analysis'||v==='input'||v==='guide'||v==='community') switchView(v);
 }catch(e){}
 refreshFx();
 setTimeout(() => maybeAutoRefreshPrices(), 1200);
