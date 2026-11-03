@@ -8,7 +8,7 @@ A single-file local asset-allocation tool. Open in your browser; data stays in y
 
 **直接在本仓库下载（推荐） / Download here on GitHub（recommended）**
 
-- 最新文件：仓库 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 里的 `rayfi-asset-allocation-share-v1.108.html`，根目录另有同内容的 `资产配置大师 by RayFi.html`
+- 最新文件：仓库 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 里的 `rayfi-asset-allocation-share-v1.109.html`，根目录另有同内容的 `资产配置大师 by RayFi.html`
 - 也可在本仓库根目录下载同名 HTML（若已放入）
 
 官网 [www.rayfi.top](https://www.rayfi.top) 也有介绍与下载入口（可选广告，非必须）。  
