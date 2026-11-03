@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.111
+- 输入页：计价/汇率/总资产与税务身份并为一行（竖分隔）；汇率更新时间不再显示来源站名；计价币种增加港币/欧元/日元；去掉手动填写汇率
+
 ## v1.81
 - 命名「资产配置大师 by RayFi」；输入/分析双页基础成型
 
