@@ -201,6 +201,8 @@ button.dangerBtn{border-color:#c0392b!important;color:#c0392b!important}button.d
 #snapBox summary{cursor:pointer;color:#8e44ad;font-size:14px;font-weight:600}#snapBox[open]{flex-basis:100%}.dgrp{min-width:0}#snaps table{min-width:0}
 .tblBar{gap:6px 10px;margin:8px 0 0;padding:6px 8px;background:#eef3f9;border:1px solid #d0dcea;border-bottom:none;border-radius:8px 8px 0 0}
 .tblBar button{padding:3px 10px;font-size:14px}
+.tblBarTotal{margin-left:auto;display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;white-space:nowrap}
+.tblBarTotal label{display:inline-flex;align-items:center;gap:0;margin:0}
 .brand .rfAv{width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px #ffffff55;align-self:center;object-fit:cover;margin-left:0;flex:none}
 input.l2tgt{background:#fff!important;border:1px solid #8ab!important;font-weight:700}
 .hdrIcon{width:34px;height:34px;vertical-align:-7px;margin-right:8px;color:#fff}
@@ -329,7 +331,7 @@ header .hdrProduct{font-weight:inherit}
 </head>
 <body>
 <header><span><svg class="hdrIcon" viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true"><path d="M32 9 55 51H9Z"/><path d="M32 19 48 49H16Z"/><path d="M32 29 41 47H23Z"/></svg><span class="hdrProduct" id="hdrProduct">资产配置大师</span> <span style="font-size:.7em;font-weight:400;opacity:.85">by RayFi</span> <span class="langSw" id="langSw" title="Language / 语言"><button type="button" id="langZh" class="on" onclick="setLang('zh')">中文</button><button type="button" id="langEn" onclick="setLang('en')">EN</button></span> <span class="badge" id="hdrBadge" style="background:#ffffff33;color:#fff;margin-left:8px">本地 · 输入/分析</span></span><div class="hdrR"><div class="brand"><span class="rf">RayFi</span> <img class="rfAv" alt="RayFi 头像" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAAAAADH8yjkAAAJlklEQVR42u2aa3BV1RXH//tx7ouQBxAQBTECKiohiAoo1EfRQWUoWkWL1IrTKoLVQrV2pq1jGa10dJhWdESZWgVbdUS0js+KtdbHCCKPlIcg8giJkkKIECG59+y9//1wk3Bz77knN6FOv7A+3Xvn3P07e621117nv48gvl2TOAb4fwN0AdeQJAUgIIToKkB0mkWOqsM3SPG/nAGdwqHd29a1+K60YuDA42IAnFPifzUDq7D+iRXbTevXnieecvGo08oAx4LnwTAz3PtjD1AyEvGica0AQAy8emk9SeNYiCF8/I9Og/CkaDeltQDQ7/rnG0nfHSXAZ3UZEhBZJrUCUPFAPWmOCuDMgUoUaSlyTUcjwMnz/0NnjwJgeA/iImh8IYRUHjDoKdLvNsD6deU6z/BphgdM3dlZsPMBrCHvR5EQoYQIyv9K57oOsD55YFmljIhwgo4o/CacEARwPvn5zP6txSfctMJMPyzUAQBHbptVBhGRogDzYpjlQuKAgOQxT/RFtGdUFGRaRjE7JNLIco7zWXcR4ElRsKkYfps/W7MAKcfl/aC7MLwQOhLR7+Rd1B0B1pqfKdEDokuAWFz2q8sX6A4AZzkdSnXp/oWQSnm4Nt8U0DG+dyIuumEyguW0nQIMX0SR7g5AeKpif/B6ywS45AhEZLcA0sNjwU5C5gRegoLonilx8oHAOHfoi97uYseQ2W2I7a8G7u8ZAGU/hsvTGkCgE7QQT/pBhCMAonkXAnsMSkQ8IcJ7FeK9asnw1rEl+M4AXZZMUoa3UPTMB+gEYAKd67T2zrxzctxvcUplxYgdPr+GgCkccRtF47D67Cski1ItAEZeW7XxlZUtALQE0wMLQVhCurYQFm0a4GT+xsuxpT+yV4GH725ZMLWiB1C8mduX3lBZ2pEfi7RXFqnxt4CloDMyxTvxK2mzI7B98ByYzTUHa+OsqJiOXRsbvonH8c2+5m+adu75ch/Qll5UZvVkhjW/Tg5ZmRMBXbu2it7w4elwCDFoEKq3+z3HDAIAU//x2lUfHxIkAGmxA4Iif2/q8w54WS6CwlIaZ43vG5NK+dx912AAkMPnm/Qmc99AJbUWQgiFs6wLKxU+5yO71MHDHJc0xm+tAq8NBBAvjmlg4mZat7oK8R5xAS2EUDgloFTozOU6KnclE1+KCAAc3F+7pn7Ly1b2jqqS3Y3Qb5Y+KZpnr4s2o7yi9qByoGjYcGaOi3SHsZATZOBQakfN5+vqdu5MGQAT7xoSx7Ml5a8/1/TGWSVNdbrkysnr+19y8+uJFqqG9850Kn8MDH+SEwMh0XtYUdu1Ue9+knwQg+u5qjcA6P7/5qoiPGuroITGI7l5mrkftAxDwG4AoM/QMRdcP/eRxaeLXS5lk0MUFhhOEmUTEmIKzY0Q5/OzUqHliK25UdYZWbr1i5ylLqV/+7XR3sW9AABrt8aElIcPS36tmht427xfPLgnFfEVfJ563aLooR8NtTJ/LXLYkGpzoJBatH266bxRJ/Wis7bFxISCcKVjfDeK+6sTt3BW0aavOMrasYLXQUI6hjyj+VzUFgINpHc2KdGv1vjpiRsuxWfOWrfm/Lnk07iBPmfgKX591eX1jo0VWr0cUCoyAY/BE0JKpSFHTFdCCSE0hrfvg5Y1WMgkHUmXOiOx2R52mxOVzemGx12Msl10oYBn4Akho1rf8kmKj6uIFDKGGUfuytqzhjbR+EmfnIv7SBr+DveQftJP8T6U1QS0LkcAltt6CCm0jj1DuhR/DwXEMP9I22n4Fi7cTJJf3oqpxm79s3N2Gu7YQ5Jrxyvv01AALachIjz1HP2Usb69CJ5S+p8ZfrV8NoZxM269MoK7jc+78S9nWn6NnpNu/uG50FGsCI0BDVd58RhmMOVIWn4SiXkoqc28K8tdj08dM+bSeZtJnyvSDePWBy49b9wVS16OY0k4gJY3Iqo2WZ/PTV3NFKehB8Z3XDrtA/iOLlVVvI+27af1CdzPVDjA1Q6QZxuyZTAmMcU1iTjmZHX+1hhjjLEkDR/GIhpaY6xJmnejeDgAkLnypDi+zA1SzulT9Mp6z4z8fjNOy16YSimllAQgcJl6CQJSKamUMkmcHKBvyQ6l2U8hSjp1idm7Dpa3et7Y/JqY5JCx7+9p3fOJvVAlnUhqApESNAgpMFqqv0NxdJVXEdLRWUw5/GF769IIXRRwsez4jxGo3g/Bc862fSEg/7CgyOUHCFRiZTvgEHSiM73I8HngUSYdv1jeuZBifVenr2jNYsM56FsfWipIOtc0XA6oO5I4thNMU3RC65iOF2O0CQB0cJFwRT93tdfv0y6VtAQgVUg3untd44ep49PbuBMNW1CprOhMUrN2FlC5ogAly9lh6AUsT689nx9qLAp6xtFZPYRY0PJk9cQLLu9/3Nho+COBfODNDSdMubJ1l+caI84oRBR0zv6yWAHArwoRzNLSBml4DSr2B4QgV6tw5KZTvaKYLq1huF5mTHsSONb2w4TA63PFEJfiu6rI64lJwbKi8zPqnzM2HYLFUC8ETjlIL0pxLuKxGObllTicn655pn3aE0XF4SAPBQtS5sA5iOqIfiGX4Ni4ZPWB9q97l2+io3U1xWJm8O3owMey4mVnN0Stmh6ZbLIusPqlm9B3+ODBJ5WZvTVrVjTNetRqyoUH8b08SZdH0Xw9rmMJL/Fidhwc9/9pdlWk7d9jHqqls66uF6pSwVJCHnHc6FeupmZSP3QHAp67GnfUfuVYWlJxOkBh1e0LsXS6VV0Rx32+VYKiXkLMPpTlW2cyk8V3tG5bD4xnIXpRppNS3DAO4wcA4zbQ2pzVaHzf9411JH1OQ4fmo0Dl12fy3vI3xgP9ng4V2g3fi+PyvMpmiHZtyW1M3gJg6pb8Qrsz+84QidXdAdBZWnLJCcDAhT5N8BApzgTuzV+3wk9ALJ3hjikALvgo+MzD59MK41qs6x6gtddaPBSIXFPN3Fn4fDeB8g0hZRGFbC2sv60EKLtrN9khR12Kn/aRYllAv9UVAGnINVdpgfKfbmwvoKQzjsv6aCxmM48SQGfIdy4E0PMH/yBJ3ze+IVvmx4BH0s3y0QFIa2meP08BasIft6d/OvTCuUDpXzo5ZBEFH1hbBaxY/HYj0GfkqKGJPes/2QiMfmyk0UdxUJfjJ1bfntEOD52X7HTjFl05cqcTEk3vv/pB3QGRiH/nsqtKgkptV09jA85mXU2dV9KrHLCd66yiyy8N0EG1sgqRcUV33kogWfDZtTj22sMxwDHAtw/4L+0WmxJzE6plAAAAAElFTkSuQmCC"><a href="https://www.rayfi.top" target="_blank" rel="noopener">www.rayfi.top</a></div><span class="ver" id="appVer"></span></div></header>
-<script>const APP_VERSION='v1.111', APP_UPDATED='2026-11-01';</script>
+<script>const APP_VERSION='v1.112', APP_UPDATED='2026-11-01';</script>
 <nav class="tabs no-print">
   <button type="button" id="tabGuide" onclick="switchView('guide')">📖 使用说明</button>
   <button type="button" id="tabInput" class="on" onclick="switchView('input')">✏️ 输入页</button>
@@ -401,6 +403,7 @@ header .hdrProduct{font-weight:inherit}
     <h2 data-i18n="guide.cl.title">版本更新历史</h2>
     <div class="guideBody">
       <ul class="cl" id="guideChangelog">
+        <li><span class="cv">v1.112</span><span class="cn" data-i18n="guide.cl.112">输入页：总资产移到「资产配置明细」工具栏右侧（与全部展开/折叠同行）；顶部控制行仅保留计价币种/汇率/税务身份</span></li>
         <li><span class="cv">v1.111</span><span class="cn" data-i18n="guide.cl.111">输入页：计价/汇率/总资产与税务身份并为一行（竖分隔）；汇率更新时间不再显示来源站名；计价币种增加港币/欧元/日元；去掉手动填写汇率</span></li>
         <li><span class="cv">v1.110</span><span class="cn" data-i18n="guide.cl.110">修复导入 JSON：moneyCols 参数名遮蔽 i18n t()</span></li>
         <li><span class="cv">v1.109</span><span class="cn" data-i18n="guide.cl.109">社区页口语定稿三段（配置方法 / 官网 / 入群扫码·1000元/年）；备注「加入躺赚群」；嵌入微信二维码</span></li>
@@ -482,8 +485,7 @@ header .hdrProduct{font-weight:inherit}
   <div class="shareLocalNote no-print"><b>本地说明：</b>本工具只有这一版。数据存在本浏览器本地（键 assetAlloc_share_v2）；下载的 HTML 不含真实持仓。若本机曾用旧个人版，会在首次打开时自动迁入；也可导入 JSON。点「恢复默认」可回到随机示例数据 AA_random_V1（虚构约1亿）。</div>
   <div class="card ctl">
     <label><span data-i18n="label.baseCur">计价币种</span> <select id="baseCur"><option value="USD">USD</option><option value="CNY">CNY</option><option value="HKD">HKD</option><option value="EUR">EUR</option><option value="JPY">JPY</option></select></label>
-    <span id="fxStatus" class="badge" style="font-size:14px" data-i18n="fx.loading">汇率加载中…</span><label><span data-i18n="total.label">总资产</span><span id="totalCcy" class="ccyTag">（USD）</span><span id="totalSym" class="ccySym">$</span><input id="total" class="amt" type="text" inputmode="decimal" autocomplete="off" placeholder="可选/自动" data-i18n-ph="total.ph" style="width:140px"><span id="totalCcy2" class="ccyCode">USD</span></label>
-    <span id="autoTotal" class="badge" style="display:none"></span>
+    <span id="fxStatus" class="badge" style="font-size:14px" data-i18n="fx.loading">汇率加载中…</span>
     <span class="ctlSep" aria-hidden="true"></span>
     <label class="taxFld" title="用于生成「风险与税务提示」及 AI 提示词"><span data-i18n="tax.residency">税务居民国籍/地区</span><span style="color:#c0392b">*</span>
       <select id="taxRes" onchange="taxSet().taxResidency=this.value;save()"><option value="" data-i18n="tax.select">— 请选择 —</option><option>中国大陆</option><option>中国香港</option><option>中国台湾</option><option>美国</option><option>新加坡</option><option>日本</option><option>英国</option><option>加拿大</option><option>澳大利亚</option><option value="其他">其他(可填)</option></select>
@@ -530,6 +532,7 @@ header .hdrProduct{font-weight:inherit}
     <label title="开启后每次重新计算都自动按金额排序" style="font-size:14px"><input type="checkbox" id="autoSort" onchange="S.autoSort=this.checked;save()"><span data-i18n="btn.autoSort"> 自动排序</span></label>
     <button class="p" id="btnRefreshPx" onclick="refreshAllPrices(false)" data-i18n="btn.refreshPx">🔄 刷新价格</button>
     <span id="priceStatus" class="muted"></span>
+    <span class="tblBarTotal" id="totalWrap"><label><span data-i18n="total.label">总资产</span><span id="totalCcy" class="ccyTag">（USD）</span><span id="totalSym" class="ccySym">$</span><input id="total" class="amt" type="text" inputmode="decimal" autocomplete="off" placeholder="可选/自动" data-i18n-ph="total.ph" style="width:140px"><span id="totalCcy2" class="ccyCode">USD</span></label><span id="autoTotal" class="badge" style="display:none"></span></span>
     </div>
     <div class="tbl-wrap" id="tbl"></div>
   </div>
@@ -597,6 +600,7 @@ const I18N={zh:{
 'guide.gh.readme':'项目与 README：',
 'guide.gh.rel':'Releases（版本下载）：',
 'guide.cl.title':'版本更新历史',
+'guide.cl.112':'输入页：总资产移到「资产配置明细」工具栏右侧（与全部展开/折叠同行）；顶部控制行仅保留计价币种/汇率/税务身份',
 'guide.cl.111':'输入页：计价/汇率/总资产与税务身份并为一行（竖分隔）；汇率更新时间不再显示来源站名；计价币种增加港币/欧元/日元；去掉手动填写汇率',
 'guide.cl.110':'修复导入 JSON：moneyCols 参数名遮蔽 i18n t()',
 'guide.cl.109':'社区页口语定稿三段（配置方法 / 官网 / 入群扫码·1000元/年）；备注「加入躺赚群」；嵌入微信二维码',
@@ -762,6 +766,7 @@ const I18N={zh:{
 'guide.gh.readme':'Project & README:',
 'guide.gh.rel':'Releases (version downloads):',
 'guide.cl.title':'Changelog',
+'guide.cl.112':'Input page: move Total assets to the right of the Asset allocation detail toolbar (same row as Expand/Collapse); top control row keeps base currency / FX / tax only',
 'guide.cl.111':'Input page: merge FX/total with tax residency on one row; hide FX source site name; base currency adds HKD/EUR/JPY; remove manual FX entry',
 'guide.cl.110':'Fix JSON import: moneyCols param shadowed i18n t()',
 'guide.cl.109':'Community page oral three sections (allocation / site / join QR · ¥1000/yr); note 「加入躺赚群」; embed WeChat QR',
