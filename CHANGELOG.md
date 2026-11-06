@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.114
+- 输入页：顶部四列（计价|税务|备份|快照）等宽；备份列 JSON 导入/导出改为上下排列
+
 ## v1.113
 - 输入页：计价币种、税务居民国籍/地区、备份到文件、快照并为一行；汇率更新时间/汇率放到计价币种下方；去掉旧竖分隔与备份/快照分卡堆叠
 
