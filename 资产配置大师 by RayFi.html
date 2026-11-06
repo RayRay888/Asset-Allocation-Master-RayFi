@@ -53,7 +53,6 @@ tr.tot td{background:#b8cce0;font-weight:700}
 .bar{height:11px;background:#e8ecef;width:80px;border-radius:3px;display:inline-block;vertical-align:middle;margin-left:4px}
 .bar i{display:block;height:100%;border-radius:3px}
 .warn{background:#fdecea;color:#a93226;padding:10px 14px;border-radius:8px;font-weight:600;margin-bottom:8px}
-.info{background:#eaf2f8;color:#1a5276;padding:8px 12px;border-radius:8px;margin-bottom:8px}
 .charts{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
 .chart-box{text-align:center}
 .chart-box h3{margin:0 0 6px;font-size:17px;color:#1a3a5c}
@@ -331,7 +330,7 @@ header .hdrProduct{font-weight:inherit}
 </head>
 <body>
 <header><span><svg class="hdrIcon" viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true"><path d="M32 9 55 51H9Z"/><path d="M32 19 48 49H16Z"/><path d="M32 29 41 47H23Z"/></svg><span class="hdrProduct" id="hdrProduct">资产配置大师</span> <span style="font-size:.7em;font-weight:400;opacity:.85">by RayFi</span> <span class="ver" id="appVer"></span> <span class="langSw" id="langSw" title="Language / 语言"><button type="button" id="langZh" class="on" onclick="setLang('zh')">中文</button><button type="button" id="langEn" onclick="setLang('en')">EN</button></span></span><div class="hdrR"><div class="brand"><span class="rf">RayFi</span> <img class="rfAv" alt="RayFi 头像" src="data:image/png;base64,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"><a href="https://www.rayfi.top" target="_blank" rel="noopener">www.rayfi.top</a></div></div></header>
-<script>const APP_VERSION='v1.115', APP_UPDATED='2026-11-01';</script>
+<script>const APP_VERSION='v1.116', APP_UPDATED='2026-11-01';</script>
 <nav class="tabs no-print">
   <button type="button" id="tabGuide" onclick="switchView('guide')">📖 使用说明</button>
   <button type="button" id="tabInput" class="on" onclick="switchView('input')">✏️ 输入页</button>
@@ -354,11 +353,11 @@ header .hdrProduct{font-weight:inherit}
     <h2 data-i18n="guide.feat.title">功能一览</h2>
     <div class="guideBody">
       <p data-i18n="guide.feat.p1"><strong>配置树（一级→二级→三级→可选四级）</strong>：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。</p>
-      <p data-i18n="guide.feat.p2"><strong>持仓字段</strong>：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。</p>
+      <p data-i18n="guide.feat.p2"><strong>持仓字段</strong>：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。行情来源：美股/港股/日股/A股用腾讯行情（备用 CNBC）；加密用 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。</p>
       <p data-i18n="guide.feat.p3"><strong>托管位置列表</strong>：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。</p>
       <p data-i18n="guide.feat.p4"><strong>分类标签</strong>：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。</p>
       <p data-i18n="guide.feat.p5"><strong>分析页六维</strong>：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。</p>
-      <p data-i18n="guide.feat.p6"><strong>汇率与计价</strong>：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；自动拉汇率，失败时用缓存或内置默认值。</p>
+      <p data-i18n="guide.feat.p6"><strong>汇率与计价</strong>：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；打开页面即可自动获取汇率（来源 open.er-api），失败时用缓存或内置默认值。</p>
       <p data-i18n="guide.feat.p7"><strong>快照</strong>：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。</p>
       <p data-i18n="guide.feat.p8"><strong>导入/导出 JSON</strong>：文件名形如 <code>AA_YYYY-MM-DD HH:mm.json</code>（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。</p>
       <p data-i18n="guide.feat.p9"><strong>个人信息/税务提示与 AI 提示词</strong>：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。</p>
@@ -381,7 +380,7 @@ header .hdrProduct{font-weight:inherit}
       <p data-i18n="guide.tips.p1"><strong>换版必备份</strong>：新下载的 HTML 不会自动带上你的持仓；数据在浏览器里。替换文件或清站点数据前先导出 JSON。</p>
       <p data-i18n="guide.tips.p2"><strong>托管 ≠ 底层资产</strong>：托管回答「钱放在哪家/哪国」，底层资产回答「经济风险敞口在哪」。QDII、互认基金、ADR 等尤其容易混——请用分析页左右对照。</p>
       <p data-i18n="guide.tips.p3"><strong>快照 ≠ 备份</strong>：快照只在当前浏览器；长期保存与迁移请用导出文件。</p>
-      <p data-i18n="guide.tips.p4"><strong>行情可能失败</strong>：网络、代码写法或数据源限流都会导致报价失败，可手填单价。期货请确认乘数与手数符号（空头为负）。</p>
+      <p data-i18n="guide.tips.p4"><strong>行情可能失败</strong>：网络、代码写法或数据源限流都会导致报价失败，可手填单价。数据源见「功能一览」中的行情与汇率说明。期货请确认乘数与手数符号（空头为负）。</p>
       <p data-i18n="guide.tips.p5"><strong>非投资建议</strong>：税务与风险提示仅供参考；配置决策请结合自身情况与专业意见。</p>
     </div>
   </div>
@@ -403,6 +402,7 @@ header .hdrProduct{font-weight:inherit}
     <h2 data-i18n="guide.cl.title">版本更新历史</h2>
     <div class="guideBody">
       <ul class="cl" id="guideChangelog">
+        <li><span class="cv">v1.116</span><span class="cn" data-i18n="guide.cl.116">输入页：去掉「金额驱动：总资产」提示条与行情/汇率来源说明条；来源说明改放到使用说明；总资产仍保留在资产配置明细工具栏右侧</span></li>
         <li><span class="cv">v1.115</span><span class="cn" data-i18n="guide.cl.115">顶栏：版本和更新日期挪到「资产配置大师 by RayFi」后面；去掉「本地 · 输入/分析」；快照备注框加宽约一倍，存快照/快照列表放不下就换行</span></li>
         <li><span class="cv">v1.114</span><span class="cn" data-i18n="guide.cl.114">输入页：顶部四列（计价|税务|备份|快照）等宽；备份列 JSON 导入/导出改为上下排列</span></li>
         <li><span class="cv">v1.113</span><span class="cn" data-i18n="guide.cl.113">输入页：计价币种、税务居民国籍/地区、备份到文件、快照并为一行；汇率更新时间/汇率放到计价币种下方；去掉旧竖分隔与备份/快照分卡堆叠</span></li>
@@ -511,8 +511,8 @@ header .hdrProduct{font-weight:inherit}
     </div>
     <input type="file" id="imp" accept=".json,application/json" style="display:none">
   </div>
-  <div class="hint" id="corsNote" style="margin:-4px 0 10px 4px"><span data-i18n="quote.prefix">行情：</span><span id="quoteLine" data-i18n="quote.line">美股/港股/日股/A股 腾讯行情（备用 CNBC）· 加密 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）· 汇率 open.er-api — 双击打开即可自动获取</span>
-    <details id="quoteHelp" style="display:none;margin-top:4px"><summary style="cursor:pointer;color:#a93226">部分报价获取失败 — 查看说明</summary>
+  <div id="corsNote">
+    <details id="quoteHelp" class="hint" style="display:none;margin:0 0 10px 4px"><summary style="cursor:pointer;color:#a93226">部分报价获取失败 — 查看说明</summary>
       <div id="quoteErrs" style="font-size:13px;color:#555;margin:4px 0"></div>
       <div style="font-size:13px">可能原因：网络不通、代码写法不对（美股如 VUG；港股如 0700.HK 或 hk00700；日股如 7203.T / 7203.JP / JP7203；A股如 600519.SS / 000001.SZ / sh510300；加密如 BTC、HYPE、BTC-USD，或 cg:hyperliquid 指定 CoinGecko id）、或数据源临时限流。失败的项目可直接手填单价，下次刷新会再试。</div>
     </details></div>
@@ -578,11 +578,11 @@ const I18N={zh:{
 'guide.what.p2':'设计目标很朴素：把「目标配置」和「实际持仓」放在同一张可编辑的树上，随时看到缺口与再平衡方向；再用多维分析（托管 vs 底层资产、风险、风格、币种、流动性等）对照「钱在哪」和「风险在哪」。它面向认真做全球/多资产配置的个人投资者与家庭办公室式记账，而不是交易终端或投顾推荐引擎。',
 'guide.feat.title':'功能一览',
 'guide.feat.p1':'配置树（一级→二级→三级→可选四级）：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。',
-'guide.feat.p2':'持仓字段：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。',
+'guide.feat.p2':'持仓字段：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。行情来源：美股/港股/日股/A股用腾讯行情（备用 CNBC）；加密用 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。',
 'guide.feat.p3':'托管位置列表：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。',
 'guide.feat.p4':'分类标签：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。',
 'guide.feat.p5':'分析页六维：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。',
-'guide.feat.p6':'汇率与计价：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；自动拉汇率，失败时用缓存或内置默认值。',
+'guide.feat.p6':'汇率与计价：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；打开页面即可自动获取汇率（来源 open.er-api），失败时用缓存或内置默认值。',
 'guide.feat.p7':'快照：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。',
 'guide.feat.p8':'导入/导出 JSON：文件名形如 AA_YYYY-MM-DD HH:mm.json（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。',
 'guide.feat.p9':'个人信息/税务提示与 AI 提示词：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。',
@@ -597,13 +597,14 @@ const I18N={zh:{
 'guide.tips.p1':'换版必备份：新下载的 HTML 不会自动带上你的持仓；数据在浏览器里。替换文件或清站点数据前先导出 JSON。',
 'guide.tips.p2':'托管 ≠ 底层资产：托管回答「钱放在哪家/哪国」，底层资产回答「经济风险敞口在哪」。QDII、互认基金、ADR 等尤其容易混——请用分析页左右对照。',
 'guide.tips.p3':'快照 ≠ 备份：快照只在当前浏览器；长期保存与迁移请用导出文件。',
-'guide.tips.p4':'行情可能失败：网络、代码写法或数据源限流都会导致报价失败，可手填单价。期货请确认乘数与手数符号（空头为负）。',
+'guide.tips.p4':'行情可能失败：网络、代码写法或数据源限流都会导致报价失败，可手填单价。数据源见「功能一览」中的行情与汇率说明。期货请确认乘数与手数符号（空头为负）。',
 'guide.tips.p5':'非投资建议：税务与风险提示仅供参考；配置决策请结合自身情况与专业意见。',
 'guide.gh.title':'GitHub 下载',
 'guide.gh.p1':'公开仓库用于发现与下载可分享的 HTML；另有私有历史仓库未对外开放，请勿依赖未公开链接。',
 'guide.gh.readme':'项目与 README：',
 'guide.gh.rel':'Releases（版本下载）：',
 'guide.cl.title':'版本更新历史',
+'guide.cl.116':'输入页：去掉「金额驱动：总资产」提示条与行情/汇率来源说明条；来源说明改放到使用说明；总资产仍保留在资产配置明细工具栏右侧',
 'guide.cl.115':'顶栏：版本和更新日期挪到「资产配置大师 by RayFi」后面；去掉「本地 · 输入/分析」；快照备注框加宽约一倍，存快照/快照列表放不下就换行',
 'guide.cl.114':'输入页：顶部四列（计价|税务|备份|快照）等宽；备份列 JSON 导入/导出改为上下排列',
 'guide.cl.113':'输入页：计价币种、税务居民国籍/地区、备份到文件、快照并为一行；汇率更新时间/汇率放到计价币种下方；去掉旧竖分隔与备份/快照分卡堆叠',
@@ -671,7 +672,7 @@ const I18N={zh:{
 'snap.title':'📷 快照','snap.tip':'快照 = 存在当前浏览器里的时间点记录（各持仓的实际%/目标%/金额），用于对比不同时间的配置变化。它不是文件备份：清除浏览器数据、换浏览器/电脑就会丢失；要长期保存请用左侧「导出」（导出文件会包含所有快照）。',
 'snap.sub':'页面内历史记录，用于对比不同时间的配置','snap.note.ph':'快照备注（可选）','snap.save':'📷 存快照','snap.list':'快照列表（{n}）',
 'snap.hint':'保存在本浏览器里；清除浏览器数据会丢失，长期保存请用左侧「导出」。',
-'quote.prefix':'行情：','quote.fail.sum':'部分报价获取失败 — 查看说明',
+'quote.fail.sum':'部分报价获取失败 — 查看说明',
 'fx.other.title':'「其他」自定义代码汇率（1 单位 → USD）','custody.title':'托管位置列表','custody.add.ph':'新增托管位置','custody.add':'＋ 添加',
 'alloc.title':'资产配置明细','alloc.badge':'一级 → 二级 → 三级（持仓/设目标）→ 四级可选',
 'alloc.legend1':'左侧色条：','alloc.legend2':'深蓝/蓝 = 层级标记（一级→四级）',
@@ -710,7 +711,7 @@ const I18N={zh:{
 'alert.importOk':'导入成功','alert.importBad':'文件格式不正确',
 'warn.actSum':'实际% 合计为 {n}，不等于 100。','warn.tgtSum':'目标% 合计为 {n}，不等于 100。',
 'warn.mixed':'混合模式：{nAmt} 项按金额，{nMan} 项手填实际%（表中以<b class="manualTxt">紫色粗体</b>标出）。手填：',
-'warn.noFx':'{path} 未设置兑 USD 汇率。','info.amtDriven':'金额驱动：总资产 {amt}（{bc}）',
+'warn.noFx':'{path} 未设置兑 USD 汇率。',
 'px.last':'上次拉价 {t}','px.never':'尚未自动拉价（四级填写代码后点刷新）','px.cash':'现金','px.cash.title':'代码为货币：按现金处理，单价=1，按汇率折算','px.quote':'行情 {t}',
 'manual.pct':'手填实际%（未填金额）：','locked.byAmt':'由金额自动计算：',
 'sun.actual':'当前实际','sun.target':'目标配置','sun.byAct':'按实际%','sun.byTgt':'按目标%','sun.hint':'（悬停查看，点击三级查看四级明细）',
@@ -737,7 +738,7 @@ const I18N={zh:{
 'l2.tgt.title':'二级目标%（其下三级均未设目标，可直接在二级设定）：','l2.sumTgt':'三级目标之和：','l3.tgt.title':'三级目标%（不由四级汇总）：',
 'uncat':'未分类','dim.risk':'风险等级','dim.style':'投资风格','dim.cur':'计价币种','dim.region':'底层资产','dim.liq':'流动性',
 'safe.overview':'组合概览','safe.cust':'按托管分类统计','safe.dims':'多维分类','safe.risk':'风险与税务提示','safe.tax':'税务设置','safe.snap':'快照',
-'snap.del':'删','other':'其他','hero.total':'总资产','hero.empty':'未填总资产，也无金额可汇总','stat.nodes':'持仓节点数','stat.fx':'USD/CNY 汇率（{src}）','fx.src.manual':'手动','fx.src.default':'默认','total.autoSum':'由金额自动汇总','cust.blankCat':'未填','cust.tipDetail':'点击查看明细','cust.nItems':'（{n} 项）','dim.clickHold':'点击查看持仓明细','dim.th.pct':'占比','dim.th.amt':'金额','dim.th.n':'项数','dim.by':'按{name}','src.user':'手动','src.parent':'继承三级','src.auto':'自动推断','tag.btnTitle':'分类标签（风险/风格/底层资产/流动性）：灰色斜体=自动推断，点击修改','tag.hint':'选「自动」= 按名称/代码/分类推断','tag.hint.l4':'（四级默认继承三级的手动标签）','tag.hint.cur':'；币种按该行币种自动统计。','tag.inheritL3':'继承三级','tag.auto':'自动','th.holdPath':'持仓（一级›二级›三级›四级）','th.ofClass':'占该类','th.src':'来源','th.nodata':'无数据','snap.none':'暂无快照','snap.th.date':'日期','snap.th.note':'备注','snap.th.cats':'分类实际%','snap.th.total':'总资产（快照时币种）','snap.th.ops':'操作','snap.detail':'明细','fx.updatedAt':'汇率更新时间：{ts}','fx.updatedSrc':' （{src}）','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ 汇率自动获取失败，{use}。可稍后重试或继续用当前汇率。','fx.useCache':'正在使用上次缓存（{ts}）','fx.useDefault':'正在使用内置默认值','quote.line':'美股/港股/日股/A股 腾讯行情（备用 CNBC）· 加密 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）· 汇率 open.er-api — 双击打开即可自动获取','quote.prefix':'行情：','risk.ok':'✓ 暂无突出风险提示','risk.ok.sub':'未触发预设阈值。','tgtAtL2.suffix':'（目标设在二级）'
+'snap.del':'删','other':'其他','hero.total':'总资产','hero.empty':'未填总资产，也无金额可汇总','stat.nodes':'持仓节点数','stat.fx':'USD/CNY 汇率（{src}）','fx.src.manual':'手动','fx.src.default':'默认','total.autoSum':'由金额自动汇总','cust.blankCat':'未填','cust.tipDetail':'点击查看明细','cust.nItems':'（{n} 项）','dim.clickHold':'点击查看持仓明细','dim.th.pct':'占比','dim.th.amt':'金额','dim.th.n':'项数','dim.by':'按{name}','src.user':'手动','src.parent':'继承三级','src.auto':'自动推断','tag.btnTitle':'分类标签（风险/风格/底层资产/流动性）：灰色斜体=自动推断，点击修改','tag.hint':'选「自动」= 按名称/代码/分类推断','tag.hint.l4':'（四级默认继承三级的手动标签）','tag.hint.cur':'；币种按该行币种自动统计。','tag.inheritL3':'继承三级','tag.auto':'自动','th.holdPath':'持仓（一级›二级›三级›四级）','th.ofClass':'占该类','th.src':'来源','th.nodata':'无数据','snap.none':'暂无快照','snap.th.date':'日期','snap.th.note':'备注','snap.th.cats':'分类实际%','snap.th.total':'总资产（快照时币种）','snap.th.ops':'操作','snap.detail':'明细','fx.updatedAt':'汇率更新时间：{ts}','fx.updatedSrc':' （{src}）','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ 汇率自动获取失败，{use}。可稍后重试或继续用当前汇率。','fx.useCache':'正在使用上次缓存（{ts}）','fx.useDefault':'正在使用内置默认值','risk.ok':'✓ 暂无突出风险提示','risk.ok.sub':'未触发预设阈值。','tgtAtL2.suffix':'（目标设在二级）'
 },en:{
 'doc.title':'Asset Allocation Master by RayFi',
 'hdr.product':'Asset Allocation Master','hdr.badge':'Local · Input/Analysis','hdr.ver':'{v} · Updated {d}','hdr.avatarAlt':'RayFi avatar',
@@ -747,11 +748,11 @@ const I18N={zh:{
 'guide.what.p2':'The design goal is simple: keep target allocation and actual holdings on one editable tree so gaps and rebalance direction stay visible; then use multi-dimension views (custody vs underlying assets, risk, style, currency, liquidity) to contrast where cash sits versus where risk lives. It is for investors who take global/multi-asset allocation seriously—not a trading terminal or advisory engine.',
 'guide.feat.title':'Feature inventory',
 'guide.feat.p1':'Allocation tree (L1→L2→L3→optional L4): organize asset classes, strategies, and holdings. Target % usually lives at L3 (or at L2 when all child L3 targets are empty). When amounts exist, actual % is amount-driven, with gap vs target for rebalancing.',
-'guide.feat.p2':'Holding fields: name, symbol, qty, unit price, amount, currency. Amount can lock from qty×price or be entered alone. Refresh quotes pulls US/HK/JP/A-share and crypto when possible (manual price on failure). CN commodity/index futures: unit price = quote × contract multiplier (notional per lot); qty is lots (negative for shorts).',
+'guide.feat.p2':'Holding fields: name, symbol, qty, unit price, amount, currency. Amount can lock from qty×price or be entered alone. Refresh quotes pulls US/HK/JP/A-share and crypto when possible (manual price on failure). Sources: US/HK/JP/A-share via Tencent (CNBC backup); crypto via CoinGecko (OKX/Hyperliquid/Kraken/Gate backup). CN commodity/index futures: unit price = quote × contract multiplier (notional per lot); qty is lots (negative for shorts).',
 'guide.feat.p3':'Custody list: maintain broker/bank/wallet names, assign on holdings; Analysis aggregates “where cash sits” by custody region.',
 'guide.feat.p4':'Tags: risk, style, underlying assets, liquidity. Unset tags auto-infer from name/symbol/category (gray italic); edit via the 🏷 button. Analysis shows dual pies and detail tables per dimension.',
 'guide.feat.p5':'Analysis six dimensions: custody, underlying assets, risk, style, currency, liquidity—plus overview, L3 sunburst, and risk/tax tips. Printing focuses on Analysis.',
-'guide.feat.p6':'FX & base currency: choose USD/CNY/HKD/EUR/JPY (etc.); auto FX with cache/default fallback.',
+'guide.feat.p6':'FX & base currency: choose USD/CNY/HKD/EUR/JPY (etc.); FX auto-fetches on open via open.er-api, with cache/default fallback.',
 'guide.feat.p7':'Snapshots: time-point records in this browser only—not a file backup; lost if you clear data or switch machines.',
 'guide.feat.p8':'Import/export JSON named like AA_YYYY-MM-DD HH:mm.json (local time to the minute), including tree, amounts, targets, custody, settings, and snapshots. Export before changing computers/browsers or replacing the HTML.',
 'guide.feat.p9':'Personal/tax hints and AI prompt export: residency fields feed risk/tax tips and an optional desensitized prompt for LLMs. Bilingual UI (中文|EN). “Reset to defaults” restores AA_random_V1 (two-step confirm; auto JSON backup first).',
@@ -766,13 +767,14 @@ const I18N={zh:{
 'guide.tips.p1':'Backup before replacing versions: a new download does not carry your holdings—data lives in the browser. Export JSON before swapping files or clearing site data.',
 'guide.tips.p2':'Custody ≠ underlying assets: custody is where money sits; underlying is economic exposure. QDII, mutual-recognition funds, ADRs confuse the two—use the side-by-side Analysis cards.',
 'guide.tips.p3':'Snapshots ≠ backups: snapshots stay in this browser; use export files for long-term keep and migration.',
-'guide.tips.p4':'Quotes can fail: network, symbol format, or rate limits—enter unit price by hand. For futures, confirm multiplier and lot sign (shorts negative).',
+'guide.tips.p4':'Quotes can fail: network, symbol format, or rate limits—enter unit price by hand. See Feature overview for quote/FX sources. For futures, confirm multiplier and lot sign (shorts negative).',
 'guide.tips.p5':'Not advice: risk/tax tips are informational only; decide with your own circumstances and professionals.',
 'guide.gh.title':'GitHub downloads',
 'guide.gh.p1':'The public repo is for discovery and downloadable HTML. A private history repo is not public—do not rely on unpublished links.',
 'guide.gh.readme':'Project & README:',
 'guide.gh.rel':'Releases (version downloads):',
 'guide.cl.title':'Changelog',
+'guide.cl.116':'Input page: remove Amount-driven total banner and quote/FX source strip; move source notes into Guide; Total assets stays on the detail toolbar',
 'guide.cl.115':'Header: move version/update date after the product title; drop the Local · Input/Analysis label; roughly double snapshot-note width; wrap Save snapshot / snapshot list when needed',
 'guide.cl.114':'Input page: equal-width top columns (base currency | tax | backup | snapshots); stack JSON import/export vertically in the backup column',
 'guide.cl.113':'Input page: put base currency, tax residency, Backup to file, and Snapshots on one row; place FX updated time/rates under base currency; remove old vertical separator and stacked backup/snapshot cards',
@@ -840,7 +842,7 @@ const I18N={zh:{
 'snap.title':'📷 Snapshots','snap.tip':'A snapshot is a point-in-time record in this browser (actual%/target%/amounts) for comparing allocations over time. Not a file backup: clearing browser data or switching browsers/PCs loses it. Use Export for long-term keep (exports include all snapshots).',
 'snap.sub':'In-page history for comparing allocations over time','snap.note.ph':'Snapshot note (optional)','snap.save':'📷 Save snapshot','snap.list':'Snapshots ({n})',
 'snap.hint':'Stored in this browser; clearing data loses them — use Export for long-term keep.',
-'quote.prefix':'Quotes: ','quote.fail.sum':'Some quotes failed — see details',
+'quote.fail.sum':'Some quotes failed — see details',
 'fx.other.title':'"Other" custom code FX (1 unit → USD)','custody.title':'Custody locations','custody.add.ph':'New custody location','custody.add':'＋ Add',
 'alloc.title':'Asset allocation detail','alloc.badge':'Level 1 → 2 → 3 (holding / set target) → Level 4 optional',
 'alloc.legend1':'Left bars:','alloc.legend2':'Navy/blue = level markers (L1→L4)',
@@ -879,7 +881,7 @@ const I18N={zh:{
 'alert.importOk':'Import successful','alert.importBad':'Invalid file format',
 'warn.actSum':'Actual % totals {n}, not 100.','warn.tgtSum':'Target % totals {n}, not 100.',
 'warn.mixed':'Mixed mode: {nAmt} by amount, {nMan} manual actual % (shown in <b class="manualTxt">bold purple</b>). Manual: ',
-'warn.noFx':'{path} has no USD FX rate.','info.amtDriven':'Amount-driven: total {amt} ({bc})',
+'warn.noFx':'{path} has no USD FX rate.',
 'px.last':'Last quote fetch {t}','px.never':'No auto quotes yet (enter symbols on L4, then Refresh)','px.cash':'Cash','px.cash.title':'Currency code: treated as cash, price=1, FX-converted','px.quote':'Quote {t}',
 'manual.pct':'Manual actual % (no amount): ','locked.byAmt':'Computed from amounts: ',
 'sun.actual':'Current actual','sun.target':'Target allocation','sun.byAct':'By actual %','sun.byTgt':'By target %','sun.hint':'(hover for detail; click L3 for L4 holdings)',
@@ -906,7 +908,7 @@ const I18N={zh:{
 'l2.tgt.title':'Level 2 target % (all child L3 targets empty — editable here): ','l2.sumTgt':'Sum of Level 3 targets: ','l3.tgt.title':'Level 3 target % (not summed from L4): ',
 'uncat':'Uncategorized','dim.risk':'Risk level','dim.style':'Investment style','dim.cur':'Currency','dim.region':'Underlying assets','dim.liq':'Liquidity',
 'safe.overview':'Portfolio overview','safe.cust':'By custody category','safe.dims':'Multi-dim stats','safe.risk':'Risk & tax tips','safe.tax':'Tax settings','safe.snap':'Snapshots',
-'snap.del':'Del','other':'Other','hero.total':'Total assets','hero.empty':'No total entered and no amounts to sum','stat.nodes':'Holding nodes','stat.fx':'USD/CNY ({src})','fx.src.manual':'manual','fx.src.default':'default','total.autoSum':'Auto-summed from amounts','cust.blankCat':'Blank','cust.tipDetail':'Click for detail','cust.nItems':'({n} items)','dim.clickHold':'Click for holdings detail','dim.th.pct':'Weight','dim.th.amt':'Amount','dim.th.n':'Count','dim.by':'By {name}','src.user':'Manual','src.parent':'From L3','src.auto':'Auto','tag.btnTitle':'Tags (risk/style/underlying/liquidity): gray italic = auto; click to edit','tag.hint':'“Auto” = infer from name/symbol/category','tag.hint.l4':'(L4 inherits L3 manual tags by default)','tag.hint.cur':'; currency follows the row currency.','tag.inheritL3':'From L3','tag.auto':'Auto','th.holdPath':'Holding (L1›L2›L3›L4)','th.ofClass':'Of class','th.src':'Source','th.nodata':'No data','snap.none':'No snapshots yet','snap.th.date':'Date','snap.th.note':'Note','snap.th.cats':'Category actual %','snap.th.total':'Total (snapshot currency)','snap.th.ops':'Actions','snap.detail':'Detail','fx.updatedAt':'FX updated: {ts}','fx.updatedSrc':' ({src})','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ Auto FX failed; {use}. Retry later or keep using current rates.','fx.useCache':'using last cache ({ts})','fx.useDefault':'using built-in defaults','quote.line':'US/HK/JP/A-share via Tencent (CNBC backup) · Crypto CoinGecko (OKX/Hyperliquid/Kraken/Gate backup) · FX open.er-api — opens on double-click','quote.prefix':'Quotes:','risk.ok':'✓ No major risk flags','risk.ok.sub':'No preset thresholds triggered.','tgtAtL2.suffix':'(target at Level 2)'
+'snap.del':'Del','other':'Other','hero.total':'Total assets','hero.empty':'No total entered and no amounts to sum','stat.nodes':'Holding nodes','stat.fx':'USD/CNY ({src})','fx.src.manual':'manual','fx.src.default':'default','total.autoSum':'Auto-summed from amounts','cust.blankCat':'Blank','cust.tipDetail':'Click for detail','cust.nItems':'({n} items)','dim.clickHold':'Click for holdings detail','dim.th.pct':'Weight','dim.th.amt':'Amount','dim.th.n':'Count','dim.by':'By {name}','src.user':'Manual','src.parent':'From L3','src.auto':'Auto','tag.btnTitle':'Tags (risk/style/underlying/liquidity): gray italic = auto; click to edit','tag.hint':'“Auto” = infer from name/symbol/category','tag.hint.l4':'(L4 inherits L3 manual tags by default)','tag.hint.cur':'; currency follows the row currency.','tag.inheritL3':'From L3','tag.auto':'Auto','th.holdPath':'Holding (L1›L2›L3›L4)','th.ofClass':'Of class','th.src':'Source','th.nodata':'No data','snap.none':'No snapshots yet','snap.th.date':'Date','snap.th.note':'Note','snap.th.cats':'Category actual %','snap.th.total':'Total (snapshot currency)','snap.th.ops':'Actions','snap.detail':'Detail','fx.updatedAt':'FX updated: {ts}','fx.updatedSrc':' ({src})','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ Auto FX failed; {use}. Retry later or keep using current rates.','fx.useCache':'using last cache ({ts})','fx.useDefault':'using built-in defaults','risk.ok':'✓ No major risk flags','risk.ok.sub':'No preset thresholds triggered.','tgtAtL2.suffix':'(target at Level 2)'
 }};
 function t(key, vars){
   const lang=(typeof UI!=='undefined'&&UI&&UI.lang==='en')?'en':'zh';
@@ -2051,8 +2053,7 @@ function render() {
   leaves.filter(x=>hasAmount(x.node)&&x.node.currency==='OTHER'&&!(fxUsdPerUnit(x.node)>0)).forEach(x=>{
     warnings.push(t('warn.noFx',{path:esc(x.path)}));
   });
-  document.getElementById('warn').innerHTML=warnings.map(w=>`<div class="warn">⚠ ${w}</div>`).join('')
-    +(nAmt>0&&!warnings.length?`<div class="info">ℹ ${t('info.amtDriven',{amt:fmtMoney(S._amountDrivenTotal),bc:S.baseCurrency})}</div>`:'');
+  document.getElementById('warn').innerHTML=warnings.map(w=>`<div class="warn">⚠ ${w}</div>`).join('');
 
   const hasT=portfolioTotal()>0;
   const mx=Math.max(1,...leaves.map(x=>Math.max(+x.node.actual||0,+x.node.target||0)));

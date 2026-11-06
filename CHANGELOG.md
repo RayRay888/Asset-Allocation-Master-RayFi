@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.116
+- 输入页：去掉「金额驱动：总资产」提示条与行情/汇率来源说明条；来源说明改放到使用说明；总资产仍保留在资产配置明细工具栏右侧
+
 ## v1.115
 - 顶栏：版本和更新日期挪到「资产配置大师 by RayFi」后面；去掉「本地 · 输入/分析」；快照备注框加宽约一倍，存快照/快照列表放不下就换行
 
