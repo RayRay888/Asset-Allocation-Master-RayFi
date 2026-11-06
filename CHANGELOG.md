@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.121
+- 输入页：去掉「本地说明」横幅（要点并入使用说明）；托管位置列表标题旁加「？」说明（再点收起），讲清首字分类与增删改
+
 ## v1.120
 - 输入页：备份列左侧竖线拉满与计价/税务/快照分区竖线同高（顶栏列等高拉伸）
 
