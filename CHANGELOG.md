@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.115
+- 顶栏：版本和更新日期挪到「资产配置大师 by RayFi」后面；去掉「本地 · 输入/分析」；快照备注框加宽约一倍，存快照/快照列表放不下就换行
+
 ## v1.114
 - 输入页：顶部四列（计价|税务|备份|快照）等宽；备份列 JSON 导入/导出改为上下排列
 
