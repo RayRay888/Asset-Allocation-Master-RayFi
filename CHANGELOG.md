@@ -2,6 +2,9 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.140
+- 官网固定 URL 在线打开：同源 localStorage 升版不断档；落地页主入口改「在线打开」，下载 HTML 作离线备用
+
 ## v1.139
 - 快照列表总资产：整数显示并加千分位（无小数）
 - Tip advances from published v1.122 → v1.139 (local stages v1.123–v1.138 included in this HTML; full list in-app)
