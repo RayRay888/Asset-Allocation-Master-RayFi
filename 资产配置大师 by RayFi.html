@@ -71,9 +71,29 @@ h2{margin:0 0 10px;font-size:20px;color:#1a3a5c}
 .risk-item.def{border-left-color:#2980b9;background:#eaf4fb}
 .risk-item.corr{border-left-color:#c0392b;background:#fdeeee}
 .risk-item.ok{border-left-color:#27ae60;background:#eafaf1}
-.risk-item strong{display:block;margin-bottom:4px;font-size:16px}
-.risk-item .trig{font-size:13px;color:#555;margin-top:4px}
-.risk-item .adv{font-size:15px}
+.risk-item .probHead{display:flex;align-items:flex-start;gap:10px;margin:0}
+.risk-item .probTit{display:block;margin:0;font-size:16px;font-weight:750;color:#1a2332;line-height:1.4;letter-spacing:.01em;min-width:0;flex:1}
+.risk-item strong{display:block;margin:0;font-size:16px;font-weight:750;color:#1a2332;line-height:1.4}
+.risk-item .tipSev{flex:0 0 auto;font-size:11px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:3px 9px;line-height:1.3;margin-top:2px;border:1px solid transparent;white-space:nowrap}
+.risk-item .tipSev.critical{background:#f3c2cb;color:#6b0f1f;border-color:#8b1e2d;box-shadow:inset 0 0 0 1px rgba(107,15,31,.35)}
+.risk-item .tipSev.hi{background:#fde8ec;color:#a13d4d;border-color:#f2c4cc}
+.risk-item .tipSev.warn{background:#fff4e5;color:#9a6700;border-color:#f0d7a3}
+.risk-item .tipSev.ok{background:#e7f7ee;color:#1e7a45;border-color:#b7e0c6}
+.risk-item .tipSplit{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(140px,.9fr);gap:12px 22px;align-items:start;margin-top:10px;padding-top:10px;border-top:1px solid rgba(26,58,92,.12)}
+.risk-item .tipInner2{display:grid;grid-template-columns:minmax(110px,.9fr) minmax(0,1.25fr);gap:10px 14px;align-items:start;min-width:0}
+.risk-item .probCell,.risk-item .advCell,.risk-item .trigCol{min-width:0}
+.risk-item .probLab,.risk-item .advLab,.risk-item .trigLab{font-size:11px;font-weight:800;letter-spacing:.1em;margin:0 0 6px}
+.risk-item .probLab{color:#8a5560}
+.risk-item .advLab{color:#0f5e63}
+.risk-item .trigLab{color:#6a7380}
+.risk-item .probTxt{font-size:13.5px;font-weight:600;color:#3a4556;line-height:1.45;margin:0}
+.risk-item .adv{font-size:14px;font-weight:500;color:#243447;line-height:1.55;margin:0;letter-spacing:.005em}
+.risk-item .trig{font-size:12px;color:#667085;margin:0;line-height:1.45;font-weight:400;word-break:break-word}
+/* Empty 触发项: keep column + label so 问题|建议|触发项 align with neighbors; no full-width collapse. */
+.risk-item .trigCol.is-empty .trig{min-height:1.45em}
+@media (max-width:720px){.risk-item .tipSplit{grid-template-columns:1fr}.risk-item .tipInner2{grid-template-columns:1fr}}
+/* Tips card: no tiled RayFi watermark (overlaps tip copy). Other analysis cards keep Scheme-C bleed. */
+#viewAnalysis .card:has(#riskTips) > .rf-wm-bleed{display:none!important}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
 .stat{background:#f5f8fb;border-radius:10px;padding:12px;text-align:center}
 .stat .v{font-size:22px;font-weight:700;color:#1a3a5c}
@@ -286,7 +306,7 @@ body.communityOn{background:#f7f2fa}
 .wrPcts{display:flex;gap:8px}.wrPcts div{flex:1;background:linear-gradient(180deg,#5a3d00,#2e2000);color:#ffe08a;border-radius:10px;padding:5px 6px;box-shadow:0 2px 5px rgba(60,40,0,.35);text-align:center}.wrPcts span{display:block;font-size:12px;color:#e8c878}.wrPcts b{font-size:22px}
 .wrBar{height:6px;border-radius:3px;background:rgba(59,42,0,.18);margin-top:8px;overflow:hidden}.wrBar i{display:block;height:100%;background:linear-gradient(90deg,#b8860b,#7a4f00)}
 .wrNext{font-size:11px;color:#5a4000;margin-top:3px}.wrFoot{font-size:9.5px;color:#7a5a10;margin-top:4px;opacity:.85}
-.dimGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;align-items:stretch}.dimGrid .card{margin:0;min-width:0;overflow:hidden}
+.dimGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;align-items:stretch}.dimGrid .card{margin:0;min-width:0;overflow:hidden}.dimGrid > .card{padding:12px 10px}
 @media (max-width:900px){.dimGrid{grid-template-columns:1fr}}
 .dimCard{display:flex;flex-direction:column}
 .dimHead{min-height:64px;display:flex;flex-direction:column;justify-content:flex-start;margin-bottom:4px}
@@ -295,15 +315,23 @@ body.communityOn{background:#f7f2fa}
 .dimBody{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;flex:1}
 .dimBody>table{width:100%;max-width:100%;min-width:0!important;font-size:14px}
 .dimBody>table th,.dimBody>table td{padding:4px 6px}
-.dimCompare{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;justify-content:center;width:100%;min-height:260px}
-.dimArrow{font-size:34px;font-weight:800;color:#0f5e63;line-height:1;user-select:none;padding:0 2px}
-.dmSvg{width:252px;max-width:44%;height:auto;flex:none}.dmSeg{cursor:pointer}.dmSeg:hover{filter:brightness(1.1) drop-shadow(0 0 4px rgba(0,0,0,.35))}.dmSegMute{cursor:default}
+.dimCompare{display:flex;align-items:center;gap:2px;flex-wrap:nowrap;justify-content:center;width:100%;min-height:340px}
+.dimArrow{font-size:26px;font-weight:800;color:#0f5e63;line-height:1;user-select:none;padding:0 1px;flex:none}
+.dmSvg{width:100%;max-width:378px;flex:1 1 0;min-width:0;height:auto}.dmSeg{cursor:pointer}.dmSeg:hover{filter:brightness(1.1) drop-shadow(0 0 4px rgba(0,0,0,.35))}.dmSegMute{cursor:default}
 .tagBtn{font-size:11px!important;padding:0 5px!important;height:22px;border:1px solid #cfe3e1;background:#f4fbfa;border-radius:10px;color:#0f5e63;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}.tagBtn i{color:#9aa7a6;font-style:italic}.tagBtn span{font-weight:700}
 .tagRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:6px 0;font-size:14px}.tagRow select{min-width:150px}
 .aiTile{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#7b2ff7 0%,#5b3df5 50%,#3b5bfd 100%);box-shadow:0 6px 18px rgba(91,61,245,.35);border:1px solid #6a4cf0;transition:transform .15s,box-shadow .15s,filter .15s;user-select:none}
 .aiTile:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,61,245,.5);filter:brightness(1.08)}.aiTile:active{transform:translateY(0)}
 .aiTile{flex-direction:column;justify-content:center;text-align:center;gap:6px;padding:12px 10px}.aiTile .aiIco{font-size:44px;line-height:1;flex:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}.aiTile .aiT{font-size:17px;font-weight:800;letter-spacing:1px}.aiTile .aiS{font-size:13px;opacity:.92;margin-top:4px;line-height:1.4}.aiTile .aiGo{margin-top:8px;display:inline-block;font-size:12px;font-weight:700;background:rgba(255,255,255,.22);border-radius:12px;padding:2px 10px}
-#viewAnalysis .charts{flex-direction:column;align-items:center;gap:28px}
+#viewAnalysis .charts{flex-direction:column;align-items:center;gap:18px}
+#viewAnalysis .charts > .legend{order:0;margin:4px 0 8px;max-width:1000px;width:100%}
+#viewAnalysis .charts > .chart-box{margin:0}
+.rf-wm{pointer-events:none}
+#viewAnalysis .card{position:relative;overflow:hidden}
+#viewAnalysis .card > .rf-wm-bleed{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden;border-radius:inherit}
+#viewAnalysis .card > .rf-wm-bleed svg{display:block;width:100%;height:100%}
+#viewAnalysis .sbSvg,#viewAnalysis .dmSvg{background:transparent}
+#viewAnalysis .chart-box{background:transparent}
 #viewAnalysis .chart-box{width:100%;max-width:1000px}
 .sbSvg{width:100%;height:auto;display:block;max-width:1000px;margin:0 auto}
 .sbSeg{cursor:pointer;transition:filter .12s}.sbSeg:hover{filter:brightness(1.1) drop-shadow(0 0 3px rgba(0,0,0,.35))}
@@ -335,7 +363,7 @@ header .hdrProduct{font-weight:inherit}
 </head>
 <body>
 <header><span><svg class="hdrIcon" viewBox="0 0 64 64" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="butt" aria-hidden="true"><path d="M32 9 55 51H9Z"/><path d="M32 19 48 49H16Z"/><path d="M32 29 41 47H23Z"/></svg><span class="hdrProduct" id="hdrProduct">资产配置大师</span> <span style="font-size:.7em;font-weight:400;opacity:.85">by RayFi</span> <span class="ver" id="appVer"></span> <span class="langSw" id="langSw" title="Language / 语言"><button type="button" id="langZh" class="on" onclick="setLang('zh')">中文</button><button type="button" id="langEn" onclick="setLang('en')">EN</button></span></span><div class="hdrR"><div class="brand"><span class="rf">RayFi</span> <img class="rfAv" alt="RayFi 头像" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAAAAADH8yjkAAAJlklEQVR42u2aa3BV1RXH//tx7ouQBxAQBTECKiohiAoo1EfRQWUoWkWL1IrTKoLVQrV2pq1jGa10dJhWdESZWgVbdUS0js+KtdbHCCKPlIcg8giJkkKIECG59+y9//1wk3Bz77knN6FOv7A+3Xvn3P07e621117nv48gvl2TOAb4fwN0AdeQJAUgIIToKkB0mkWOqsM3SPG/nAGdwqHd29a1+K60YuDA42IAnFPifzUDq7D+iRXbTevXnieecvGo08oAx4LnwTAz3PtjD1AyEvGica0AQAy8emk9SeNYiCF8/I9Og/CkaDeltQDQ7/rnG0nfHSXAZ3UZEhBZJrUCUPFAPWmOCuDMgUoUaSlyTUcjwMnz/0NnjwJgeA/iImh8IYRUHjDoKdLvNsD6deU6z/BphgdM3dlZsPMBrCHvR5EQoYQIyv9K57oOsD55YFmljIhwgo4o/CacEARwPvn5zP6txSfctMJMPyzUAQBHbptVBhGRogDzYpjlQuKAgOQxT/RFtGdUFGRaRjE7JNLIco7zWXcR4ElRsKkYfps/W7MAKcfl/aC7MLwQOhLR7+Rd1B0B1pqfKdEDokuAWFz2q8sX6A4AZzkdSnXp/oWQSnm4Nt8U0DG+dyIuumEyguW0nQIMX0SR7g5AeKpif/B6ywS45AhEZLcA0sNjwU5C5gRegoLonilx8oHAOHfoi97uYseQ2W2I7a8G7u8ZAGU/hsvTGkCgE7QQT/pBhCMAonkXAnsMSkQ8IcJ7FeK9asnw1rEl+M4AXZZMUoa3UPTMB+gEYAKd67T2zrxzctxvcUplxYgdPr+GgCkccRtF47D67Cski1ItAEZeW7XxlZUtALQE0wMLQVhCurYQFm0a4GT+xsuxpT+yV4GH725ZMLWiB1C8mduX3lBZ2pEfi7RXFqnxt4CloDMyxTvxK2mzI7B98ByYzTUHa+OsqJiOXRsbvonH8c2+5m+adu75ch/Qll5UZvVkhjW/Tg5ZmRMBXbu2it7w4elwCDFoEKq3+z3HDAIAU//x2lUfHxIkAGmxA4Iif2/q8w54WS6CwlIaZ43vG5NK+dx912AAkMPnm/Qmc99AJbUWQgiFs6wLKxU+5yO71MHDHJc0xm+tAq8NBBAvjmlg4mZat7oK8R5xAS2EUDgloFTozOU6KnclE1+KCAAc3F+7pn7Ly1b2jqqS3Y3Qb5Y+KZpnr4s2o7yi9qByoGjYcGaOi3SHsZATZOBQakfN5+vqdu5MGQAT7xoSx7Ml5a8/1/TGWSVNdbrkysnr+19y8+uJFqqG9850Kn8MDH+SEwMh0XtYUdu1Ue9+knwQg+u5qjcA6P7/5qoiPGuroITGI7l5mrkftAxDwG4AoM/QMRdcP/eRxaeLXS5lk0MUFhhOEmUTEmIKzY0Q5/OzUqHliK25UdYZWbr1i5ylLqV/+7XR3sW9AABrt8aElIcPS36tmht427xfPLgnFfEVfJ563aLooR8NtTJ/LXLYkGpzoJBatH266bxRJ/Wis7bFxISCcKVjfDeK+6sTt3BW0aavOMrasYLXQUI6hjyj+VzUFgINpHc2KdGv1vjpiRsuxWfOWrfm/Lnk07iBPmfgKX591eX1jo0VWr0cUCoyAY/BE0JKpSFHTFdCCSE0hrfvg5Y1WMgkHUmXOiOx2R52mxOVzemGx12Msl10oYBn4Akho1rf8kmKj6uIFDKGGUfuytqzhjbR+EmfnIv7SBr+DveQftJP8T6U1QS0LkcAltt6CCm0jj1DuhR/DwXEMP9I22n4Fi7cTJJf3oqpxm79s3N2Gu7YQ5Jrxyvv01AALachIjz1HP2Usb69CJ5S+p8ZfrV8NoZxM269MoK7jc+78S9nWn6NnpNu/uG50FGsCI0BDVd58RhmMOVIWn4SiXkoqc28K8tdj08dM+bSeZtJnyvSDePWBy49b9wVS16OY0k4gJY3Iqo2WZ/PTV3NFKehB8Z3XDrtA/iOLlVVvI+27af1CdzPVDjA1Q6QZxuyZTAmMcU1iTjmZHX+1hhjjLEkDR/GIhpaY6xJmnejeDgAkLnypDi+zA1SzulT9Mp6z4z8fjNOy16YSimllAQgcJl6CQJSKamUMkmcHKBvyQ6l2U8hSjp1idm7Dpa3et7Y/JqY5JCx7+9p3fOJvVAlnUhqApESNAgpMFqqv0NxdJVXEdLRWUw5/GF769IIXRRwsez4jxGo3g/Bc862fSEg/7CgyOUHCFRiZTvgEHSiM73I8HngUSYdv1jeuZBifVenr2jNYsM56FsfWipIOtc0XA6oO5I4thNMU3RC65iOF2O0CQB0cJFwRT93tdfv0y6VtAQgVUg3untd44ep49PbuBMNW1CprOhMUrN2FlC5ogAly9lh6AUsT689nx9qLAp6xtFZPYRY0PJk9cQLLu9/3Nho+COBfODNDSdMubJ1l+caI84oRBR0zv6yWAHArwoRzNLSBml4DSr2B4QgV6tw5KZTvaKYLq1huF5mTHsSONb2w4TA63PFEJfiu6rI64lJwbKi8zPqnzM2HYLFUC8ETjlIL0pxLuKxGObllTicn655pn3aE0XF4SAPBQtS5sA5iOqIfiGX4Ni4ZPWB9q97l2+io3U1xWJm8O3owMey4mVnN0Stmh6ZbLIusPqlm9B3+ODBJ5WZvTVrVjTNetRqyoUH8b08SZdH0Xw9rmMJL/Fidhwc9/9pdlWk7d9jHqqls66uF6pSwVJCHnHc6FeupmZSP3QHAp67GnfUfuVYWlJxOkBh1e0LsXS6VV0Rx32+VYKiXkLMPpTlW2cyk8V3tG5bD4xnIXpRppNS3DAO4wcA4zbQ2pzVaHzf9411JH1OQ4fmo0Dl12fy3vI3xgP9ng4V2g3fi+PyvMpmiHZtyW1M3gJg6pb8Qrsz+84QidXdAdBZWnLJCcDAhT5N8BApzgTuzV+3wk9ALJ3hjikALvgo+MzD59MK41qs6x6gtddaPBSIXFPN3Fn4fDeB8g0hZRGFbC2sv60EKLtrN9khR12Kn/aRYllAv9UVAGnINVdpgfKfbmwvoKQzjsv6aCxmM48SQGfIdy4E0PMH/yBJ3ze+IVvmx4BH0s3y0QFIa2meP08BasIft6d/OvTCuUDpXzo5ZBEFH1hbBaxY/HYj0GfkqKGJPes/2QiMfmyk0UdxUJfjJ1bfntEOD52X7HTjFl05cqcTEk3vv/pB3QGRiH/nsqtKgkptV09jA85mXU2dV9KrHLCd66yiyy8N0EG1sgqRcUV33kogWfDZtTj22sMxwDHAtw/4L+0WmxJzE6plAAAAAElFTkSuQmCC"><a href="https://www.rayfi.top" target="_blank" rel="noopener">www.rayfi.top</a></div></div></header>
-<script>const APP_VERSION='v1.122', APP_UPDATED='2026-11-01';</script>
+<script>const APP_VERSION='v1.139', APP_UPDATED='2026-11-07';</script>
 <nav class="tabs no-print">
   <button type="button" id="tabGuide" onclick="switchView('guide')">📖 使用说明</button>
   <button type="button" id="tabInput" class="on" onclick="switchView('input')">✏️ 输入页</button>
@@ -350,33 +378,33 @@ header .hdrProduct{font-weight:inherit}
   <div class="card">
     <h2 data-i18n="guide.what.title">这是什么</h2>
     <div class="guideBody">
-      <p data-i18n="guide.what.p1">「资产配置大师 by RayFi」是一份<strong>单文件本地工具</strong>：用浏览器打开 HTML 就能用，不用安装、没有服务器、也没有账号。网上就是这一版——下载的 HTML 里<strong>不含</strong>任何人的真实持仓；你的持仓、目标%、托管列表、快照和界面偏好，只留在<strong>本机浏览器</strong>的 localStorage（键名 <code>assetAlloc_share_v2</code>；界面偏好另用 <code>assetAlloc_share_ui_v2</code>）。第一次打开会看到虚构样本 <strong>AA_random_V1</strong>（大约一亿量级），先摸清流程再改成自己的。本机如果以前用过旧个人版，首次打开会自动迁入；也可以随时导入 JSON。想回到演示样本，点「恢复默认」（两步确认，执行前会先下载一份备份）。</p>
+      <p data-i18n="guide.what.p1">「资产配置大师 by RayFi」是一份<strong>单文件本地工具</strong>：用浏览器打开 HTML 就能用，不用安装、没有服务器、也没有账号。网上就是这一版——下载的 HTML 里<strong>不含</strong>任何人的真实持仓；你的持仓、目标%、托管列表、快照和界面偏好，只留在<strong>本机浏览器</strong>的 localStorage（键名 <code>assetAlloc_share_v2</code>；界面偏好另用 <code>assetAlloc_share_ui_v2</code>）。第一次打开会看到虚构样本 <strong>AA_random_CN_V2</strong>（中文界面约 ¥1 亿）或 <strong>AA_random_US_V2</strong>（英文界面约 $10M），先摸清流程再改成自己的。本机如果以前用过旧个人版，首次打开会自动迁入；也可以随时导入 JSON。想回到演示样本，点「恢复默认」（两步确认，执行前会先下载一份备份）。</p>
       <p data-i18n="guide.what.p2">设计目标很朴素：把「目标配置」和「实际持仓」放在同一张可编辑的树上，随时看到缺口与再平衡方向；再用多维分析（托管 vs 底层资产、风险、风格、币种、流动性等）对照「钱在哪」和「风险在哪」。它面向认真做全球/多资产配置的个人投资者与家庭办公室式记账，而不是交易终端或投顾推荐引擎。</p>
     </div>
   </div>
   <div class="card">
     <h2 data-i18n="guide.feat.title">功能一览</h2>
     <div class="guideBody">
-      <p data-i18n="guide.feat.p1"><strong>配置树（一级→二级→三级→可选四级）</strong>：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。</p>
+      <p data-i18n="guide.feat.p1"><strong>配置树（类别→子类别→资产→可选子资产）</strong>：用层级组织资产大类、策略与具体持仓。目标% 通常写在资产（若某子类别下所有资产目标都空，也可直接写在子类别）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。</p>
       <p data-i18n="guide.feat.p2"><strong>持仓字段</strong>：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。行情来源：美股/港股/日股/A股用腾讯行情（备用 CNBC）；加密用 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。</p>
       <p data-i18n="guide.feat.p3"><strong>托管位置列表</strong>：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。</p>
       <p data-i18n="guide.feat.p4"><strong>分类标签</strong>：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。</p>
-      <p data-i18n="guide.feat.p5"><strong>分析页六维</strong>：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。</p>
+      <p data-i18n="guide.feat.p5"><strong>分析页六维</strong>：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、资产旭日图、风险与税务提示。打印时主要输出分析页。</p>
       <p data-i18n="guide.feat.p6"><strong>汇率与计价</strong>：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；打开页面即可自动获取汇率（来源 open.er-api），失败时用缓存或内置默认值。</p>
       <p data-i18n="guide.feat.p7"><strong>快照</strong>：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。</p>
-      <p data-i18n="guide.feat.p8"><strong>导入/导出 JSON</strong>：文件名形如 <code>AA_YYYY-MM-DD HH:mm.json</code>（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。</p>
-      <p data-i18n="guide.feat.p9"><strong>个人信息/税务提示与 AI 提示词</strong>：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。</p>
+      <p data-i18n="guide.feat.p8"><strong>导入/导出 JSON</strong>：文件名形如 <code>AA_YYYY-MM-DD HH:mm.json</code>（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。导出时支持的浏览器可另存到与本 HTML 同目录；否则进默认下载文件夹。换电脑、换浏览器或替换新版 HTML 前务必先导出。</p>
+      <p data-i18n="guide.feat.p9"><strong>个人信息/税务提示与 AI 提示词</strong>：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_CN_V2 / AA_random_US_V2（随当前界面语言；两步确认，执行前自动下载备份）。</p>
     </div>
   </div>
   <div class="card">
     <h2 data-i18n="guide.steps.title">怎么用（建议流程）</h2>
     <div class="guideBody">
-      <p data-i18n="guide.steps.p1"><strong>1. 首次打开</strong>：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_V1。</p>
-      <p data-i18n="guide.steps.p2"><strong>2. 改成自己的树</strong>：在输入页增删一/二/三级，必要时加四级持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。</p>
-      <p data-i18n="guide.steps.p3"><strong>3. 设定目标%</strong>：在三级（或条件允许时在二级）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。</p>
+      <p data-i18n="guide.steps.p1"><strong>1. 首次打开</strong>：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_CN_V2（中文）或 AA_random_US_V2（英文）。</p>
+      <p data-i18n="guide.steps.p2"><strong>2. 改成自己的树</strong>：在输入页增删类别/子类别/资产，必要时加子资产持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。</p>
+      <p data-i18n="guide.steps.p3"><strong>3. 设定目标%</strong>：在资产（或条件允许时在子类别）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。</p>
       <p data-i18n="guide.steps.p4"><strong>4. 刷新行情与标签</strong>：点「刷新价格」更新可报价标的；检查并修正风险/风格/底层资产/流动性标签。</p>
       <p data-i18n="guide.steps.p5"><strong>5. 看分析页</strong>：切换到分析页，对照托管 vs 底层资产（例如中国 QDII 买标普：托管算「中」，底层算「美国」），再看风险与流动性结构。</p>
-      <p data-i18n="guide.steps.p6"><strong>6. 备份</strong>：定期「导出 JSON」存网盘；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。</p>
+      <p data-i18n="guide.steps.p6"><strong>6. 备份</strong>：定期「导出 JSON」（可存到 HTML 同目录或下载文件夹/网盘）；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。</p>
     </div>
   </div>
   <div class="card">
@@ -407,6 +435,23 @@ header .hdrProduct{font-weight:inherit}
     <h2 data-i18n="guide.cl.title">版本更新历史</h2>
     <div class="guideBody">
       <ul class="cl" id="guideChangelog">
+        <li><span class="cv">v1.139</span><span class="cn" data-i18n="guide.cl.139">快照列表总资产：整数显示并加千分位（无小数）</span></li>
+        <li><span class="cv">v1.138</span><span class="cn" data-i18n="guide.cl.138">双语默认样例 AA_random_CN_V2（~¥1亿）/ AA_random_US_V2（~$10M）：按界面语言 seed/恢复默认；切换语言不改写持仓；托管列表扩充并支持英样例汉字前缀分区</span></li>
+        <li><span class="cv">v1.137</span><span class="cn" data-i18n="guide.cl.137">conc_leaf/crypto：>15%留意、≥20%需处理、>25%重大风险；conc_mkt：>35%留意、≥40%需处理、>45%重大风险</span></li>
+        <li><span class="cv">v1.136</span><span class="cn" data-i18n="guide.cl.136">新增 conc_mkt 单一市场集中：按底层资产/地区（美股、港股、A股、日欧等）合计，非托管券商；>15%留意、≥50%需处理（不升重大风险）</span></li>
+        <li><span class="cv">v1.135</span><span class="cn" data-i18n="guide.cl.135">四档徽章（重大风险/需处理/留意/良好）；按组合压力与可行动调仓归档；单票/加密≥20%需处理、≥25%重大风险；税务一律留意等</span></li>
+        <li><span class="cv">v1.134</span><span class="cn" data-i18n="guide.cl.134">税务类提示徽章由「需处理」改为「留意」（申报类提醒，非必须立刻处置）</span></li>
+        <li><span class="cv">v1.133</span><span class="cn" data-i18n="guide.cl.133">分析页结构提示：标题缩短；数量/阈值细节移入「问题」栏（与 tip.prob 一并展示）</span></li>
+        <li><span class="cv">v1.132</span><span class="cn" data-i18n="guide.cl.132">分析页提示：严重度徽章+短标题；其下问题|建议文案分列（不与标题重复）；空触发项仍占右栏对齐</span></li>
+        <li><span class="cv">v1.131</span><span class="cn" data-i18n="guide.cl.131">分析页底部提示：标题下内双栏「问题 | 建议」（布局 E）；右侧「触发项」小字不变；提示卡不再铺 RayFi 水印以免叠字</span></li>
+        <li><span class="cv">v1.130</span><span class="cn" data-i18n="guide.cl.130">分析页底部提示：左侧「问题」与「建议」分层更清晰（标签+分隔线+字重层级），右侧触发项不变</span></li>
+        <li><span class="cv">v1.129</span><span class="cn" data-i18n="guide.cl.129">导出 JSON：支持的浏览器用系统另存为（可选到与 HTML 同目录），按钮仍显示「导出」；不支持则进下载文件夹；恢复默认前自动备份同逻辑</span></li>
+        <li><span class="cv">v1.128</span><span class="cn" data-i18n="guide.cl.128">打开文件默认进入输入页（不再恢复上次所在页签）</span></li>
+        <li><span class="cv">v1.127</span><span class="cn" data-i18n="guide.cl.127">分析页底部提示改为左右栏：左「建议」大字醒目、右「触发项」小字；中间六块仍一行两卡</span></li>
+        <li><span class="cv">v1.126</span><span class="cn" data-i18n="guide.cl.126">分析页中间六块分类恢复一行两卡；双饼图尽量放大（约 1.5×，窄屏略缩以并排）；底部风险提示「建议」加粗加大更醒目</span></li>
+        <li><span class="cv">v1.125</span><span class="cn" data-i18n="guide.cl.125">分析页中间六块分类统计双饼图直径约放大 1.5 倍（卡片改为通栏以便并排；旭日图不变）</span></li>
+        <li><span class="cv">v1.124</span><span class="cn" data-i18n="guide.cl.124">备份列导入↓/导出↑图标纠正；分析页防伪水印铺满每一个卡片大方块；旭日/饼图底透明让水印透出；删除托管仅按持仓精确名占用判断（修「其他」误报）</span></li>
+        <li><span class="cv">v1.123</span><span class="cn" data-i18n="guide.cl.123">分析页：旭日图中间「实际% → 目标%」图例；图表 Scheme-C 水印</span></li>
         <li><span class="cv">v1.122</span><span class="cn" data-i18n="guide.cl.122">托管列表：已用保持原样式并靠前，未用置后灰色；导出保留全部，导入整表替换不合并默认</span></li>
         <li><span class="cv">v1.121</span><span class="cn" data-i18n="guide.cl.121">输入页：去掉「本地说明」横幅（要点并入使用说明）；托管位置列表标题旁加「？」说明（再点收起），讲清首字分类与增删改</span></li>
         <li><span class="cv">v1.120</span><span class="cn" data-i18n="guide.cl.120">输入页：备份列左侧竖线拉满与计价/税务/快照分区竖线同高（顶栏列等高拉伸）</span></li>
@@ -435,7 +480,7 @@ header .hdrProduct{font-weight:inherit}
         <li><span class="cv">v1.97</span><span class="cn" data-i18n="guide.cl.97">分享版隐私与样本数据完善</span></li>
         <li><span class="cv">v1.96</span><span class="cn" data-i18n="guide.cl.96">目标% 一位小数；分享版 KEY share_v2 + 本地说明横幅</span></li>
         <li><span class="cv">v1.95</span><span class="cn" data-i18n="guide.cl.95">托管|底层资产同行；QDII 示例说明</span></li>
-        <li><span class="cv">v1.94</span><span class="cn" data-i18n="guide.cl.94">↑三级 / ↓四级 操作</span></li>
+        <li><span class="cv">v1.94</span><span class="cn" data-i18n="guide.cl.94">↑资产 / ↓子资产 操作</span></li>
         <li><span class="cv">v1.93</span><span class="cn" data-i18n="guide.cl.93">分析页双甜甜圈图加大</span></li>
         <li><span class="cv">v1.92</span><span class="cn" data-i18n="guide.cl.92">拖拽跨父级与层级操作完善</span></li>
         <li><span class="cv">v1.91</span><span class="cn" data-i18n="guide.cl.91">小修</span></li>
@@ -471,7 +516,7 @@ header .hdrProduct{font-weight:inherit}
       <p data-i18n="comm.site.p1" data-i18n-html>官网就干几件事：学配置、看市场温度、下载记账工具、找社群入口。地址：<a href="https://www.rayfi.top" target="_blank" rel="noopener">https://www.rayfi.top</a></p>
       <p data-i18n="comm.site.p2">首页有配置教程视频，也有「优中选优、年度再平衡」这类方法说明，先搭架子再谈买卖。</p>
       <p data-i18n="comm.site.p3">市场看板里有 A股温度、股指期货吃贴水、美股温度等图，日更。用来感受贵贱和情绪，不当日内喊单。</p>
-      <p data-i18n="comm.site.p4">「资产配置大师」是单文件网页，下载后双击用浏览器打开就行，不用注册。持仓只存在你这台电脑的浏览器里。四级分类、目标对照、再平衡差多少、钱在哪/风险在哪，都能摊开看，也能导出 JSON 备份。</p>
+      <p data-i18n="comm.site.p4">「资产配置大师」是单文件网页，下载后双击用浏览器打开就行，不用注册。持仓只存在你这台电脑的浏览器里。子资产分类、目标对照、再平衡差多少、钱在哪/风险在哪，都能摊开看，也能导出 JSON 备份。</p>
       <p data-i18n="comm.site.p5">会员区有内部课程和资料。外面还有 YouTube、B站、公众号「RayFi躺赚」、雪球、X，以及《配置天书》。想动手先下工具，想看市场进看板，想深聊看下面入群。</p>
     </div>
   </div>
@@ -511,8 +556,8 @@ header .hdrProduct{font-weight:inherit}
       </div>
     </div>
     <div class="ctlCol backupCol">
-      <div class="dgh"><span data-i18n="backup.title">💾 备份到文件</span> <span class="tipi" data-i18n-title="backup.tip" title="导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件，放在电脑/网盘里。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。">ⓘ</span></div>
-      <div class="dgrow"><button type="button" class="bkBtn" onclick="document.getElementById('imp').click()" data-i18n-title="backup.import.tip" title="从之前导出的 JSON 文件完整恢复全部数据（会覆盖当前数据）"><span class="bkIcon" aria-hidden="true">⬆️</span><span class="bkText"><span class="bkAction" data-i18n="backup.import.action">导入</span><span class="bkCap" data-i18n="backup.import.cap">我的资产配置数据 JSON</span></span></button><button type="button" class="bkBtn" onclick="exportJ()" data-i18n-title="backup.tip" title="导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件，放在电脑/网盘里。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。"><span class="bkIcon" aria-hidden="true">⬇️</span><span class="bkText"><span class="bkAction" data-i18n="backup.export.action">导出</span><span class="bkCap" data-i18n="backup.export.cap">我的资产配置数据 JSON</span></span></button></div>
+      <div class="dgh"><span data-i18n="backup.title">💾 备份到文件</span> <span class="tipi" data-i18n-title="backup.tip" title="导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件。支持的浏览器可弹出另存为对话框，选到与本 HTML 同目录；不支持或被拦截时仍进浏览器默认下载文件夹。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。">ⓘ</span></div>
+      <div class="dgrow"><button type="button" class="bkBtn" onclick="document.getElementById('imp').click()" data-i18n-title="backup.import.tip" title="从之前导出的 JSON 文件完整恢复全部数据（会覆盖当前数据）"><span class="bkIcon" aria-hidden="true">📥</span><span class="bkText"><span class="bkAction" data-i18n="backup.import.action">导入</span><span class="bkCap" data-i18n="backup.import.cap">我的资产配置数据 JSON</span></span></button><button type="button" class="bkBtn" onclick="exportJ()" data-i18n-title="backup.tip" title="导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件。支持的浏览器可弹出另存为对话框，选到与本 HTML 同目录；不支持或被拦截时仍进浏览器默认下载文件夹。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。"><span class="bkIcon" aria-hidden="true">📤</span><span class="bkText"><span class="bkAction" data-i18n="backup.export.action">导出</span><span class="bkCap" data-i18n="backup.export.cap">我的资产配置数据 JSON</span></span></button></div>
     </div>
     <div class="ctlCol snapCol">
       <div class="dgh"><span data-i18n="snap.title">📷 快照</span> <span class="tipi" data-i18n-title="snap.tip" title="快照 = 存在当前浏览器里的时间点记录（各持仓的实际%/目标%/金额），用于对比不同时间的配置变化。它不是文件备份：清除浏览器数据、换浏览器/电脑就会丢失；要长期保存请用左侧「导出」（导出文件会包含所有快照）。">ⓘ</span></div>
@@ -537,11 +582,11 @@ header .hdrProduct{font-weight:inherit}
     </div>
   </div>
   <div class="card">
-    <h2><span data-i18n="alloc.title">资产配置明细</span> <span class="badge" data-i18n="alloc.badge">一级 → 二级 → 三级（持仓/设目标）→ 四级可选</span></h2>
-    <div class="barLegend" id="barLegend"><span data-i18n="alloc.legend1">左侧色条：</span><span><i style="background:#1f3a5f"></i><i style="background:#4a6f9e;width:4px"></i><i style="background:#8fa9cc;width:3px"></i><span data-i18n="alloc.legend2">深蓝/蓝 = 层级标记（一级→四级）</span></span><span data-i18n="alloc.legend3">⋮⋮ 按住拖动可跨父级调整：二级可到其他一级下，三级可到其他二级下，四级可到任意三级下；也可拖到上一级行挂到末尾</span></div>
-    <p class="hint" data-i18n="alloc.hintHtml" data-i18n-html>种子在<strong>三级</strong>（金额/%）；四级默认空。三级无子级时即为持仓（等同四级，所有字段可直接编辑）。持仓可填：代码(symbol)、数量、单价（手填或「刷新价格」）、金额（数量×单价自动锁定，或仅填金额）。</p>
+    <h2><span data-i18n="alloc.title">资产配置明细</span> <span class="badge" data-i18n="alloc.badge">类别 → 子类别 → 资产（持仓/设目标）→ 子资产可选</span></h2>
+    <div class="barLegend" id="barLegend"><span data-i18n="alloc.legend1">左侧色条：</span><span><i style="background:#1f3a5f"></i><i style="background:#4a6f9e;width:4px"></i><i style="background:#8fa9cc;width:3px"></i><span data-i18n="alloc.legend2">深蓝/蓝 = 层级标记（类别→子资产）</span></span><span data-i18n="alloc.legend3">⋮⋮ 按住拖动可跨父级调整：子类别可到其他类别下，资产可到其他子类别下，子资产可到任意资产下；也可拖到上一级行挂到末尾</span></div>
+    <p class="hint" data-i18n="alloc.hintHtml" data-i18n-html>种子在<strong>资产</strong>（金额/%）；子资产默认空。资产无子级时即为持仓（等同子资产，所有字段可直接编辑）。持仓可填：代码(symbol)、数量、单价（手填或「刷新价格」）、金额（数量×单价自动锁定，或仅填金额）。</p>
     <div class="ctl tblBar no-print">
-    <button onclick="collapseTo(0)" data-i18n="btn.expandAll">全部展开</button><button onclick="collapseTo(9)" data-i18n="btn.collapseAll">全部折叠</button><button onclick="collapseTo(1)" data-i18n="btn.collapseL1" data-i18n-title="btn.collapseL1.title" title="只显示一级小计">折叠到一级</button><button onclick="collapseTo(2)" data-i18n="btn.collapseL2" data-i18n-title="btn.collapseL2.title" title="显示到二级小计">折叠到二级</button>
+    <button onclick="collapseTo(0)" data-i18n="btn.expandAll">全部展开</button><button onclick="collapseTo(9)" data-i18n="btn.collapseAll">全部折叠</button><button onclick="collapseTo(1)" data-i18n="btn.collapseL1" data-i18n-title="btn.collapseL1.title" title="只显示类别小计">折叠到类别</button><button onclick="collapseTo(2)" data-i18n="btn.collapseL2" data-i18n-title="btn.collapseL2.title" title="显示到子类别小计">折叠到子类别</button>
     <button onclick="sortByAmount()" data-i18n="btn.sortAmt" data-i18n-title="btn.sortAmt.title" title="一次性：各层级同级按实际金额（无金额时按实际%）降序">按金额排序</button>
     <label title="开启后每次重新计算都自动按金额排序" style="font-size:14px"><input type="checkbox" id="autoSort" onchange="S.autoSort=this.checked;save()"><span data-i18n="btn.autoSort"> 自动排序</span></label>
     <button class="p" id="btnRefreshPx" onclick="refreshAllPrices(false)" data-i18n="btn.refreshPx">🔄 刷新价格</button>
@@ -550,14 +595,14 @@ header .hdrProduct{font-weight:inherit}
     </div>
     <div class="tbl-wrap" id="tbl"></div>
   </div>
-  <div class="dangerZone no-print"><b style="color:#c0392b" data-i18n="danger.title">⚠ 危险操作</b><button class="dangerBtn" onclick="resetStep1()" data-i18n="danger.reset" data-i18n-title="danger.reset.title" title="危险：清空全部数据（各级行、金额/数量/代码、四级持仓、目标%、托管列表、快照、手动汇率等）并恢复示例数据。需两次确认，执行前自动下载 JSON 备份">恢复默认</button><span data-i18n="danger.hint">清空全部数据并恢复示例数据（两步确认，执行前自动下载 JSON 备份）</span></div>
+  <div class="dangerZone no-print"><b style="color:#c0392b" data-i18n="danger.title">⚠ 危险操作</b><button class="dangerBtn" onclick="resetStep1()" data-i18n="danger.reset" data-i18n-title="danger.reset.title" title="危险：清空全部数据（各级行、金额/数量/代码、子资产持仓、目标%、托管列表、快照、手动汇率等）并恢复示例数据。需两次确认，执行前自动下载 JSON 备份">恢复默认</button><span data-i18n="danger.hint">清空全部数据并恢复示例数据（两步确认，执行前自动下载 JSON 备份）</span></div>
 </div>
 
 <!-- ===== 分析页 ===== -->
 <div id="viewAnalysis" class="view">
   <div class="card"><h2 data-i18n="ana.overview">组合概览</h2><div class="heroWrap" id="analysisStats"></div><div id="analysisWarn"></div></div>
-  <div class="card"><h2 data-i18n="ana.sunburst">三级旭日图（一级 / 二级 / 三级）</h2>
-    <div class="charts" id="charts"></div><div class="legend" id="legend"></div>
+  <div class="card"><h2 data-i18n="ana.sunburst">资产旭日图（类别 / 子类别 / 资产）</h2>
+    <div class="charts" id="charts"></div>
   </div>
   <div class="dimGrid">
   <div class="card dimCard"><div class="dimHead"><h2 data-i18n="ana.cust.title">🏦 按托管分类统计</h2><p class="hint" data-i18n="ana.cust.hint">托管 = 资金所在国家/地区（按托管名称首个汉字：美券商A→美、中银行D→中、港券商B→港、链冷钱包→链；无汉字→其他）。例：在中国用 QDII 买标普500 → 托管仍算「中」。点击看明细。</p></div><div id="custStats" class="dimBody"></div></div>
@@ -567,7 +612,7 @@ header .hdrProduct{font-weight:inherit}
   <div class="card dimCard"><div class="dimHead"><h2 data-i18n="ana.style.title">🎯 按投资风格统计</h2><p class="hint" data-i18n="ana.style.hint">按投资风格标签汇总；未设置的自动推断。点击看明细。</p></div><div id="dim_style" class="dimBody"></div></div>
   <div class="card dimCard"><div class="dimHead"><h2 data-i18n="ana.cur.title">💱 按计价币种统计</h2><p class="hint" data-i18n="ana.cur.hint">按持仓计价币种汇总。点击看明细。</p></div><div id="dim_cur" class="dimBody"></div></div>
   <div class="card dimCard"><div class="dimHead"><h2 data-i18n="ana.liq.title">💧 按流动性统计</h2><p class="hint" data-i18n="ana.liq.hint">按流动性标签汇总；未设置的自动推断。点击看明细。</p></div><div id="dim_liq" class="dimBody"></div></div>
-  <p class="hint" style="grid-column:1/-1" data-i18n="ana.tags.hint">风险等级/投资风格/底层资产/流动性：可在输入页三级（或四级）行右侧「🏷」按钮修改；未手动设置的按名称、代码、分类自动推断（灰色斜体），无法推断的显示「未分类」。点击扇区或表格行看持仓明细。</p></div>
+  <p class="hint" style="grid-column:1/-1" data-i18n="ana.tags.hint">风险等级/投资风格/底层资产/流动性：可在输入页资产（或子资产）行右侧「🏷」按钮修改；未手动设置的按名称、代码、分类自动推断（灰色斜体），无法推断的显示「未分类」。点击扇区或表格行看持仓明细。</p></div>
   <div class="card"><h2 data-i18n="ana.tips.title">🛡 风险与税务提示</h2>
     <p class="hint" data-i18n="ana.tips.hint">仅供参考，不构成投资或税务建议。</p>
     <div id="riskTips"></div>
@@ -584,25 +629,25 @@ const I18N={zh:{
 'hdr.product':'资产配置大师','hdr.badge':'本地 · 输入/分析','hdr.ver':'{v} · 更新于 {d}','hdr.avatarAlt':'RayFi 头像',
 'tab.guide':'📖 使用说明','tab.input':'✏️ 输入页','tab.analysis':'📈 分析页','tab.community':'《全球资产配置躺赚群》',
 'guide.what.title':'这是什么',
-'guide.what.p1':'「资产配置大师 by RayFi」是一份单文件本地工具：用浏览器打开 HTML 就能用，不用安装、没有服务器、也没有账号。网上就是这一版——下载的 HTML 里不含任何人的真实持仓；你的持仓、目标%、托管列表、快照和界面偏好，只留在本机浏览器的 localStorage（键名 assetAlloc_share_v2；界面偏好另用 assetAlloc_share_ui_v2）。第一次打开会看到虚构样本 AA_random_V1（大约一亿量级），先摸清流程再改成自己的。本机如果以前用过旧个人版，首次打开会自动迁入；也可以随时导入 JSON。想回到演示样本，点「恢复默认」（两步确认，执行前会先下载一份备份）。',
+'guide.what.p1':'「资产配置大师 by RayFi」是一份单文件本地工具：用浏览器打开 HTML 就能用，不用安装、没有服务器、也没有账号。网上就是这一版——下载的 HTML 里不含任何人的真实持仓；你的持仓、目标%、托管列表、快照和界面偏好，只留在本机浏览器的 localStorage（键名 assetAlloc_share_v2；界面偏好另用 assetAlloc_share_ui_v2）。第一次打开会看到虚构样本 AA_random_CN_V2（中文界面约 ¥1 亿）或 AA_random_US_V2（英文界面约 $10M），先摸清流程再改成自己的。本机如果以前用过旧个人版，首次打开会自动迁入；也可以随时导入 JSON。想回到演示样本，点「恢复默认」（两步确认，执行前会先下载一份备份）。',
 'guide.what.p2':'设计目标很朴素：把「目标配置」和「实际持仓」放在同一张可编辑的树上，随时看到缺口与再平衡方向；再用多维分析（托管 vs 底层资产、风险、风格、币种、流动性等）对照「钱在哪」和「风险在哪」。它面向认真做全球/多资产配置的个人投资者与家庭办公室式记账，而不是交易终端或投顾推荐引擎。',
 'guide.feat.title':'功能一览',
-'guide.feat.p1':'配置树（一级→二级→三级→可选四级）：用层级组织资产大类、策略与具体持仓。目标% 通常写在三级（若某二级下所有三级目标都空，也可直接写在二级）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。',
+'guide.feat.p1':'配置树（类别→子类别→资产→可选子资产）：用层级组织资产大类、策略与具体持仓。目标% 通常写在资产（若某子类别下所有资产目标都空，也可直接写在子类别）；有金额时实际% 由金额自动折算，并显示目标与实际的缺口，方便再平衡。',
 'guide.feat.p2':'持仓字段：名称、代码（symbol）、数量、单价、金额、计价币种等。金额可由「数量×单价」锁定，也可只填金额。点「刷新价格」可拉取美股/港股/日股/A股与加密等行情（失败时可手填）。行情来源：美股/港股/日股/A股用腾讯行情（备用 CNBC）；加密用 CoinGecko（备用 OKX/Hyperliquid/Kraken/Gate）。国内商品/股指期货：单价 = 行情 × 合约乘数（每手名义价值），数量填手数（空头为负）。',
 'guide.feat.p3':'托管位置列表：维护券商/银行/钱包等托管名称，并在持仓行选择；分析页可按托管国家/地区汇总「钱在哪」。',
 'guide.feat.p4':'分类标签：风险等级、投资风格、底层资产、流动性。未手动设置时按名称/代码/分类自动推断（灰色斜体），可在行右侧「🏷」修改；分析页按这些维度出双饼图与明细表。',
-'guide.feat.p5':'分析页六维：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、三级旭日图、风险与税务提示。打印时主要输出分析页。',
+'guide.feat.p5':'分析页六维：托管分类、底层资产、风险、风格、币种、流动性；另有组合概览、资产旭日图、风险与税务提示。打印时主要输出分析页。',
 'guide.feat.p6':'汇率与计价：可选 USD/CNY/HKD/EUR/JPY 等为计价币种；打开页面即可自动获取汇率（来源 open.er-api），失败时用缓存或内置默认值。',
 'guide.feat.p7':'快照：在当前浏览器内保存时间点配置，便于对比；不能替代文件备份。换机/清缓存会丢。',
-'guide.feat.p8':'导入/导出 JSON：文件名形如 AA_YYYY-MM-DD HH:mm.json（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。换电脑、换浏览器或替换新版 HTML 前务必先导出。',
-'guide.feat.p9':'个人信息/税务提示与 AI 提示词：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_V1（两步确认，执行前自动下载备份）。',
+'guide.feat.p8':'导入/导出 JSON：文件名形如 AA_YYYY-MM-DD HH:mm.json（本地时间到分钟），含全部树、金额、目标%、托管、设置与快照。导出时支持的浏览器可另存到与本 HTML 同目录；否则进默认下载文件夹。换电脑、换浏览器或替换新版 HTML 前务必先导出。',
+'guide.feat.p9':'个人信息/税务提示与 AI 提示词：可填税务居民等，用于生成风险与税务提示，以及导出给大模型的组合说明（可脱敏）。界面支持中英切换；另有「恢复默认」回到样本 AA_random_CN_V2 / AA_random_US_V2（随当前界面语言；两步确认，执行前自动下载备份）。',
 'guide.steps.title':'怎么用（建议流程）',
-'guide.steps.p1':'1. 首次打开：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_V1。',
-'guide.steps.p2':'2. 改成自己的树：在输入页增删一/二/三级，必要时加四级持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。',
-'guide.steps.p3':'3. 设定目标%：在三级（或条件允许时在二级）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。',
+'guide.steps.p1':'1. 首次打开：双击或用浏览器打开本 HTML。先浏览样本树，确认计价币种与汇率状态；需要时可点「恢复默认」重新载入 AA_random_CN_V2（中文）或 AA_random_US_V2（英文）。',
+'guide.steps.p2':'2. 改成自己的树：在输入页增删类别/子类别/资产，必要时加子资产持仓；填写托管、代码、数量/单价或金额；用拖拽调整层级与顺序。',
+'guide.steps.p3':'3. 设定目标%：在资产（或条件允许时在子类别）写入目标权重，让合计接近 100%；对照实际% 与缺口列决定加减仓方向。',
 'guide.steps.p4':'4. 刷新行情与标签：点「刷新价格」更新可报价标的；检查并修正风险/风格/底层资产/流动性标签。',
 'guide.steps.p5':'5. 看分析页：切换到分析页，对照托管 vs 底层资产（例如中国 QDII 买标普：托管算「中」，底层算「美国」），再看风险与流动性结构。',
-'guide.steps.p6':'6. 备份：定期「导出 JSON」存网盘；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。',
+'guide.steps.p6':'6. 备份：定期「导出 JSON」（可存到 HTML 同目录或下载文件夹/网盘）；重要节点可再「存快照」。换新版 HTML 前务必先导出，再打开新文件并导入。',
 'guide.tips.title':'提示与注意',
 'guide.tips.p1':'换版必备份：新下载的 HTML 不会自动带上你的持仓；数据在浏览器里。替换文件或清站点数据前先导出 JSON。',
 'guide.tips.p2':'托管 ≠ 底层资产：托管回答「钱放在哪家/哪国」，底层资产回答「经济风险敞口在哪」。QDII、互认基金、ADR 等尤其容易混——请用分析页左右对照。',
@@ -614,7 +659,7 @@ const I18N={zh:{
 'guide.gh.readme':'项目与 README：',
 'guide.gh.rel':'Releases（版本下载）：',
 'guide.cl.title':'版本更新历史',
-'guide.cl.122':'托管列表：已用保持原样式并靠前，未用置后灰色；导出保留全部，导入整表替换不合并默认','guide.cl.121':'输入页：去掉「本地说明」横幅（要点并入使用说明）；托管位置列表标题旁加「？」说明（再点收起），讲清首字分类与增删改','guide.cl.120':'输入页：备份列左侧竖线拉满与计价/税务/快照分区竖线同高（顶栏列等高拉伸）',
+'guide.cl.139':'快照列表总资产：整数显示并加千分位（无小数）','guide.cl.138':'双语默认样例 AA_random_CN_V2（~¥1亿）/ AA_random_US_V2（~$10M）：按界面语言 seed/恢复默认；切换语言不改写持仓；托管列表扩充并支持英样例汉字前缀分区','guide.cl.137':'conc_leaf/crypto：>15%留意、≥20%需处理、>25%重大风险；conc_mkt：>35%留意、≥40%需处理、>45%重大风险','guide.cl.136':'新增 conc_mkt 单一市场集中：按底层资产/地区（美股、港股、A股、日欧等）合计，非托管券商；>15%留意、≥50%需处理（不升重大风险）','guide.cl.135':'四档徽章（重大风险/需处理/留意/良好）；按组合压力与可行动调仓归档；单票/加密≥20%需处理、≥25%重大风险；税务一律留意等','guide.cl.134':'税务类提示徽章由「需处理」改为「留意」（申报类提醒，非必须立刻处置）','guide.cl.133':'分析页结构提示：标题缩短；数量/阈值细节移入「问题」栏（与 tip.prob 一并展示）','guide.cl.132':'分析页提示：严重度徽章+短标题；其下问题|建议文案分列（不与标题重复）；空触发项仍占右栏对齐','guide.cl.131':'分析页底部提示：标题下内双栏「问题 | 建议」（布局 E）；右侧「触发项」小字不变；提示卡不再铺 RayFi 水印以免叠字','guide.cl.130':'分析页底部提示：左侧「问题」与「建议」分层更清晰（标签+分隔线+字重层级），右侧触发项不变','guide.cl.129':'导出 JSON：支持的浏览器用系统另存为（可选到与 HTML 同目录），按钮仍显示「导出」；不支持则进下载文件夹；恢复默认前自动备份同逻辑','guide.cl.128':'打开文件默认进入输入页（不再恢复上次所在页签）','guide.cl.127':'分析页底部提示改为左右栏：左「建议」大字醒目、右「触发项」小字；中间六块仍一行两卡','guide.cl.126':'分析页中间六块分类恢复一行两卡；双饼图尽量放大（约 1.5×，窄屏略缩以并排）；底部风险提示「建议」加粗加大更醒目','guide.cl.125':'分析页中间六块分类统计双饼图直径约放大 1.5 倍（卡片改为通栏以便并排；旭日图不变）','guide.cl.124':'备份列导入↓/导出↑图标纠正；分析页防伪水印铺满每一个卡片大方块；旭日/饼图底透明让水印透出；删除托管仅按持仓精确名占用判断（修「其他」误报）','guide.cl.123':'分析页：旭日图中间「实际% → 目标%」图例；图表 Scheme-C 水印','guide.cl.122':'托管列表：已用保持原样式并靠前，未用置后灰色；导出保留全部，导入整表替换不合并默认','guide.cl.121':'输入页：去掉「本地说明」横幅（要点并入使用说明）；托管位置列表标题旁加「？」说明（再点收起），讲清首字分类与增删改','guide.cl.120':'输入页：备份列左侧竖线拉满与计价/税务/快照分区竖线同高（顶栏列等高拉伸）',
 'guide.cl.119':'备份列：导入/导出保持左右并排，图标改回左侧、文字右侧，整体高度与计价/税务/快照列对齐',
 'guide.cl.118':'输入页：计价与税务之间加竖线分区（对齐备份/快照左侧竖线）；备份列导入/导出改为左右并排（保留大图标+小字 JSON 说明）',
 'guide.cl.117':'备份列：导入/导出按钮图标加大更醒目，并配小字「导入/导出 我的资产配置数据 JSON」',
@@ -641,7 +686,7 @@ const I18N={zh:{
 'comm.site.p1':'官网就干几件事：学配置、看市场温度、下载记账工具、找社群入口。地址：<a href="https://www.rayfi.top" target="_blank" rel="noopener">https://www.rayfi.top</a>',
 'comm.site.p2':'首页有配置教程视频，也有「优中选优、年度再平衡」这类方法说明，先搭架子再谈买卖。',
 'comm.site.p3':'市场看板里有 A股温度、股指期货吃贴水、美股温度等图，日更。用来感受贵贱和情绪，不当日内喊单。',
-'comm.site.p4':'「资产配置大师」是单文件网页，下载后双击用浏览器打开就行，不用注册。持仓只存在你这台电脑的浏览器里。四级分类、目标对照、再平衡差多少、钱在哪/风险在哪，都能摊开看，也能导出 JSON 备份。',
+'comm.site.p4':'「资产配置大师」是单文件网页，下载后双击用浏览器打开就行，不用注册。持仓只存在你这台电脑的浏览器里。子资产分类、目标对照、再平衡差多少、钱在哪/风险在哪，都能摊开看，也能导出 JSON 备份。',
 'comm.site.p5':'会员区有内部课程和资料。外面还有 YouTube、B站、公众号「RayFi躺赚」、雪球、X，以及《配置天书》。想动手先下工具，想看市场进看板，想深聊看下面入群。',
 'comm.join.title':'入群扫码',
 'comm.join.price':'1000元/年',
@@ -658,7 +703,7 @@ const I18N={zh:{
 'guide.cl.97':'分享版隐私与样本数据完善',
 'guide.cl.96':'目标% 一位小数；分享版 KEY share_v2 + 本地说明横幅',
 'guide.cl.95':'托管|底层资产同行；QDII 示例说明',
-'guide.cl.94':'↑三级 / ↓四级 操作',
+'guide.cl.94':'↑资产 / ↓子资产 操作',
 'guide.cl.93':'分析页双甜甜圈图加大',
 'guide.cl.92':'拖拽跨父级与层级操作完善',
 'guide.cl.91':'小修',
@@ -678,25 +723,25 @@ const I18N={zh:{
 'tax.residency':'税务居民国籍/地区','tax.residency.title':'用于生成「风险与税务提示」及 AI 提示词','tax.select':'— 请选择 —',
 'tax.other.ph':'填写国家/地区','tax.usPerson':' 美国公民/绿卡','tax.usPerson.title':'美国公民或绿卡持有人（US Person），适用 FATCA/PFIC 等美国税务规则',
 'tax.hint':'请选择税务居民身份，风险与税务提示依此生成',
-'backup.title':'💾 备份到文件','backup.tip':'导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件，放在电脑/网盘里。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。',
-'backup.sub':'换电脑 / 换新版页面前必做','backup.export':'⬇️ 导出我的资产配置数据（JSON）','backup.import':'⬆️ 导入我的资产配置数据（JSON）','backup.export.action':'导出','backup.export.cap':'我的资产配置数据 JSON','backup.import.action':'导入','backup.import.cap':'我的资产配置数据 JSON',
+'backup.title':'💾 备份到文件','backup.tip':'导出 = 把全部数据（各级行、金额、目标%、托管列表、设置，以及所有快照）保存为一个 JSON 文件。支持的浏览器可弹出另存为对话框，选到与本 HTML 同目录；不支持或被拦截时仍进浏览器默认下载文件夹。换电脑、换浏览器、换新版页面或清理浏览器数据前务必导出；之后用「导入」即可完整恢复。',
+'backup.sub':'换电脑 / 换新版页面前必做','backup.export':'📤 导出我的资产配置数据（JSON）','backup.import':'📥 导入我的资产配置数据（JSON）','backup.export.action':'导出','backup.export.cap':'我的资产配置数据 JSON','backup.import.action':'导入','backup.import.cap':'我的资产配置数据 JSON',
 'backup.import.tip':'从之前导出的 JSON 文件完整恢复全部数据（会覆盖当前数据）','backup.hint':'存成文件放在电脑/网盘，含全部数据与快照，可随时导入恢复。',
 'snap.title':'📷 快照','snap.tip':'快照 = 存在当前浏览器里的时间点记录（各持仓的实际%/目标%/金额），用于对比不同时间的配置变化。它不是文件备份：清除浏览器数据、换浏览器/电脑就会丢失；要长期保存请用左侧「导出」（导出文件会包含所有快照）。',
 'snap.sub':'页面内历史记录，用于对比不同时间的配置','snap.note.ph':'快照备注（可选）','snap.save':'📷 存快照','snap.list':'快照列表（{n}）',
 'snap.hint':'保存在本浏览器里；清除浏览器数据会丢失，长期保存请用左侧「导出」。',
 'quote.fail.sum':'部分报价获取失败 — 查看说明',
 'fx.other.title':'「其他」自定义代码汇率（1 单位 → USD）','custody.title':'托管位置列表','custody.help.btn':'使用说明（再点关闭）','custody.unusedTip':'未在持仓中使用（导出仍会保留）','custody.add.ph':'新增托管位置','custody.add':'＋ 添加',
-'alloc.title':'资产配置明细','alloc.badge':'一级 → 二级 → 三级（持仓/设目标）→ 四级可选',
-'alloc.legend1':'左侧色条：','alloc.legend2':'深蓝/蓝 = 层级标记（一级→四级）',
-'alloc.legend3':'⋮⋮ 按住拖动可跨父级调整：二级可到其他一级下，三级可到其他二级下，四级可到任意三级下；也可拖到上一级行挂到末尾',
-'alloc.hintHtml':'种子在<strong>三级</strong>（金额/%）；四级默认空。三级无子级时即为持仓（等同四级，所有字段可直接编辑）。持仓可填：代码(symbol)、数量、单价（手填或「刷新价格」）、金额（数量×单价自动锁定，或仅填金额）。',
-'btn.expandAll':'全部展开','btn.collapseAll':'全部折叠','btn.collapseL1':'折叠到一级','btn.collapseL1.title':'只显示一级小计',
-'btn.collapseL2':'折叠到二级','btn.collapseL2.title':'显示到二级小计','btn.sortAmt':'按金额排序',
+'alloc.title':'资产配置明细','alloc.badge':'类别 → 子类别 → 资产（持仓/设目标）→ 子资产可选',
+'alloc.legend1':'左侧色条：','alloc.legend2':'深蓝/蓝 = 层级标记（类别→子资产）',
+'alloc.legend3':'⋮⋮ 按住拖动可跨父级调整：子类别可到其他类别下，资产可到其他子类别下，子资产可到任意资产下；也可拖到上一级行挂到末尾',
+'alloc.hintHtml':'种子在<strong>资产</strong>（金额/%）；子资产默认空。资产无子级时即为持仓（等同子资产，所有字段可直接编辑）。持仓可填：代码(symbol)、数量、单价（手填或「刷新价格」）、金额（数量×单价自动锁定，或仅填金额）。',
+'btn.expandAll':'全部展开','btn.collapseAll':'全部折叠','btn.collapseL1':'折叠到类别','btn.collapseL1.title':'只显示类别小计',
+'btn.collapseL2':'折叠到子类别','btn.collapseL2.title':'显示到子类别小计','btn.sortAmt':'按金额排序',
 'btn.sortAmt.title':'一次性：各层级同级按实际金额（无金额时按实际%）降序','btn.autoSort':' 自动排序','btn.autoSort.title':'开启后每次重新计算都自动按金额排序',
 'btn.refreshPx':'🔄 刷新价格','danger.title':'⚠ 危险操作','danger.reset':'恢复默认',
-'danger.reset.title':'危险：清空全部数据（各级行、金额/数量/代码、四级持仓、目标%、托管列表、快照、手动汇率等）并恢复示例数据。需两次确认，执行前自动下载 JSON 备份',
+'danger.reset.title':'危险：清空全部数据（各级行、金额/数量/代码、子资产持仓、目标%、托管列表、快照、手动汇率等）并恢复示例数据。需两次确认，执行前自动下载 JSON 备份',
 'danger.hint':'清空全部数据并恢复示例数据（两步确认，执行前自动下载 JSON 备份）',
-'ana.overview':'组合概览','ana.sunburst':'三级旭日图（一级 / 二级 / 三级）',
+'ana.overview':'组合概览','ana.sunburst':'资产旭日图（类别 / 子类别 / 资产）',
 'ana.cust.title':'🏦 按托管分类统计','ana.cust.hint':'托管 = 资金所在国家/地区（按托管名称首个汉字：美券商A→美、中银行D→中、港券商B→港、链冷钱包→链；无汉字→其他）。例：在中国用 QDII 买标普500 → 托管仍算「中」。点击看明细。',
 'ana.region.title':'🌏 按底层资产统计','ana.region.hint':'底层资产 = 经济敞口所在地（标签可改；未设则自动推断）。例：同上 QDII 标普500 → 「美国」。与左侧托管分类对照看「钱在哪」vs「风险在哪」。点击看明细。',
 'ana.ex':'例：在中国通过 QDII 买标普500：按托管分类算「中」（钱在中国），按底层资产算「美国」（风险敞口在美国）。',
@@ -704,77 +749,77 @@ const I18N={zh:{
 'ana.style.title':'🎯 按投资风格统计','ana.style.hint':'按投资风格标签汇总；未设置的自动推断。点击看明细。',
 'ana.cur.title':'💱 按计价币种统计','ana.cur.hint':'按持仓计价币种汇总。点击看明细。',
 'ana.liq.title':'💧 按流动性统计','ana.liq.hint':'按流动性标签汇总；未设置的自动推断。点击看明细。',
-'ana.tags.hint':'风险等级/投资风格/底层资产/流动性：可在输入页三级（或四级）行右侧「🏷」按钮修改；未手动设置的按名称、代码、分类自动推断（灰色斜体），无法推断的显示「未分类」。点击扇区或表格行看持仓明细。',
+'ana.tags.hint':'风险等级/投资风格/底层资产/流动性：可在输入页资产（或子资产）行右侧「🏷」按钮修改；未手动设置的按名称、代码、分类自动推断（灰色斜体），无法推断的显示「未分类」。点击扇区或表格行看持仓明细。',
 'ana.tips.title':'🛡 风险与税务提示','ana.tips.hint':'仅供参考，不构成投资或税务建议。',
-'th.l1':'一级','th.l2':'二级','th.l3':'三级','th.l4':'四级','th.cur':'币种','th.cust':'托管','th.code':'代码','th.qty':'数量','th.px':'单价','th.amt':'金额',
+'th.l1':'类别','th.l2':'子类别','th.l3':'资产','th.l4':'子资产','th.cur':'币种','th.cust':'托管','th.code':'代码','th.qty':'数量','th.px':'单价','th.amt':'金额',
 'th.act':'实际%','th.tgt':'目标%','th.gap':'目标差距','th.actAmt':'实际金额','th.tgtAmt':'目标金额','th.rebAmt':'调仓金额','th.ops':'操作',
-'row.l1sub':'一级小计','row.l2sub':'二级小计','row.l3sub':'三级小计','row.total':'合计',
-'ph.l1':'填写一级名称','ph.l2':'填写二级名称','ph.l3':'填写三级名称','ph.l4':'填写四级名称','ph.code':'代码','ph.px':'单价',
-'btn.addL1':'新增一级大类','btn.addL2':'新增二级','btn.addL3':'新增三级','btn.addL4':'新增四级',
-'btn.delL1':'删除一级','btn.delL2':'删除二级','btn.delL3':'删除三级','btn.delL4':'删除四级',
-'btn.promote':'↑三级','btn.promote.title':'提升为三级（同二级下独立一行）','btn.demote':'↓四级','btn.demote.title':'降为四级（并入上一个三级；若无上一个则并入下一个）',
+'row.l1sub':'类别小计','row.l2sub':'子类别小计','row.l3sub':'资产小计','row.total':'合计',
+'ph.l1':'填写类别名称','ph.l2':'填写子类别名称','ph.l3':'填写资产名称','ph.l4':'填写子资产名称','ph.code':'代码','ph.px':'单价',
+'btn.addL1':'新增类别','btn.addL2':'新增子类别','btn.addL3':'新增资产','btn.addL4':'新增子资产',
+'btn.delL1':'删除类别','btn.delL2':'删除子类别','btn.delL3':'删除资产','btn.delL4':'删除子资产',
+'btn.promote':'↑资产','btn.promote.title':'提升为资产（同子类别下独立一行）','btn.demote':'↓子资产','btn.demote.title':'降为子资产（并入上一个资产；若无上一个则并入下一个）',
 'btn.expand':'展开','btn.collapse':'折叠','btn.buy':'买入 ','btn.sell':'卖出 ',
-'title.editName':'点击修改名称（可自定义）','title.noL4':'无四级（三级即持仓）','title.tgtAtL2':'目标设在二级','title.tgtAtL3':'目标% 设在三级',
+'title.editName':'点击修改名称（可自定义）','title.noL4':'无子资产（资产即持仓）','title.tgtAtL2':'目标设在子类别','title.tgtAtL3':'目标% 设在资产',
 'title.custCat':'托管分类（名称首个汉字）','title.renameCust':'点击修改名称，所有引用的资产会同步更新','title.delFromList':'从列表删除',
 'opt.blank':'（未填）','opt.custom':'＋ 自定义…','opt.other':'其他','prompt.customCust':'自定义托管位置：',
-'confirm.delL1':'删除一级？','confirm.delL2':'删除二级？','confirm.delL3':'删除三级？','confirm.delL4':'删除该四级？','confirm.delSnap':'删除？',
+'confirm.delL1':'删除类别？','confirm.delL2':'删除子类别？','confirm.delL3':'删除资产？','confirm.delL4':'删除该子资产？','confirm.delSnap':'删除？',
 'confirm.mergeCust':'「{name}」已存在，合并到该位置？','confirm.delCustUsed':'「{name}」被 {n} 项资产使用。仅从列表移除（资产保留该名称）？',
-'alert.needOtherL3':'同二级下需要另一个三级作为父级。可先新增三级，或把本行拖到其他三级下。',
+'alert.needOtherL3':'同子类别下需要另一个资产作为父级。可先新增资产，或把本行拖到其他资产下。',
 'alert.importOk':'导入成功','alert.importBad':'文件格式不正确',
 'warn.actSum':'实际% 合计为 {n}，不等于 100。','warn.tgtSum':'目标% 合计为 {n}，不等于 100。',
 'warn.mixed':'混合模式：{nAmt} 项按金额，{nMan} 项手填实际%（表中以<b class="manualTxt">紫色粗体</b>标出）。手填：',
 'warn.noFx':'{path} 未设置兑 USD 汇率。',
-'px.last':'上次拉价 {t}','px.never':'尚未自动拉价（四级填写代码后点刷新）','px.cash':'现金','px.cash.title':'代码为货币：按现金处理，单价=1，按汇率折算','px.quote':'行情 {t}',
+'px.last':'上次拉价 {t}','px.never':'尚未自动拉价（子资产填写代码后点刷新）','px.cash':'现金','px.cash.title':'代码为货币：按现金处理，单价=1，按汇率折算','px.quote':'行情 {t}',
 'manual.pct':'手填实际%（未填金额）：','locked.byAmt':'由金额自动计算：',
-'sun.actual':'当前实际','sun.target':'目标配置','sun.byAct':'按实际%','sun.byTgt':'按目标%','sun.hint':'（悬停查看，点击三级查看四级明细）',
-'sun.clickL4':'点击查看四级明细','sun.noL4':'无四级明细（显示三级自身持仓）','sun.l4n':'四级 {n} 项','sun.tgtAtL2':'（设在二级）',
-'sun.th.name':'名称','sun.th.code':'代码','sun.th.qty':'数量','sun.th.px':'单价','sun.th.cur':'币种','sun.th.amt':'金额({bc})','sun.th.ofL3':'占三级','sun.th.ofTot':'占总','sun.th.cust':'托管','sun.noL4rows':'无四级明细','sun.act':'实际','sun.tgt':'目标',
+'sun.actual':'当前实际','sun.target':'目标配置','sun.byAct':'按实际%','sun.byTgt':'按目标%','sun.hint':'（悬停查看，点击资产查看子资产明细）',
+'sun.clickL4':'点击查看子资产明细','sun.noL4':'无子资产明细（显示资产自身持仓）','sun.l4n':'子资产 {n} 项','sun.tgtAtL2':'（设在子类别）',
+'sun.th.name':'名称','sun.th.code':'代码','sun.th.qty':'数量','sun.th.px':'单价','sun.th.cur':'币种','sun.th.amt':'金额({bc})','sun.th.ofL3':'占资产','sun.th.ofTot':'占总','sun.th.cust':'托管','sun.noL4rows':'无子资产明细','sun.act':'实际','sun.tgt':'目标',
 'ai.tile':'生成 AI 分析提示词','ai.tile.sub':'一键生成数据+提示词，交给你的 AI 做全面配置分析','ai.tile.go':'点击打开 →',
 'stat.actSum':'实际合计','stat.tgtSum':'目标合计','warn.actNe':'实际% {n} ≠ 100','warn.tgtNe':'目标% {n} ≠ 100',
 'cust.th.cat':'托管分类','cust.th.pct':'占比','cust.th.amt':'金额','cust.nPos':'{n} 个位置','cust.tog':'展开/收起托管位置','cust.clickDetail':'点击查看该分类明细',
 'donut.now':'当下资产','donut.tgt':'目标资产','donut.emptyTgt':'未设目标%',
 'cp.pop.title':'托管分类「{cat}」 · {pct}','cp.pop.sub':'{n} 个托管位置 · 点击托管行可收起/展开持仓',
-'cp.th.path':'托管 / 持仓（一级›二级›三级›四级）','cp.th.code':'代码','cp.th.cur':'币种','cp.th.amt':'金额({bc})','cp.th.ofTot':'占总','cp.th.ofCat':'占分类','cp.nodata':'无数据',
-'trig':'触发项：','ai.modal.title':'🤖 AI 分析提示词','ai.modal.tip':'比直接发 JSON 更好：AI 更易读、不含冗余字段（内部 id、价格缓存、界面状态等），也更省 token。JSON 是用来备份/恢复的，不是给 AI 看的。',
+'cp.th.path':'托管 / 持仓（类别›子类别›资产›子资产）','cp.th.code':'代码','cp.th.cur':'币种','cp.th.amt':'金额({bc})','cp.th.ofTot':'占总','cp.th.ofCat':'占分类','cp.nodata':'无数据',
+'trig':'触发项：','tip.advLab':'建议','tip.probLab':'问题','tip.trigLab':'触发项','tip.sev.critical':'重大风险','tip.sev.hi':'需处理','tip.sev.warn':'留意','tip.sev.ok':'良好','ai.modal.title':'🤖 AI 分析提示词','ai.modal.tip':'比直接发 JSON 更好：AI 更易读、不含冗余字段（内部 id、价格缓存、界面状态等），也更省 token。JSON 是用来备份/恢复的，不是给 AI 看的。',
 'ai.opt.snaps':' 附上快照历史','ai.opt.priv':' 🔒 隐藏金额（只给百分比）','ai.opt.priv.title':'生成的提示词中不包含任何金额/总资产，只保留百分比',
 'ai.opt.hint':'复制后粘贴到 ChatGPT / Claude / Grok / DeepSeek 等。','ai.dl.md':'⬇️ 下载 .md','ai.dl.txt':'⬇️ 下载 .txt','ai.copy':'📋 一键复制',
 'ai.copied':'✓ 已复制到剪贴板','ai.copied.fb':'✓ 已复制（备用方式）','ai.copy.manual':'请手动 Ctrl/⌘+C 复制已选中的内容','ai.mini':'🤖 生成 AI 分析提示词',
 'rst.s1.title':'⚠ 恢复默认（第 1 步 / 共 2 步）','rst.s1.body':'这会<b>清空当前全部数据</b>并替换为示例数据，包括：',
-'rst.s1.li1':'所有一级/二级/三级/四级行（当前 {n} 个持仓节点）及其<b>金额、数量、单价、代码、币种、托管</b>',
+'rst.s1.li1':'所有类别/子类别/资产/子资产行（当前 {n} 个持仓节点）及其<b>金额、数量、单价、代码、币种、托管</b>',
 'rst.s1.li2':'全部<b>目标%</b>、实际%','rst.s1.li3':'<b>托管位置列表</b>（含你的删除/改名）',
 'rst.s1.li4':'<b>快照</b>（当前 {n} 个）、其他币种汇率、总资产、计价币种、自动排序设置',
-'rst.s1.suggest':'建议先 <a href="javascript:void 0" onclick="exportJ()">⬇️ 导出我的资产配置数据（JSON）</a> 备份。确认继续时，系统也会<b>自动下载一份 JSON 备份文件</b>。',
+'rst.s1.suggest':'建议先 <a href="javascript:void 0" onclick="exportJ()">📤 导出我的资产配置数据（JSON）</a> 备份。确认继续时，系统也会<b>自动下载一份 JSON 备份文件</b>。',
 'rst.cancel':'取消','rst.continue':'继续 →','rst.s2.title':'⛔ 最终确认（第 2 步 / 共 2 步）',
 'rst.s2.body':'此操作<b>不可撤销</b>（只能通过导入备份 JSON 恢复）。请输入 <b style="color:#c0392b">{phrase}</b> 以确认：',
 'rst.phrase':'恢复默认','rst.go':'我已了解，清空并恢复默认','help.close':'点击此窗口关闭 · Esc',
-'l2.tgt.title':'二级目标%（其下三级均未设目标，可直接在二级设定）：','l2.sumTgt':'三级目标之和：','l3.tgt.title':'三级目标%（不由四级汇总）：',
+'l2.tgt.title':'子类别目标%（其下资产均未设目标，可直接在子类别设定）：','l2.sumTgt':'资产目标之和：','l3.tgt.title':'资产目标%（不由子资产汇总）：',
 'uncat':'未分类','dim.risk':'风险等级','dim.style':'投资风格','dim.cur':'计价币种','dim.region':'底层资产','dim.liq':'流动性',
 'safe.overview':'组合概览','safe.cust':'按托管分类统计','safe.dims':'多维分类','safe.risk':'风险与税务提示','safe.tax':'税务设置','safe.snap':'快照',
-'snap.del':'删','other':'其他','hero.total':'总资产','hero.empty':'未填总资产，也无金额可汇总','stat.nodes':'持仓节点数','stat.fx':'USD/CNY 汇率（{src}）','fx.src.manual':'手动','fx.src.default':'默认','total.autoSum':'由金额自动汇总','cust.blankCat':'未填','cust.tipDetail':'点击查看明细','cust.nItems':'（{n} 项）','dim.clickHold':'点击查看持仓明细','dim.th.pct':'占比','dim.th.amt':'金额','dim.th.n':'项数','dim.by':'按{name}','src.user':'手动','src.parent':'继承三级','src.auto':'自动推断','tag.btnTitle':'分类标签（风险/风格/底层资产/流动性）：灰色斜体=自动推断，点击修改','tag.hint':'选「自动」= 按名称/代码/分类推断','tag.hint.l4':'（四级默认继承三级的手动标签）','tag.hint.cur':'；币种按该行币种自动统计。','tag.inheritL3':'继承三级','tag.auto':'自动','th.holdPath':'持仓（一级›二级›三级›四级）','th.ofClass':'占该类','th.src':'来源','th.nodata':'无数据','snap.none':'暂无快照','snap.th.date':'日期','snap.th.note':'备注','snap.th.cats':'分类实际%','snap.th.total':'总资产（快照时币种）','snap.th.ops':'操作','snap.detail':'明细','fx.updatedAt':'汇率更新时间：{ts}','fx.updatedSrc':' （{src}）','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ 汇率自动获取失败，{use}。可稍后重试或继续用当前汇率。','fx.useCache':'正在使用上次缓存（{ts}）','fx.useDefault':'正在使用内置默认值','risk.ok':'✓ 暂无突出风险提示','risk.ok.sub':'未触发预设阈值。','tgtAtL2.suffix':'（目标设在二级）'
+'snap.del':'删','other':'其他','hero.total':'总资产','hero.empty':'未填总资产，也无金额可汇总','stat.nodes':'持仓节点数','stat.fx':'USD/CNY 汇率（{src}）','fx.src.manual':'手动','fx.src.default':'默认','total.autoSum':'由金额自动汇总','cust.blankCat':'未填','cust.tipDetail':'点击查看明细','cust.nItems':'（{n} 项）','dim.clickHold':'点击查看持仓明细','dim.th.pct':'占比','dim.th.amt':'金额','dim.th.n':'项数','dim.by':'按{name}','src.user':'手动','src.parent':'继承资产','src.auto':'自动推断','tag.btnTitle':'分类标签（风险/风格/底层资产/流动性）：灰色斜体=自动推断，点击修改','tag.hint':'选「自动」= 按名称/代码/分类推断','tag.hint.l4':'（子资产默认继承资产的手动标签）','tag.hint.cur':'；币种按该行币种自动统计。','tag.inheritL3':'继承资产','tag.auto':'自动','th.holdPath':'持仓（类别›子类别›资产›子资产）','th.ofClass':'占该类','th.src':'来源','th.nodata':'无数据','snap.none':'暂无快照','snap.th.date':'日期','snap.th.note':'备注','snap.th.cats':'分类实际%','snap.th.total':'总资产（快照时币种）','snap.th.ops':'操作','snap.detail':'明细','fx.updatedAt':'汇率更新时间：{ts}','fx.updatedSrc':' （{src}）','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ 汇率自动获取失败，{use}。可稍后重试或继续用当前汇率。','fx.useCache':'正在使用上次缓存（{ts}）','fx.useDefault':'正在使用内置默认值','risk.ok':'✓ 暂无突出风险提示','risk.ok.sub':'未触发预设阈值。','tgtAtL2.suffix':'（目标设在子类别）'
 },en:{
 'doc.title':'Asset Allocation Master by RayFi',
 'hdr.product':'Asset Allocation Master','hdr.badge':'Local · Input/Analysis','hdr.ver':'{v} · Updated {d}','hdr.avatarAlt':'RayFi avatar',
 'tab.guide':'📖 Guide','tab.input':'✏️ Input','tab.analysis':'📈 Analysis','tab.community':'RayFi Community',
 'guide.what.title':'What this is',
-'guide.what.p1':'“Asset Allocation Master by RayFi” is a single-file local tool: open the HTML in a browser—no install, no server, no accounts. This is the only edition online; the download never embeds anyone’s real portfolio. Holdings, target %, custody list, snapshots, and UI prefs stay in this browser’s localStorage (key assetAlloc_share_v2; UI prefs assetAlloc_share_ui_v2). First open shows the fictional sample AA_random_V1 (~¥100M) so you can learn the flow, then replace it with yours. If an older personal edition lived on this machine, it migrates on first open; you can also import JSON anytime. “Reset to defaults” brings back the sample (two-step confirm; a backup downloads first).',
+'guide.what.p1':'“Asset Allocation Master by RayFi” is a single-file local tool: open the HTML in a browser—no install, no server, no accounts. This is the only edition online; the download never embeds anyone’s real portfolio. Holdings, target %, custody list, snapshots, and UI prefs stay in this browser’s localStorage (key assetAlloc_share_v2; UI prefs assetAlloc_share_ui_v2). First open shows fictional sample AA_random_CN_V2 (~¥100M, Chinese UI) or AA_random_US_V2 (~$10M, English UI) so you can learn the flow, then replace it with yours. If an older personal edition lived on this machine, it migrates on first open; you can also import JSON anytime. “Reset to defaults” brings back the sample (two-step confirm; a backup downloads first).',
 'guide.what.p2':'The design goal is simple: keep target allocation and actual holdings on one editable tree so gaps and rebalance direction stay visible; then use multi-dimension views (custody vs underlying assets, risk, style, currency, liquidity) to contrast where cash sits versus where risk lives. It is for investors who take global/multi-asset allocation seriously—not a trading terminal or advisory engine.',
 'guide.feat.title':'Feature inventory',
-'guide.feat.p1':'Allocation tree (L1→L2→L3→optional L4): organize asset classes, strategies, and holdings. Target % usually lives at L3 (or at L2 when all child L3 targets are empty). When amounts exist, actual % is amount-driven, with gap vs target for rebalancing.',
+'guide.feat.p1':'Allocation tree (Category→Subcategory→Asset→optional Sub-asset): organize asset classes, strategies, and holdings. Target % usually lives at Asset (or at Subcategory when all child Asset targets are empty). When amounts exist, actual % is amount-driven, with gap vs target for rebalancing.',
 'guide.feat.p2':'Holding fields: name, symbol, qty, unit price, amount, currency. Amount can lock from qty×price or be entered alone. Refresh quotes pulls US/HK/JP/A-share and crypto when possible (manual price on failure). Sources: US/HK/JP/A-share via Tencent (CNBC backup); crypto via CoinGecko (OKX/Hyperliquid/Kraken/Gate backup). CN commodity/index futures: unit price = quote × contract multiplier (notional per lot); qty is lots (negative for shorts).',
 'guide.feat.p3':'Custody list: maintain broker/bank/wallet names, assign on holdings; Analysis aggregates “where cash sits” by custody region.',
 'guide.feat.p4':'Tags: risk, style, underlying assets, liquidity. Unset tags auto-infer from name/symbol/category (gray italic); edit via the 🏷 button. Analysis shows dual pies and detail tables per dimension.',
-'guide.feat.p5':'Analysis six dimensions: custody, underlying assets, risk, style, currency, liquidity—plus overview, L3 sunburst, and risk/tax tips. Printing focuses on Analysis.',
+'guide.feat.p5':'Analysis six dimensions: custody, underlying assets, risk, style, currency, liquidity—plus overview, Asset sunburst, and risk/tax tips. Printing focuses on Analysis.',
 'guide.feat.p6':'FX & base currency: choose USD/CNY/HKD/EUR/JPY (etc.); FX auto-fetches on open via open.er-api, with cache/default fallback.',
 'guide.feat.p7':'Snapshots: time-point records in this browser only—not a file backup; lost if you clear data or switch machines.',
-'guide.feat.p8':'Import/export JSON named like AA_YYYY-MM-DD HH:mm.json (local time to the minute), including tree, amounts, targets, custody, settings, and snapshots. Export before changing computers/browsers or replacing the HTML.',
-'guide.feat.p9':'Personal/tax hints and AI prompt export: residency fields feed risk/tax tips and an optional desensitized prompt for LLMs. Bilingual UI (中文|EN). “Reset to defaults” restores AA_random_V1 (two-step confirm; auto JSON backup first).',
+'guide.feat.p8':'Import/export JSON named like AA_YYYY-MM-DD HH:mm.json (local time to the minute), including tree, amounts, targets, custody, settings, and snapshots. On supported browsers, export can save next to this HTML; otherwise it goes to Downloads. Export before changing computers/browsers or replacing the HTML.',
+'guide.feat.p9':'Personal/tax hints and AI prompt export: residency fields feed risk/tax tips and an optional desensitized prompt for LLMs. Bilingual UI (中文|EN). “Reset to defaults” restores AA_random_CN_V2 / AA_random_US_V2 for the current UI language (two-step confirm; auto JSON backup first).',
 'guide.steps.title':'How to use (suggested flow)',
-'guide.steps.p1':'1. First open: open this HTML in a browser. Explore the sample tree, check base currency and FX; use Reset if you need a fresh AA_random_V1.',
-'guide.steps.p2':'2. Make it yours: on Input, add/remove L1–L3 (and optional L4); fill custody, symbol, qty/price or amount; drag to reorder across parents.',
-'guide.steps.p3':'3. Set targets: enter target % at L3 (or L2 when allowed) toward ~100%; use actual % and gap columns for rebalance direction.',
+'guide.steps.p1':'1. First open: open this HTML in a browser. Explore the sample tree, check base currency and FX; use Reset if you need a fresh AA_random_CN_V2 (zh) or AA_random_US_V2 (en).',
+'guide.steps.p2':'2. Make it yours: on Input, add/remove Category–Asset (and optional Sub-asset); fill custody, symbol, qty/price or amount; drag to reorder across parents.',
+'guide.steps.p3':'3. Set targets: enter target % at Asset (or Subcategory when allowed) toward ~100%; use actual % and gap columns for rebalance direction.',
 'guide.steps.p4':'4. Refresh quotes & tags: Refresh prices for quotable symbols; fix risk/style/underlying/liquidity tags.',
 'guide.steps.p5':'5. Analysis: compare custody vs underlying (e.g. CN QDII S&P: custody “CN”, underlying “US”); review risk and liquidity structure.',
-'guide.steps.p6':'6. Backup: Export JSON to cloud drive regularly; snapshot key moments. Before a new HTML version, export first, then open the new file and Import.',
+'guide.steps.p6':'6. Backup: Export JSON regularly (same folder as the HTML when allowed, else Downloads/cloud); snapshot key moments. Before a new HTML version, export first, then open the new file and Import.',
 'guide.tips.title':'Tips & caveats',
 'guide.tips.p1':'Backup before replacing versions: a new download does not carry your holdings—data lives in the browser. Export JSON before swapping files or clearing site data.',
 'guide.tips.p2':'Custody ≠ underlying assets: custody is where money sits; underlying is economic exposure. QDII, mutual-recognition funds, ADRs confuse the two—use the side-by-side Analysis cards.',
@@ -786,7 +831,7 @@ const I18N={zh:{
 'guide.gh.readme':'Project & README:',
 'guide.gh.rel':'Releases (version downloads):',
 'guide.cl.title':'Changelog',
-'guide.cl.122':'Custody list: used keep style & sort first, unused gray at end; export keeps all; import replaces list (no merge with defaults)','guide.cl.121':'Input page: drop Local-note banner (substance folded into Guide); “?” beside Custody locations toggles tip (first-Chinese-char category + add/edit/remove)','guide.cl.120':'Input page: Backup column left divider stretches to full topCtl row height like the other section borders',
+'guide.cl.139':'Snapshot list total: whole number with thousands separators (no decimals)','guide.cl.138':'Bilingual default samples AA_random_CN_V2 (~¥100M) / AA_random_US_V2 (~$10M): seed/reset follow UI language; language toggle does not replace holdings; expanded custody with custody-name category region tags for EN book','guide.cl.137':'conc_leaf/crypto: >15% Watch, ≥20% Action, >25% Critical; conc_mkt: >35% Watch, ≥40% Action, >45% Critical','guide.cl.136':'New conc_mkt single-market concentration: aggregate by underlying region (US/HK/A-shares/JP-EU…), not custody broker; >15% Watch, ≥50% Action (never Critical)','guide.cl.135':'Four-tier badges (Critical/Action/Watch/OK); leaf/crypto ≥20% Action, ≥25% Critical; all tax→Watch; stress-based severity','guide.cl.134':'Tax tip badges: Action → Watch (informational filing reminders)','guide.cl.133':'Analysis structure tips: shorter titles; counts/rule details move into the Issue column (with tip.prob)','guide.cl.132':'Analysis tips: severity badge + short title; Issue | Suggestion below use distinct copy (not the title); empty Triggers still reserve width','guide.cl.131':'Analysis tips: under-title inner two-col Issue | Suggestion (layout E); Triggers small on the right unchanged; no RayFi tile watermark on tip cards','guide.cl.130':'Analysis tips: clearer Issue vs Suggestion hierarchy on the left (label + divider + type scale); triggers unchanged','guide.cl.129':'JSON export uses system Save As when available (same folder as the HTML if you pick it); button label stays Export; otherwise Downloads; reset auto-backup uses the same path','guide.cl.128':'Opening the file always lands on the Input tab (no longer restores the last tab)','guide.cl.127':'Analysis bottom tips: L/R split — left Suggestion large, right Triggers small; mid six cards stay two-per-row','guide.cl.126':'Analysis mid six cards back to two-per-row; dual donuts as large as possible (~1.5×, slight shrink if needed); bottom tip「建议」larger/bolder','guide.cl.125':'Analysis mid-page six category dual donuts ~1.5× diameter (full-width cards so pair fits; sunburst unchanged)','guide.cl.124':'Backup Import↓/Export↑ icons; analysis watermark tiles each full card; pie/sunburst SVG backgrounds transparent so the tile shows through; custody delete only blocks on exact holding name (fix false 其他 used)','guide.cl.123':'Analysis: mid-sunburst legend “actual% → target%”; Scheme-C chart watermarks','guide.cl.122':'Custody list: used keep style & sort first, unused gray at end; export keeps all; import replaces list (no merge with defaults)','guide.cl.121':'Input page: drop Local-note banner (substance folded into Guide); “?” beside Custody locations toggles tip (by custody-name category + add/edit/remove)','guide.cl.120':'Input page: Backup column left divider stretches to full topCtl row height like the other section borders',
 'guide.cl.119':'Backup column: keep import/export side by side; icon left / labels right so column height matches Base currency / Tax / Snapshot',
 'guide.cl.118':'Input page: vertical divider between base currency and tax residency (same weight as Backup/Snapshot borders); Backup import/export side by side (keep large icons + small JSON captions)',
 'guide.cl.117':'Backup column: larger import/export icons with small captions “Import/Export my allocation data JSON”',
@@ -830,7 +875,7 @@ const I18N={zh:{
 'guide.cl.97':'Share-edition privacy and sample data polish',
 'guide.cl.96':'Target % one decimal; share KEY share_v2 + local note banner',
 'guide.cl.95':'Custody | underlying assets side-by-side; QDII example note',
-'guide.cl.94':'↑ to Level 3 / ↓ to Level 4 actions',
+'guide.cl.94':'↑ to Asset / ↓ to Sub-asset actions',
 'guide.cl.93':'Larger dual donuts on Analysis',
 'guide.cl.92':'Cross-parent drag and hierarchy ops',
 'guide.cl.91':'Minor fixes',
@@ -850,79 +895,79 @@ const I18N={zh:{
 'tax.residency':'Tax residency country/region','tax.residency.title':'Used for risk & tax tips and the AI prompt','tax.select':'— Select —',
 'tax.other.ph':'Enter country/region','tax.usPerson':' US citizen / green card','tax.usPerson.title':'US Person (citizen or green card) — FATCA/PFIC and related US tax rules',
 'tax.hint':'Select tax residency so risk & tax tips can be generated',
-'backup.title':'💾 Backup to file','backup.tip':'Export = save all data (rows, amounts, target %, custody list, settings, and all snapshots) as one JSON file. Always export before changing computers/browsers/page versions or clearing browser data; Import restores everything.',
-'backup.sub':'Do this before a new PC / new page version','backup.export':'⬇️ Export my allocation data (JSON)','backup.import':'⬆️ Import my allocation data (JSON)','backup.export.action':'Export','backup.export.cap':'my allocation data JSON','backup.import.action':'Import','backup.import.cap':'my allocation data JSON',
+'backup.title':'💾 Backup to file','backup.tip':'Export = save all data (rows, amounts, target %, custody list, settings, and all snapshots) as one JSON file. Supported browsers may open a save dialog so you can pick the same folder as this HTML; otherwise the browser Downloads folder is used. Always export before changing computers/browsers/page versions or clearing browser data; Import restores everything.',
+'backup.sub':'Do this before a new PC / new page version','backup.export':'📤 Export my allocation data (JSON)','backup.import':'📥 Import my allocation data (JSON)','backup.export.action':'Export','backup.export.cap':'my allocation data JSON','backup.import.action':'Import','backup.import.cap':'my allocation data JSON',
 'backup.import.tip':'Fully restore from a previously exported JSON (overwrites current data)','backup.hint':'Saved as a file with all data and snapshots; import anytime to restore.',
 'snap.title':'📷 Snapshots','snap.tip':'A snapshot is a point-in-time record in this browser (actual%/target%/amounts) for comparing allocations over time. Not a file backup: clearing browser data or switching browsers/PCs loses it. Use Export for long-term keep (exports include all snapshots).',
 'snap.sub':'In-page history for comparing allocations over time','snap.note.ph':'Snapshot note (optional)','snap.save':'📷 Save snapshot','snap.list':'Snapshots ({n})',
 'snap.hint':'Stored in this browser; clearing data loses them — use Export for long-term keep.',
 'quote.fail.sum':'Some quotes failed — see details',
 'fx.other.title':'"Other" custom code FX (1 unit → USD)','custody.title':'Custody locations','custody.help.btn':'How this list works (click again to close)','custody.unusedTip':'Not used on any holding (still kept on export)','custody.add.ph':'New custody location','custody.add':'＋ Add',
-'alloc.title':'Asset allocation detail','alloc.badge':'Level 1 → 2 → 3 (holding / set target) → Level 4 optional',
-'alloc.legend1':'Left bars:','alloc.legend2':'Navy/blue = level markers (L1→L4)',
-'alloc.legend3':'⋮⋮ Drag across parents: L2 under another L1, L3 under another L2, L4 under any L3; or drop on a parent row to append',
-'alloc.hintHtml':'Seed at <strong>Level 3</strong> (amount/%); Level 4 starts empty. A Level 3 with no children is a holding (same fields as L4). Holdings: symbol, qty, price (manual or Refresh), amount (qty×price locked, or amount only).',
-'btn.expandAll':'Expand all','btn.collapseAll':'Collapse all','btn.collapseL1':'Collapse to L1','btn.collapseL1.title':'Show Level 1 subtotals only',
-'btn.collapseL2':'Collapse to L2','btn.collapseL2.title':'Show through Level 2 subtotals','btn.sortAmt':'Sort by amount',
+'alloc.title':'Asset allocation detail','alloc.badge':'Category → Subcategory → Asset (holding / set target) → Sub-asset optional',
+'alloc.legend1':'Left bars:','alloc.legend2':'Navy/blue = level markers (Category→Sub-asset)',
+'alloc.legend3':'⋮⋮ Drag across parents: Subcategory under another Category, Asset under another Subcategory, Sub-asset under any Asset; or drop on a parent row to append',
+'alloc.hintHtml':'Seed at <strong>Asset</strong> (amount/%); Sub-asset starts empty. An Asset with no children is a holding (same fields as Sub-asset). Holdings: symbol, qty, price (manual or Refresh), amount (qty×price locked, or amount only).',
+'btn.expandAll':'Expand all','btn.collapseAll':'Collapse all','btn.collapseL1':'Collapse to Category','btn.collapseL1.title':'Show Category subtotals only',
+'btn.collapseL2':'Collapse to Subcategory','btn.collapseL2.title':'Show through Subcategory subtotals','btn.sortAmt':'Sort by amount',
 'btn.sortAmt.title':'One-shot: siblings by actual amount (or actual % if no amount), descending','btn.autoSort':' Auto-sort','btn.autoSort.title':'Re-sort by amount after every recalculation',
 'btn.refreshPx':'🔄 Refresh prices','danger.title':'⚠ Danger zone','danger.reset':'Reset to defaults',
 'danger.reset.title':'Danger: clear all data and restore sample. Two confirmations; auto-downloads a JSON backup first.',
 'danger.hint':'Clear all data and restore sample (two-step confirm; auto JSON backup first)',
-'ana.overview':'Portfolio overview','ana.sunburst':'Level-3 sunburst (L1 / L2 / L3)',
-'ana.cust.title':'🏦 By custody category','ana.cust.hint':'Custody = where cash sits (first Chinese char of the name). E.g. QDII S&P 500 bought in China still counts as 中. Click for detail.',
+'ana.overview':'Portfolio overview','ana.sunburst':'Asset sunburst (Category / Subcategory / Asset)',
+'ana.cust.title':'🏦 By custody category','ana.cust.hint':'Custody = where cash sits (by custody-name category). E.g. QDII S&P 500 bought in China still counts as CN. Click for detail.',
 'ana.region.title':'🌏 By underlying assets','ana.region.hint':'Underlying = economic exposure (editable tags; auto-inferred if unset). Compare with custody: where money sits vs where risk sits. Click for detail.',
-'ana.ex':'E.g. QDII S&P 500 in China: custody = 中 (money in China), underlying = US (risk in the US).',
+'ana.ex':'E.g. QDII S&P 500 in China: custody = CN (money in China), underlying = US (risk in the US).',
 'ana.risk.title':'⚠️ By risk level','ana.risk.hint':'Aggregated by risk tags; unset tags are inferred. Click for detail.',
 'ana.style.title':'🎯 By investment style','ana.style.hint':'Aggregated by style tags; unset tags are inferred. Click for detail.',
 'ana.cur.title':'💱 By currency','ana.cur.hint':'Aggregated by holding currency. Click for detail.',
 'ana.liq.title':'💧 By liquidity','ana.liq.hint':'Aggregated by liquidity tags; unset tags are inferred. Click for detail.',
-'ana.tags.hint':'Risk / style / underlying / liquidity: edit via the 🏷 button on Input Level 3 (or 4) rows. Unset tags are inferred (gray italic); otherwise “Uncategorized”. Click a sector or table row for holdings.',
+'ana.tags.hint':'Risk / style / underlying / liquidity: edit via the 🏷 button on Input Asset (or Sub-asset) rows. Unset tags are inferred (gray italic); otherwise “Uncategorized”. Click a sector or table row for holdings.',
 'ana.tips.title':'🛡 Risk & tax tips','ana.tips.hint':'For reference only — not investment or tax advice.',
-'th.l1':'Level 1','th.l2':'Level 2','th.l3':'Level 3','th.l4':'Level 4','th.cur':'CCY','th.cust':'Custody','th.code':'Symbol','th.qty':'Qty','th.px':'Price','th.amt':'Amount',
+'th.l1':'Category','th.l2':'Subcategory','th.l3':'Asset','th.l4':'Sub-asset','th.cur':'CCY','th.cust':'Custody','th.code':'Symbol','th.qty':'Qty','th.px':'Price','th.amt':'Amount',
 'th.act':'Actual %','th.tgt':'Target %','th.gap':'Gap','th.actAmt':'Actual $','th.tgtAmt':'Target $','th.rebAmt':'Rebalance $','th.ops':'Actions',
-'row.l1sub':'L1 subtotal','row.l2sub':'L2 subtotal','row.l3sub':'L3 subtotal','row.total':'Total',
-'ph.l1':'Level 1 name','ph.l2':'Level 2 name','ph.l3':'Level 3 name','ph.l4':'Level 4 name','ph.code':'Symbol','ph.px':'Price',
-'btn.addL1':'Add Level 1','btn.addL2':'Add Level 2','btn.addL3':'Add Level 3','btn.addL4':'Add Level 4',
-'btn.delL1':'Delete Level 1','btn.delL2':'Delete Level 2','btn.delL3':'Delete Level 3','btn.delL4':'Delete Level 4',
-'btn.promote':'↑ L3','btn.promote.title':'Promote to Level 3 (own row under same L2)','btn.demote':'↓ L4','btn.demote.title':'Demote to Level 4 (merge into previous L3, or next if none)',
+'row.l1sub':'Category subtotal','row.l2sub':'Subcategory subtotal','row.l3sub':'Asset subtotal','row.total':'Total',
+'ph.l1':'Category name','ph.l2':'Subcategory name','ph.l3':'Asset name','ph.l4':'Sub-asset name','ph.code':'Symbol','ph.px':'Price',
+'btn.addL1':'Add Category','btn.addL2':'Add Subcategory','btn.addL3':'Add Asset','btn.addL4':'Add Sub-asset',
+'btn.delL1':'Delete Category','btn.delL2':'Delete Subcategory','btn.delL3':'Delete Asset','btn.delL4':'Delete Sub-asset',
+'btn.promote':'↑ Asset','btn.promote.title':'Promote to Asset (own row under same Subcategory)','btn.demote':'↓ Sub-asset','btn.demote.title':'Demote to Sub-asset (merge into previous Asset, or next if none)',
 'btn.expand':'Expand','btn.collapse':'Collapse','btn.buy':'Buy ','btn.sell':'Sell ',
-'title.editName':'Click to rename','title.noL4':'No Level 4 (Level 3 is the holding)','title.tgtAtL2':'Target set at Level 2','title.tgtAtL3':'Target % is set at Level 3',
-'title.custCat':'Custody category (first Chinese character)','title.renameCust':'Rename; all holdings using this name update','title.delFromList':'Remove from list',
+'title.editName':'Click to rename','title.noL4':'No Sub-asset (Asset is the holding)','title.tgtAtL2':'Target set at Subcategory','title.tgtAtL3':'Target % is set at Asset',
+'title.custCat':'Custody category (by custody-name category)','title.renameCust':'Rename; all holdings using this name update','title.delFromList':'Remove from list',
 'opt.blank':'(blank)','opt.custom':'＋ Custom…','opt.other':'Other','prompt.customCust':'Custom custody location:',
-'confirm.delL1':'Delete Level 1?','confirm.delL2':'Delete Level 2?','confirm.delL3':'Delete Level 3?','confirm.delL4':'Delete this Level 4?','confirm.delSnap':'Delete?',
+'confirm.delL1':'Delete Category?','confirm.delL2':'Delete Subcategory?','confirm.delL3':'Delete Asset?','confirm.delL4':'Delete this Sub-asset?','confirm.delSnap':'Delete?',
 'confirm.mergeCust':'"{name}" already exists. Merge into it?','confirm.delCustUsed':'"{name}" is used by {n} holdings. Remove from list only (holdings keep the name)?',
-'alert.needOtherL3':'Need another Level 3 under the same Level 2 as parent. Add one first, or drag this row under another Level 3.',
+'alert.needOtherL3':'Need another Asset under the same Subcategory as parent. Add one first, or drag this row under another Asset.',
 'alert.importOk':'Import successful','alert.importBad':'Invalid file format',
 'warn.actSum':'Actual % totals {n}, not 100.','warn.tgtSum':'Target % totals {n}, not 100.',
 'warn.mixed':'Mixed mode: {nAmt} by amount, {nMan} manual actual % (shown in <b class="manualTxt">bold purple</b>). Manual: ',
 'warn.noFx':'{path} has no USD FX rate.',
-'px.last':'Last quote fetch {t}','px.never':'No auto quotes yet (enter symbols on L4, then Refresh)','px.cash':'Cash','px.cash.title':'Currency code: treated as cash, price=1, FX-converted','px.quote':'Quote {t}',
+'px.last':'Last quote fetch {t}','px.never':'No auto quotes yet (enter symbols on Sub-asset, then Refresh)','px.cash':'Cash','px.cash.title':'Currency code: treated as cash, price=1, FX-converted','px.quote':'Quote {t}',
 'manual.pct':'Manual actual % (no amount): ','locked.byAmt':'Computed from amounts: ',
-'sun.actual':'Current actual','sun.target':'Target allocation','sun.byAct':'By actual %','sun.byTgt':'By target %','sun.hint':'(hover for detail; click L3 for L4 holdings)',
-'sun.clickL4':'Click for Level 4 detail','sun.noL4':'No Level 4 (showing Level 3 holding)','sun.l4n':'{n} Level 4 items','sun.tgtAtL2':'(set at Level 2)',
-'sun.th.name':'Name','sun.th.code':'Symbol','sun.th.qty':'Qty','sun.th.px':'Price','sun.th.cur':'CCY','sun.th.amt':'Amount ({bc})','sun.th.ofL3':'% of L3','sun.th.ofTot':'% of total','sun.th.cust':'Custody','sun.noL4rows':'No Level 4 detail','sun.act':'Actual','sun.tgt':'Target',
+'sun.actual':'Current actual','sun.target':'Target allocation','sun.byAct':'By actual %','sun.byTgt':'By target %','sun.hint':'(hover for detail; click Asset for Sub-asset holdings)',
+'sun.clickL4':'Click for Sub-asset detail','sun.noL4':'No Sub-asset (showing Asset holding)','sun.l4n':'{n} Sub-asset items','sun.tgtAtL2':'(set at Subcategory)',
+'sun.th.name':'Name','sun.th.code':'Symbol','sun.th.qty':'Qty','sun.th.px':'Price','sun.th.cur':'CCY','sun.th.amt':'Amount ({bc})','sun.th.ofL3':'% of Asset','sun.th.ofTot':'% of total','sun.th.cust':'Custody','sun.noL4rows':'No Sub-asset detail','sun.act':'Actual','sun.tgt':'Target',
 'ai.tile':'Generate AI analysis prompt','ai.tile.sub':'One-click data + prompt for your AI to review the whole allocation','ai.tile.go':'Open →',
 'stat.actSum':'Actual total','stat.tgtSum':'Target total','warn.actNe':'Actual % {n} ≠ 100','warn.tgtNe':'Target % {n} ≠ 100',
 'cust.th.cat':'Custody category','cust.th.pct':'Weight','cust.th.amt':'Amount','cust.nPos':'{n} locations','cust.tog':'Expand/collapse locations','cust.clickDetail':'Click for category detail',
 'donut.now':'Current assets','donut.tgt':'Target assets','donut.emptyTgt':'No target % set',
 'cp.pop.title':'Custody "{cat}" · {pct}','cp.pop.sub':'{n} custody locations · click a row to expand/collapse holdings',
-'cp.th.path':'Custody / holding (L1›L2›L3›L4)','cp.th.code':'Symbol','cp.th.cur':'CCY','cp.th.amt':'Amount ({bc})','cp.th.ofTot':'% of total','cp.th.ofCat':'% of category','cp.nodata':'No data',
-'trig':'Triggers: ','ai.modal.title':'🤖 AI analysis prompt','ai.modal.tip':'Better than raw JSON: easier for AI, drops internal ids/price cache/UI state, fewer tokens. JSON is for backup/restore, not for AI.',
+'cp.th.path':'Custody / holding (Category›Subcategory›Asset›Sub-asset)','cp.th.code':'Symbol','cp.th.cur':'CCY','cp.th.amt':'Amount ({bc})','cp.th.ofTot':'% of total','cp.th.ofCat':'% of category','cp.nodata':'No data',
+'trig':'Triggers: ','tip.advLab':'Suggestion','tip.probLab':'Issue','tip.trigLab':'Triggers','tip.sev.critical':'Critical','tip.sev.hi':'Action','tip.sev.warn':'Watch','tip.sev.ok':'OK','ai.modal.title':'🤖 AI analysis prompt','ai.modal.tip':'Better than raw JSON: easier for AI, drops internal ids/price cache/UI state, fewer tokens. JSON is for backup/restore, not for AI.',
 'ai.opt.snaps':' Include snapshot history','ai.opt.priv':' 🔒 Hide amounts (percentages only)','ai.opt.priv.title':'Prompt excludes amounts/total assets; percentages only',
 'ai.opt.hint':'Copy and paste into ChatGPT / Claude / Grok / DeepSeek, etc.','ai.dl.md':'⬇️ Download .md','ai.dl.txt':'⬇️ Download .txt','ai.copy':'📋 Copy',
 'ai.copied':'✓ Copied to clipboard','ai.copied.fb':'✓ Copied (fallback)','ai.copy.manual':'Please Ctrl/⌘+C the selected text','ai.mini':'🤖 Generate AI analysis prompt',
 'rst.s1.title':'⚠ Reset to defaults (step 1 of 2)','rst.s1.body':'This will <b>clear all current data</b> and replace it with the sample, including:',
-'rst.s1.li1':'All L1/L2/L3/L4 rows (currently {n} holding nodes) and their <b>amounts, qty, price, symbols, currency, custody</b>',
+'rst.s1.li1':'All Category/Subcategory/Asset/Sub-asset rows (currently {n} holding nodes) and their <b>amounts, qty, price, symbols, currency, custody</b>',
 'rst.s1.li2':'All <b>target %</b> and actual %','rst.s1.li3':'<b>Custody list</b> (including your deletes/renames)',
 'rst.s1.li4':'<b>Snapshots</b> (currently {n}), other FX, total assets, base currency, auto-sort',
-'rst.s1.suggest':'Export a JSON backup first via <a href="javascript:void 0" onclick="exportJ()">⬇️ Export my allocation data (JSON)</a>. On continue, the app also <b>auto-downloads a JSON backup</b>.',
+'rst.s1.suggest':'Export a JSON backup first via <a href="javascript:void 0" onclick="exportJ()">📤 Export my allocation data (JSON)</a>. On continue, the app also <b>auto-downloads a JSON backup</b>.',
 'rst.cancel':'Cancel','rst.continue':'Continue →','rst.s2.title':'⛔ Final confirm (step 2 of 2)',
 'rst.s2.body':'This <b>cannot be undone</b> (only import a backup JSON). Type <b style="color:#c0392b">{phrase}</b> to confirm:',
 'rst.phrase':'RESET','rst.go':'I understand — clear and reset','help.close':'Click this window to close · Esc',
-'l2.tgt.title':'Level 2 target % (all child L3 targets empty — editable here): ','l2.sumTgt':'Sum of Level 3 targets: ','l3.tgt.title':'Level 3 target % (not summed from L4): ',
+'l2.tgt.title':'Subcategory target % (all child Asset targets empty — editable here): ','l2.sumTgt':'Sum of Asset targets: ','l3.tgt.title':'Asset target % (not summed from Sub-asset): ',
 'uncat':'Uncategorized','dim.risk':'Risk level','dim.style':'Investment style','dim.cur':'Currency','dim.region':'Underlying assets','dim.liq':'Liquidity',
 'safe.overview':'Portfolio overview','safe.cust':'By custody category','safe.dims':'Multi-dim stats','safe.risk':'Risk & tax tips','safe.tax':'Tax settings','safe.snap':'Snapshots',
-'snap.del':'Del','other':'Other','hero.total':'Total assets','hero.empty':'No total entered and no amounts to sum','stat.nodes':'Holding nodes','stat.fx':'USD/CNY ({src})','fx.src.manual':'manual','fx.src.default':'default','total.autoSum':'Auto-summed from amounts','cust.blankCat':'Blank','cust.tipDetail':'Click for detail','cust.nItems':'({n} items)','dim.clickHold':'Click for holdings detail','dim.th.pct':'Weight','dim.th.amt':'Amount','dim.th.n':'Count','dim.by':'By {name}','src.user':'Manual','src.parent':'From L3','src.auto':'Auto','tag.btnTitle':'Tags (risk/style/underlying/liquidity): gray italic = auto; click to edit','tag.hint':'“Auto” = infer from name/symbol/category','tag.hint.l4':'(L4 inherits L3 manual tags by default)','tag.hint.cur':'; currency follows the row currency.','tag.inheritL3':'From L3','tag.auto':'Auto','th.holdPath':'Holding (L1›L2›L3›L4)','th.ofClass':'Of class','th.src':'Source','th.nodata':'No data','snap.none':'No snapshots yet','snap.th.date':'Date','snap.th.note':'Note','snap.th.cats':'Category actual %','snap.th.total':'Total (snapshot currency)','snap.th.ops':'Actions','snap.detail':'Detail','fx.updatedAt':'FX updated: {ts}','fx.updatedSrc':' ({src})','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ Auto FX failed; {use}. Retry later or keep using current rates.','fx.useCache':'using last cache ({ts})','fx.useDefault':'using built-in defaults','risk.ok':'✓ No major risk flags','risk.ok.sub':'No preset thresholds triggered.','tgtAtL2.suffix':'(target at Level 2)'
+'snap.del':'Del','other':'Other','hero.total':'Total assets','hero.empty':'No total entered and no amounts to sum','stat.nodes':'Holding nodes','stat.fx':'USD/CNY ({src})','fx.src.manual':'manual','fx.src.default':'default','total.autoSum':'Auto-summed from amounts','cust.blankCat':'Blank','cust.tipDetail':'Click for detail','cust.nItems':'({n} items)','dim.clickHold':'Click for holdings detail','dim.th.pct':'Weight','dim.th.amt':'Amount','dim.th.n':'Count','dim.by':'By {name}','src.user':'Manual','src.parent':'From Asset','src.auto':'Auto','tag.btnTitle':'Tags (risk/style/underlying/liquidity): gray italic = auto; click to edit','tag.hint':'“Auto” = infer from name/symbol/category','tag.hint.l4':'(Sub-asset inherits Asset manual tags by default)','tag.hint.cur':'; currency follows the row currency.','tag.inheritL3':'From Asset','tag.auto':'Auto','th.holdPath':'Holding (Category›Subcategory›Asset›Sub-asset)','th.ofClass':'Of class','th.src':'Source','th.nodata':'No data','snap.none':'No snapshots yet','snap.th.date':'Date','snap.th.note':'Note','snap.th.cats':'Category actual %','snap.th.total':'Total (snapshot currency)','snap.th.ops':'Actions','snap.detail':'Detail','fx.updatedAt':'FX updated: {ts}','fx.updatedSrc':' ({src})','fx.oneUsd':'1 USD = {show}','fx.failWarn':'⚠ Auto FX failed; {use}. Retry later or keep using current rates.','fx.useCache':'using last cache ({ts})','fx.useDefault':'using built-in defaults','risk.ok':'✓ No major risk flags','risk.ok.sub':'No preset thresholds triggered.','tgtAtL2.suffix':'(target at Subcategory)'
 }};
 function t(key, vars){
   const lang=(typeof UI!=='undefined'&&UI&&UI.lang==='en')?'en':'zh';
@@ -974,7 +1019,7 @@ function applyLang(){
   if(aiBtns[0]) aiBtns[0].textContent=t('ai.dl.md'); if(aiBtns[1]) aiBtns[1].textContent=t('ai.dl.txt'); if(aiBtns[2]) aiBtns[2].textContent=t('ai.copy');
 }
 const COLORS = ['#2e86c1','#e67e22','#c0392b','#27ae60','#8e44ad','#16a085','#d35400','#7f8c8d'];
-const DEFAULT_CUSTODY = ['美券商A','港券商B','中券商C','中银行D','链冷钱包','房产(实物)','其他'];
+const DEFAULT_CUSTODY = ["美券商IB","港券商IB","中券商","中银行","链冷钱包","房产(实物)","公司股权","保险公司","信托公司","银行保管","自持","美·Schwab","美·Insurer","美·Private","美·Property","英·London RE","美·Self","日·Collectibles","瑞·Freeport","链·Cold wallet","其他"];
 
 function hold(o) {
   return {
@@ -1007,112 +1052,300 @@ function sub(name, o, assets) {
 function strat(name, subs) { return { name, subs }; }
 function cat(name, strategies) { return { name, strategies }; }
 
-function seed() {
-  // 分享版随机示例数据 AA_random_V1（虚构·随机发明）：总资产约 1 亿人民币；金额驱动；三级设目标，四级为具体持仓
-  // 汇率默认 USD/CNY=7.2、HKD per USD=7.8（见 FX_DEFAULT），与金额换算一致
-  const L=(name,amount,symbol,currency,custody)=>leaf(name,{amount,symbol,currency,custody});
-  const US='美券商A', HK='港券商B', CN='中券商C', BK='中银行D', CW='链冷钱包', RE='房产(实物)';
+function seedZh() {
+  // AA_random_CN_V2（虚构·来自 aaa-sample-CN-US-V2.json）：总资产约 100000000 CNY；金额驱动；三级设目标，四级为具体持仓；虚构中国高净值样例：房+企+海外户+QDII+加密；sun9：实物资产 L3=住宅/商办/REITs，多数 L2 拆多 L3
+  // 汇率默认 USD/CNY=7.2、HKD per USD=7.8（见 FX_DEFAULT）；GBP/CHF 以 OTHER+fxToUsd 记
   return {
-    baseCurrency: 'CNY', usdCny: 7.2, fx:{rates:{},at:0,source:''}, fxManual:{}, total: 100000000,
+    baseCurrency: "CNY", usdCny: 7.2, fx:{rates:{},at:0,source:''}, fxManual:{}, total: 100000000,
     lastPriceFetchAt: 0,
-    otherRates: {}, custodyOptions: DEFAULT_CUSTODY.slice(), snapshots: [], settings:{taxResidency:'',taxResidencyOther:'',usPerson:false},
+    otherRates: {}, custodyOptions: ["美券商IB","港券商IB","中券商","中银行","链冷钱包","房产(实物)","公司股权","保险公司","信托公司","银行保管","自持"].slice(), snapshots: [], settings:{taxResidency:'',taxResidencyOther:'',usPerson:false},
+    sampleId: "AA_random_CN_V2",
     categories: [
-      cat('全球权益', [
-        strat('美股指数', [
-          sub('标普500', { target:12, currency:'USD', custody:US }, [
-            L('标普500 ETF', 1500000, 'VOO', 'USD', US)
+      cat("全球权益", [
+        strat("美股", [
+          sub("标普500", { target:4.0 }, [
+            leaf("标普500 ETF",{amount:463000,symbol:"VOO",currency:"USD",custody:"美券商IB"})
           ]),
-          sub('纳指成长', { target:6, currency:'USD', custody:US }, [
-            L('纳指100 ETF', 700000, 'QQQ', 'USD', US)
+          sub("纳指成长", { target:2.5 }, [
+            leaf("纳指100 ETF",{amount:276000,symbol:"QQQ",currency:"USD",custody:"美券商IB"})
+          ]),
+          sub("精选个股", { target:2.0 }, [
+            leaf("苹果",{amount:132000,symbol:"AAPL",currency:"USD",custody:"美券商IB"}),
+            leaf("英伟达",{amount:110000,symbol:"NVDA",currency:"USD",custody:"美券商IB"})
           ])
         ]),
-        strat('美股红利与个股', [
-          sub('美股红利', { target:4, currency:'USD', custody:US }, [
-            L('美股红利 ETF', 500000, 'SCHD', 'USD', US)
+        strat("港股", [
+          sub("港股蓝筹", { target:2.0 }, [
+            leaf("腾讯控股",{amount:2425000,symbol:"00700",currency:"HKD",custody:"港券商IB"})
           ]),
-          sub('精选美股', { target:4, currency:'USD', custody:US }, [
-            L('苹果', 400000, 'AAPL', 'USD', US),
-            L('伯克希尔 B', 300000, 'BRK.B', 'USD', US)
+          sub("港股科技", { target:1.5 }, [
+            leaf("恒生科技 ETF",{amount:1323000,symbol:"3067",currency:"HKD",custody:"港券商IB"})
           ])
         ]),
-        strat('国际与港股', [
-          sub('全球除美', { target:5, currency:'USD', custody:US }, [
-            L('全球除美 ETF', 800000, 'VXUS', 'USD', US)
+        strat("QDII", [
+          sub("QDII权益", { target:2.5 }, [
+            leaf("华宝标普500 QDII",{amount:2205000,symbol:"513500",currency:"CNY",custody:"中券商"})
           ]),
-          sub('港股配置', { target:3, currency:'HKD', custody:HK }, [
-            L('腾讯控股', 2000000, '00700', 'HKD', HK),
-            L('恒生国企 ETF', 1500000, '2800', 'HKD', HK)
+          sub("QDII多元", { target:2.0 }, [
+            leaf("嘉实全球房地产 QDII（示例）",{amount:1654000,symbol:"QDII-RE",currency:"CNY",custody:"中券商"})
           ])
         ])
       ]),
-      cat('A股配置', [
-        strat('宽基指数', [
-          sub('沪深300', { target:7, currency:'CNY', custody:CN }, [
-            L('沪深300 ETF', 6000000, '510300', 'CNY', CN)
+      cat("A股配置", [
+        strat("宽基", [
+          sub("沪深300", { target:4.0 }, [
+            leaf("沪深300 ETF",{amount:4410000,symbol:"510300",currency:"CNY",custody:"中券商"})
+          ]),
+          sub("中证500", { target:2.0 }, [
+            leaf("中证500 ETF",{amount:2205000,symbol:"510500",currency:"CNY",custody:"中券商"})
           ])
         ]),
-        strat('风格卫星', [
-          sub('红利价值', { target:4, currency:'CNY', custody:CN }, [
-            L('红利 ETF', 3500000, '510880', 'CNY', CN)
+        strat("风格", [
+          sub("红利价值", { target:3.0 }, [
+            leaf("红利 ETF",{amount:3307000,symbol:"510880",currency:"CNY",custody:"中券商"})
           ]),
-          sub('科创成长', { target:3, currency:'CNY', custody:CN }, [
-            L('科创50 ETF', 2500000, '588000', 'CNY', CN)
+          sub("科创成长", { target:2.5 }, [
+            leaf("科创50 ETF",{amount:2756000,symbol:"588000",currency:"CNY",custody:"中券商"})
           ]),
-          sub('小微盘', { target:2, currency:'CNY', custody:CN }, [
-            L('中证2000 ETF', 3000000, '563300', 'CNY', CN)
+          sub("小微盘", { target:1.5 }, [
+            leaf("中证2000 ETF",{amount:1654000,symbol:"563300",currency:"CNY",custody:"中券商"})
           ])
         ])
       ]),
-      cat('加密资产', [
-        strat('主流币', [
-          sub('比特币', { target:8, currency:'USD', custody:CW }, [
-            L('BTC 冷钱包', 1000000, 'BTC', 'USD', CW),
-            L('比特币现货 ETF', 150000, 'IBIT', 'USD', US)
+      cat("现金与固收", [
+        strat("美元短债", [
+          sub("美短债", { target:1.8 }, [
+            leaf("超短期美债 ETF",{amount:200000,symbol:"BIL",currency:"USD",custody:"美券商IB"})
           ]),
-          sub('以太坊', { target:2, currency:'USD', custody:CW }, [
-            L('ETH', 250000, 'ETH', 'USD', CW)
-          ])
-        ])
-      ]),
-      cat('商品贵金属', [
-        strat('黄金', [
-          sub('国内金ETF', { target:5, currency:'CNY', custody:CN }, [
-            L('黄金 ETF', 4500000, '518880', 'CNY', CN)
-          ]),
-          sub('海外金ETF', { target:2, currency:'USD', custody:US }, [
-            L('黄金信托', 300000, 'GLD', 'USD', US)
+          sub("美元信用", { target:1.2 }, [
+            leaf("短久期美信用债 ETF（示例）",{amount:131000,symbol:"VCSH",currency:"USD",custody:"美券商IB"})
           ])
         ]),
-        strat('工业金属', [
-          sub('铜', { target:1, currency:'USD', custody:US }, [
-            L('铜 ETF', 150000, 'CPER', 'USD', US)
-          ])
-        ])
-      ]),
-      cat('实物房产', [
-        strat('住宅', [
-          sub('自住房产', { target:20, currency:'CNY', custody:RE }, [
-            L('示例城市住宅', 20000000, '', 'CNY', RE)
-          ])
-        ])
-      ]),
-      cat('现金与短债', [
-        strat('美元现金', [
-          sub('超短美债', { target:5, currency:'USD', custody:US }, [
-            L('超短期美债 ETF', 800000, 'SGOV', 'USD', US)
+        strat("人民币现金", [
+          sub("货币基金", { target:2.5 }, [
+            leaf("货币基金",{amount:2756000,symbol:"货币A",currency:"CNY",custody:"中银行"})
+          ]),
+          sub("银行存款", { target:1.5 }, [
+            leaf("活期存款",{amount:1654000,symbol:"CNY-CASH",currency:"CNY",custody:"中银行"})
           ])
         ]),
-        strat('人民币现金', [
-          sub('货币基金', { target:4, currency:'CNY', custody:CN }, [
-            L('货币基金', 4000000, '511990', 'CNY', CN)
+        strat("银行理财", [
+          sub("稳健理财", { target:1.8 }, [
+            leaf("银行理财（示例）",{amount:1980000,symbol:"理财",currency:"CNY",custody:"中银行"})
           ]),
-          sub('银行存款', { target:3, currency:'CNY', custody:BK }, [
-            L('活期存款', 4000000, '', 'CNY', BK)
+          sub("固收增强", { target:1.2 }, [
+            leaf("固收+理财（示例）",{amount:1327000,symbol:"理财+",currency:"CNY",custody:"中银行"})
+          ])
+        ])
+      ]),
+      cat("商品贵金属", [
+        strat("黄金", [
+          sub("实物金", { target:2.5 }, [
+            leaf("实物金条",{amount:2756000,symbol:"GOLD",currency:"CNY",custody:"银行保管"})
+          ]),
+          sub("黄金纸货", { target:1.5 }, [
+            leaf("黄金 ETF",{amount:1654000,symbol:"518880",currency:"CNY",custody:"中券商"})
+          ])
+        ])
+      ]),
+      cat("实物资产", [
+        strat("实物资产", [
+          sub("住宅", { target:16.0 }, [
+            leaf("自住公寓（示例）",{amount:13200000,symbol:"HOME",currency:"CNY",custody:"房产(实物)"}),
+            leaf("投资住宅（示例）",{amount:3200000,symbol:"HOME2",currency:"CNY",custody:"房产(实物)"})
+          ]),
+          sub("商办", { target:7.0 }, [
+            leaf("收租商铺（示例）",{amount:5100000,symbol:"CRE",currency:"CNY",custody:"房产(实物)"}),
+            leaf("小型办公（示例）",{amount:2000000,symbol:"OFFICE",currency:"CNY",custody:"房产(实物)"})
+          ]),
+          sub("REITs", { target:5.0 }, [
+            leaf("华夏华润商业 REIT（示例）",{amount:2800000,symbol:"180101",currency:"CNY",custody:"中券商"}),
+            leaf("中金普洛斯仓网 REIT（示例）",{amount:2364000,symbol:"180301",currency:"CNY",custody:"中券商"})
+          ])
+        ])
+      ]),
+      cat("另类权益", [
+        strat("私募股权", [
+          sub("直投股权", { target:7.0 }, [
+            leaf("未上市科技公司股权",{amount:6430000,symbol:"PE",currency:"CNY",custody:"公司股权"})
+          ]),
+          sub("私募基金", { target:5.0 }, [
+            leaf("成长私募基金（示例）",{amount:4595000,symbol:"PE-FUND",currency:"CNY",custody:"公司股权"})
+          ])
+        ])
+      ]),
+      cat("保障与传承", [
+        strat("保险", [
+          sub("寿险", { target:1.8 }, [
+            leaf("终身寿险现金价值",{amount:1980000,symbol:"INS",currency:"CNY",custody:"保险公司"})
+          ]),
+          sub("年金", { target:1.2 }, [
+            leaf("年金险现金价值（示例）",{amount:1327000,symbol:"ANN",currency:"CNY",custody:"保险公司"})
+          ])
+        ]),
+        strat("信托", [
+          sub("家族信托", { target:1.2 }, [
+            leaf("家族信托份额",{amount:1323000,symbol:"TRUST",currency:"CNY",custody:"信托公司"})
+          ]),
+          sub("保险金信托", { target:0.8 }, [
+            leaf("保险金信托份额（示例）",{amount:882000,symbol:"ILIT",currency:"CNY",custody:"信托公司"})
+          ])
+        ])
+      ]),
+      cat("收藏品", [
+        strat("实物收藏", [
+          sub("腕表", { target:0.9 }, [
+            leaf("腕表收藏（示例）",{amount:992000,symbol:"WATCH",currency:"CNY",custody:"自持"})
+          ]),
+          sub("艺术", { target:0.6 }, [
+            leaf("艺术收藏（示例）",{amount:662000,symbol:"ART-CN",currency:"CNY",custody:"自持"})
+          ])
+        ])
+      ]),
+      cat("加密资产", [
+        strat("主流币", [
+          sub("比特币", { target:8.0 }, [
+            leaf("BTC 冷钱包",{amount:992000,symbol:"BTC",currency:"USD",custody:"链冷钱包"}),
+            leaf("比特币现货 ETF",{amount:165000,symbol:"IBIT",currency:"USD",custody:"美券商IB"})
+          ]),
+          sub("以太坊", { target:2.0 }, [
+            leaf("ETH",{amount:220000,symbol:"ETH",currency:"USD",custody:"链冷钱包"})
           ])
         ])
       ])
     ]
   };
+}
+
+function seedEn() {
+  // AA_random_US_V2（虚构·来自 aaa-sample-CN-US-V2.json）：总资产约 10000000 USD；金额驱动；三级设目标，四级为具体持仓；Fictional US HNWI global lifestyle book
+  // 汇率默认 USD/CNY=7.2、HKD per USD=7.8（见 FX_DEFAULT）；GBP/CHF 以 OTHER+fxToUsd 记
+  return {
+    baseCurrency: "USD", usdCny: 7.2, fx:{rates:{},at:0,source:''}, fxManual:{}, total: 10000000,
+    lastPriceFetchAt: 0,
+    otherRates: {"GBP": 1.27, "CHF": 1.12}, custodyOptions: ["美·Schwab","美·Insurer","美·Private","美·Property","英·London RE","美·Self","日·Collectibles","瑞·Freeport","链·Cold wallet"].slice(), snapshots: [], settings:{taxResidency:'',taxResidencyOther:'',usPerson:false},
+    sampleId: "AA_random_US_V2",
+    categories: [
+      cat("US Equity", [
+        strat("Index", [
+          sub("S&P 500", { target:18.0 }, [
+            leaf("Vanguard S&P 500 ETF",{amount:1600000,symbol:"VOO",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("Nasdaq Growth", { target:8.0 }, [
+            leaf("Invesco QQQ",{amount:700000,symbol:"QQQ",currency:"USD",custody:"美·Schwab"})
+          ])
+        ]),
+        strat("Stocks", [
+          sub("Quality Names", { target:3.5 }, [
+            leaf("Apple",{amount:300000,symbol:"AAPL",currency:"USD",custody:"美·Schwab"}),
+            leaf("Microsoft",{amount:200000,symbol:"MSFT",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("Dividend Sleeve", { target:2.5 }, [
+            leaf("Berkshire B",{amount:250000,symbol:"BRK.B",currency:"USD",custody:"美·Schwab"})
+          ])
+        ])
+      ]),
+      cat("Intl Equity", [
+        strat("Developed", [
+          sub("ex-US", { target:3.0 }, [
+            leaf("Vanguard Total Intl",{amount:270000,symbol:"VXUS",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("Emerging", { target:2.0 }, [
+            leaf("Vanguard FTSE EM",{amount:180000,symbol:"VWO",currency:"USD",custody:"美·Schwab"})
+          ])
+        ])
+      ]),
+      cat("Cash & Bonds", [
+        strat("T-Bills", [
+          sub("Short Treasuries", { target:7.0 }, [
+            leaf("SPDR 1-3M T-Bill",{amount:470000,symbol:"BIL",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("Intermediate Treasuries", { target:5.0 }, [
+            leaf("iShares 7-10Y Treasury",{amount:330000,symbol:"IEF",currency:"USD",custody:"美·Schwab"})
+          ])
+        ]),
+        strat("Cash", [
+          sub("USD Cash", { target:3.0 }, [
+            leaf("Brokerage cash",{amount:300000,symbol:"CASH",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("USD MM Fund", { target:2.0 }, [
+            leaf("Money market fund (sample)",{amount:200000,symbol:"VMFXX",currency:"USD",custody:"美·Schwab"})
+          ])
+        ])
+      ]),
+      cat("Insurance", [
+        strat("Cash Value", [
+          sub("Life Insurance", { target:2.5 }, [
+            leaf("Whole life CSV (sample)",{amount:250000,symbol:"INS",currency:"USD",custody:"美·Insurer"})
+          ]),
+          sub("Annuity", { target:1.5 }, [
+            leaf("Fixed annuity CSV (sample)",{amount:150000,symbol:"ANN",currency:"USD",custody:"美·Insurer"})
+          ])
+        ])
+      ]),
+      cat("Private Equity", [
+        strat("Company", [
+          sub("Private Co Stake", { target:6.0 }, [
+            leaf("Private company equity (sample)",{amount:600000,symbol:"PE",currency:"USD",custody:"美·Private"})
+          ]),
+          sub("PE Fund", { target:4.0 }, [
+            leaf("Growth PE fund (sample)",{amount:400000,symbol:"PE-FUND",currency:"USD",custody:"美·Private"})
+          ])
+        ])
+      ]),
+      cat("Real Estate", [
+        strat("Real Estate", [
+          sub("Residential", { target:12.0 }, [
+            leaf("Primary residence (US)",{amount:1000000,symbol:"HOME",currency:"USD",custody:"美·Property"}),
+            leaf("London apartment (sample)",{amount:380000,symbol:"LON",currency:'OTHER',otherCode:"GBP",fxToUsd:1.27,custody:"英·London RE"})
+          ]),
+          sub("Commercial", { target:4.0 }, [
+            leaf("Small office condo (sample)",{amount:400000,symbol:"CRE-US",currency:"USD",custody:"美·Property"})
+          ]),
+          sub("REITs", { target:5.0 }, [
+            leaf("Vanguard Real Estate ETF",{amount:350000,symbol:"VNQ",currency:"USD",custody:"美·Schwab"}),
+            leaf("Industrial REIT sleeve (sample)",{amount:150000,symbol:"REIT-IND",currency:"USD",custody:"美·Schwab"})
+          ])
+        ])
+      ]),
+      cat("Collectibles", [
+        strat("Cards", [
+          sub("US Sports Cards", { target:1.0 }, [
+            leaf("Sports card collection",{amount:100000,symbol:"CARD-US",currency:"USD",custody:"美·Self"})
+          ]),
+          sub("JP Pokemon", { target:0.8 }, [
+            leaf("Pokemon cards (JP)",{amount:12000000,symbol:"CARD-JP",currency:"JPY",custody:"日·Collectibles"})
+          ])
+        ]),
+        strat("Art", [
+          sub("Geneva Freeport Art", { target:1.2 }, [
+            leaf("Painting in Geneva Freeport",{amount:140000,symbol:"ART",currency:'OTHER',otherCode:"CHF",fxToUsd:1.12,custody:"瑞·Freeport"})
+          ]),
+          sub("Sculpture", { target:1.0 }, [
+            leaf("Sculpture (sample)",{amount:100000,symbol:"SCULP",currency:"USD",custody:"美·Self"})
+          ])
+        ])
+      ]),
+      cat("Crypto", [
+        strat("Majors", [
+          sub("Bitcoin", { target:5.5 }, [
+            leaf("BTC cold wallet",{amount:500000,symbol:"BTC",currency:"USD",custody:"链·Cold wallet"}),
+            leaf("iShares Bitcoin Trust",{amount:100000,symbol:"IBIT",currency:"USD",custody:"美·Schwab"})
+          ]),
+          sub("Ether", { target:1.5 }, [
+            leaf("ETH",{amount:150000,symbol:"ETH",currency:"USD",custody:"链·Cold wallet"})
+          ])
+        ])
+      ])
+    ]
+  };
+}
+
+function seed() {
+  // 按当前界面语言选样例：zh → AA_random_CN_V2（~¥1亿），en → AA_random_US_V2（~$10M）
+  // 仅首次加载与「恢复默认」走这里；切换语言不会改写当前持仓
+  const lang=(typeof UI!=='undefined'&&UI&&UI.lang==='en')?'en':'zh';
+  return lang==='en' ? seedEn() : seedZh();
 }
 
 function migrate(raw) {
@@ -1140,6 +1373,8 @@ function migrate(raw) {
       const sumA=u.assets.reduce((t,a)=>t+(+a.target||0),0);
       if (!(+u.target) && sumA) u.target=Math.round(sumA*1e10)/1e10;
       u.assets.forEach(a=>{ a.target=0; });
+      // 非叶子三级行不展示托管；清残留，避免「删除托管」把不可见字段算作占用
+      u.custody='';
     }
     u.assets.forEach(a => {
       if (!a.currency) a.currency='USD';
@@ -1162,7 +1397,10 @@ function migrate(raw) {
   if (!raw.otherRates) raw.otherRates={};
   // 托管列表：已保存则原样使用（含删除/改名），不再合并默认值；仅首次/旧文件无列表时，取行内已用的托管，否则用默认
   if (!Array.isArray(raw.custodyOptions)) {
-    const used=[]; (raw.categories||[]).forEach(c=>(c.strategies||[]).forEach(s=>(s.subs||[]).forEach(u=>{ [u].concat(u.assets||[]).forEach(h=>{ const v=h&&String(h.custody||'').trim(); if(v&&!used.includes(v)) used.push(v); }); })));
+    const used=[]; (raw.categories||[]).forEach(c=>(c.strategies||[]).forEach(s=>(s.subs||[]).forEach(u=>{
+      const leaves=(!u.assets||!u.assets.length)?[u]:u.assets;
+      leaves.forEach(h=>{ const v=h&&String(h.custody||'').trim(); if(v&&!used.includes(v)) used.push(v); });
+    })));
     raw.custodyOptions = used.length ? used : DEFAULT_CUSTODY.slice();
   } else raw.custodyOptions = raw.custodyOptions.map(x=>String(x||'').trim()).filter((x,i,a)=>x&&a.indexOf(x)===i);
   if (!raw.snapshots) raw.snapshots=[];
@@ -1176,6 +1414,11 @@ function migrate(raw) {
   migrateAllCnFuturePrices(raw);
   return raw;
 }
+
+/* ---- UI prefs must init BEFORE seed()/t() touch UI (let TDZ) ---- */
+const UIKEY='assetAlloc_share_ui_v2';
+let UI=(()=>{ try{ let raw=localStorage.getItem(UIKEY); if(!raw){ const leg=localStorage.getItem('assetAlloc_ui_v1'); if(leg){ raw=leg; try{ localStorage.setItem(UIKEY,leg); }catch(e0){} } } const u=JSON.parse(raw||'{}'); return {collapsed:u.collapsed||{},aiPriv:!!u.aiPriv,lang:(u.lang==='en'?'en':'zh')}; }catch(e){ return {collapsed:{},aiPriv:false,lang:'zh'}; } })();
+function saveUI(){ try{ localStorage.setItem(UIKEY, JSON.stringify(UI)); }catch(e){} }
 
 let S;
 try { S = migrate(JSON.parse(localStorage.getItem(KEY))); } catch(e) { S=null; }
@@ -1357,7 +1600,8 @@ const _zhColl=(()=>{ try{ return new Intl.Collator('zh-Hans-CN',{sensitivity:'ba
 function cmpCustody(a,b){ return _zhColl.compare(a,b); }
 function usedCustodySet(){
   const u=new Set();
-  forEachHolding(h=>{ const v=String(h&&h.custody||'').trim(); if(v) u.add(v); });
+  // 仅统计真正持仓行（叶子三级 / 四级）；不看非叶子三级残留、分类桶或前缀
+  holdingNodes().forEach(x=>{ const v=String(x.node&&x.node.custody||'').trim(); if(v) u.add(v); });
   return u;
 }
 /** used first (zh order within), unused last (zh order); export keeps full list */
@@ -1374,6 +1618,17 @@ function sortCustody(){
 function custCat(name){ if(/^\s*其他/.test(String(name||''))) return '其他'; const m=String(name||'').match(/[\u3400-\u9fff\uf900-\ufaff]/); return m?m[0]:'其他'; }
 const CUST_COUNTRY=new Set('美中港新日英欧瑞澳加台韩德法链'.split(''));
 function custCatKnown(name){ const c=custCat(name); return CUST_COUNTRY.has(c)?c:null; }
+/* EN UI custody category labels (pie/table/badges). Keys stay Han via custCat(); display only. */
+const CUST_CAT_EN={
+  '中':'CN','房':'Prop','公':'Corp','美':'US','链':'Crypto','港':'HK',
+  '保':'Ins','信':'Trust','银':'Bank','自':'Self','英':'UK','日':'JP',
+  '瑞':'CH','澳':'AU','加':'CA','台':'TW','韩':'KR','德':'DE','法':'FR',
+  '新':'SG','欧':'EU','其他':'Other'
+};
+function custCatLabel(cat){
+  if(typeof UI!=='undefined' && UI.lang==='en' && CUST_CAT_EN[cat]) return CUST_CAT_EN[cat];
+  return cat;
+}
 
 function curSelect(path, n) {
   const v=n.currency||'USD';
@@ -1878,7 +2133,7 @@ async function refreshAllPrices(silent){
   const st = document.getElementById('priceStatus');
   const btn = document.getElementById('btnRefreshPx');
   if (!assets.length) {
-    if (st && !silent) st.innerHTML = '<span class="price-stale">无四级代码可刷新（请先在四级填写 symbol）</span>';
+    if (st && !silent) st.innerHTML = '<span class="price-stale">无子资产代码可刷新（请先在子资产填写 symbol）</span>';
     return;
   }
   _priceRefreshing = true;
@@ -1966,7 +2221,7 @@ function holdCellsL4(path, n, mx, hasT) {
   const pxVal = hasPrice(n) ? n.price : '';
   return `<td>${curSelect(path,n)}</td>
     <td>${custodySelect(path,n)}</td>
-    <td><input class="sym" placeholder="${t('ph.code')}" title="美股/ETF：VUG、AAPL、BRK.B（或 BRK-B）→USD；港股：0700.HK 或 hk00700→HKD；A股：600519.SS / sh600519、000001.SZ / sz000001、sh510300、430047.BJ，或纯 6 位（5/6/9→沪，92/4/8→北交所，其余→深）→CNY；日股：7203.T / 7203.JP / JP7203→JPY（纯 4 位不行）；加密：BTC、HYPE、BTC-USD、cg:hyperliquid（Crypto 一级下任何代码均按加密）；现金：USD/CNY/RMB/HKD/JPY/EUR/GBP/SGD/USDT（单价=1）" value="${esc(n.symbol||'')}" onchange="${path}.symbol=(/^cg:/i.test(this.value.trim())?'cg:'+this.value.trim().slice(3).trim().toLowerCase():this.value.toUpperCase().trim());save()"></td>
+    <td><input class="sym" placeholder="${t('ph.code')}" title="美股/ETF：VUG、AAPL、BRK.B（或 BRK-B）→USD；港股：0700.HK 或 hk00700→HKD；A股：600519.SS / sh600519、000001.SZ / sz000001、sh510300、430047.BJ，或纯 6 位（5/6/9→沪，92/4/8→北交所，其余→深）→CNY；日股：7203.T / 7203.JP / JP7203→JPY（纯 4 位不行）；加密：BTC、HYPE、BTC-USD、cg:hyperliquid（Crypto 类别下任何代码均按加密）；现金：USD/CNY/RMB/HKD/JPY/EUR/GBP/SGD/USDT（单价=1）" value="${esc(n.symbol||'')}" onchange="${path}.symbol=(/^cg:/i.test(this.value.trim())?'cg:'+this.value.trim().slice(3).trim().toLowerCase():this.value.toUpperCase().trim());save()"></td>
     <td class="n"><input class="qty" type="text" inputmode="decimal" autocomplete="off" placeholder="—" value="${hasQty(n)?fmtNum(n.qty):''}" data-raw="${hasQty(n)?fullNum(n.qty):''}" title="${isCnFuture(n.symbol)?'期货：数量=手数（空头填负数）；单价已含合约乘数（每手名义），金额=手数×单价'+(hasQty(n)?'；当前='+fullNum(n.qty):''):(hasQty(n)?fullNum(n.qty):'')}" onfocus="this.value=this.dataset.raw" onblur="this.value=fmtNum(pn(this.value))" onchange="${path}.qty=pn(this.value);syncAmountFromQtyPrice(${path});save()"></td>
     <td class="n"><input class="px" type="text" inputmode="decimal" autocomplete="off" placeholder="${t('ph.px')}" value="${pxVal===''?'':fmtPrice(pxVal)}" data-raw="${pxVal===''?'':fullNum(pxVal)}" title="${isCnFuture(n.symbol)?'期货单价=行情价×合约乘数（每手名义）'+(pxVal===''?'':'；当前='+fullNum(pxVal)):(pxVal===''?'':fullNum(pxVal))}" onfocus="this.value=this.dataset.raw" onblur="this.value=fmtPrice(pn(this.value))" onchange="${path}.price=pn(this.value);syncAmountFromQtyPrice(${path});save()">${priceAgeLabel(n)}</td>
     <td class="n">${amtLocked
@@ -1996,14 +2251,11 @@ function holdCellsL4only(path,n,mx,hasT){
 function emptyPxCols(){ return `<td></td><td></td><td></td>`; }
 
 /* ---- collapse/expand (UI state in separate key; nodes get a stable _uid) ---- */
-const UIKEY='assetAlloc_share_ui_v2';
 function jumpToRow(k){ const [ci,si,ui]=k.split(',').map(Number); const c=S.categories[ci], st=c&&c.strategies[si], u=st&&st.subs[ui];
   [c,st,u].forEach(x=>{ if(x&&x._uid) delete UI.collapsed[x._uid]; }); saveUI(); render();
   const tr=document.querySelector('#tbl tr[data-k="'+k+'"]'); if(!tr) return;
   tr.scrollIntoView({block:'center',behavior:'smooth'}); tr.classList.remove('flashRow'); void tr.offsetWidth; tr.classList.add('flashRow');
   setTimeout(()=>tr.classList.remove('flashRow'),2600); const i=tr.querySelector('input.manualPct'); if(i) setTimeout(()=>i.focus({preventScroll:true}),600); }
-let UI=(()=>{ try{ let raw=localStorage.getItem(UIKEY); if(!raw){ const leg=localStorage.getItem('assetAlloc_ui_v1'); if(leg){ raw=leg; try{ localStorage.setItem(UIKEY,leg); }catch(e0){} } } const u=JSON.parse(raw||'{}'); return {collapsed:u.collapsed||{},aiPriv:!!u.aiPriv,lang:(u.lang==='en'?'en':'zh')}; }catch(e){ return {collapsed:{},aiPriv:false,lang:'zh'}; } })();
-function saveUI(){ try{ localStorage.setItem(UIKEY, JSON.stringify(UI)); }catch(e){} }
 function ensureUids(){ const f=n=>{ if(!n._uid) n._uid='n'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); };
   (S.categories||[]).forEach(c=>{ f(c); (c.strategies||[]).forEach(s=>{ f(s); (s.subs||[]).forEach(u=>{ f(u); (u.assets||[]).forEach(f); }); }); }); }
 function isC(n){ return !!UI.collapsed[n._uid]; }
@@ -2067,7 +2319,7 @@ function render() {
   const _custUsed=usedCustodySet();
   document.getElementById('custodyList').innerHTML=S.custodyOptions.map((o,i)=>{
     const on=_custUsed.has(o);
-    return `<span class="badge${on?'':' custUnused'}" style="font-size:14px;padding:4px 8px" title="${on?'':t('custody.unusedTip')}"><span class="ccat" title="${t('title.custCat')}">${esc(custCat(o))}</span><input class="t" style="width:120px;font-size:14px" value="${esc(o)}" title="${t('title.renameCust')}" onchange="renameCustody(${i},this.value)"> <button class="d" style="border:none;background:transparent" title="${t('title.delFromList')}" onclick="delCustody(${i})">×</button></span>`;
+    return `<span class="badge${on?'':' custUnused'}" style="font-size:14px;padding:4px 8px" title="${on?'':t('custody.unusedTip')}"><span class="ccat" title="${t('title.custCat')}">${esc(custCatLabel(custCat(o)))}</span><input class="t" style="width:120px;font-size:14px" value="${esc(o)}" title="${t('title.renameCust')}" onchange="renameCustody(${i},this.value)"> <button class="d" style="border:none;background:transparent" title="${t('title.delFromList')}" onclick="delCustody(${i})">×</button></span>`;
   }).join(' ');
 
   const A=allT('actual'), G=allT('target');
@@ -2151,11 +2403,13 @@ function render() {
   document.getElementById('tbl').innerHTML=h; moveGapCol(document.querySelector('#tbl table'));
 
 
-  document.getElementById('charts').innerHTML=
-    sunburst(buildTree('actual'),t('sun.actual'),'actual')+sunburst(buildTree('target'),t('sun.target'),'target');
-  document.getElementById('legend').innerHTML=S.categories.map((c,i)=>
+  const legHtml=S.categories.map((c,i)=>
     `<span><b style="background:${COLORS[i%COLORS.length]}"></b>${esc(c.name)}：${fmtPct1(catT(c,'actual'))} → ${fmtPct1(catT(c,'target'))}</span>`
   ).join('');
+  document.getElementById('charts').innerHTML=
+    sunburst(buildTree('actual'),t('sun.actual'),'actual')+
+    `<div class="legend" id="legend">${legHtml}</div>`+
+    sunburst(buildTree('target'),t('sun.target'),'target');
 
   safeSec(()=>renderAnalysis(A,G,hasT),'analysisStats',t('safe.overview'));
   safeSec(renderCustStats,'custStats',t('safe.cust'));
@@ -2163,6 +2417,7 @@ function render() {
   safeSec(renderRiskTips,'riskTips',t('safe.risk'));
   safeSec(()=>{ if(typeof renderTaxUi==='function') renderTaxUi(); },null,t('safe.tax'));
   safeSec(renderSnaps,null,t('safe.snap'));
+  scheduleAnalysisCardWatermarks();
 }
 
 function buildTree(key) {
@@ -2186,6 +2441,60 @@ function lumOf(hex){ const n=parseInt(hex.slice(1),16); const f=v=>{v/=255;retur
 function txtW(s,fs){ let w=0; for(const ch of String(s)) w+=/[\u2e80-\uffff]/.test(ch)?fs:(/[A-Z0-9%]/.test(ch)?fs*.62:fs*.52); return w; }
 function pct1(v){ return (Math.round((+v||0)*10)/10).toFixed(1)+'%'; }
 /** 大尺寸旭日图：三层均在扇区上直接标注「名称 百分比」，放不下则隐藏（悬停可看）；data-k 用于悬停/点击明细 */
+
+/** Scheme C watermark inside SVG (same idea as site temperature/kanban): light bg + faint diagonal tile + corner mark. */
+function wmSvgLayer(id, W, H, bg){
+  const en=(typeof UI!=='undefined' && UI.lang==='en');
+  /* EN: full AAA product name (never leave 「资产配置」). Wider tile so full name rarely clips; AAA fallback unused while full name fits. */
+  const brand='RayFi', rest=en?' Asset Allocation Analyzer':'资产配置', ink='#0b3d4c', brandInk='#123041';
+  const brandFont="'RayFiCaveat','Caveat',cursive";
+  const uiFont="-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif";
+  const T=en?{size:11, opacity:0.07, w:320, h:84, angle:-24}:{size:12, opacity:0.07, w:230, h:84, angle:-24};
+  const M={size:en?11:12, opacity:0.42, diamond:'#e07a1f'};
+  const word=(x,y,fs)=>`<text x="${x}" y="${y}" font-size="${fs}" font-weight="600" font-family="${uiFont}" fill="${ink}" fill-opacity="${T.opacity}"><tspan font-family="${brandFont}" font-size="${Math.round(fs*1.35)}" font-weight="700" fill="${brandInk}">${brand}</tspan><tspan dx="${(fs*0.3).toFixed(1)}">${rest}</tspan></text>`;
+  const markWord=`<text x="${W-8}" y="${H-8}" text-anchor="end" font-size="${M.size}" font-weight="700" font-family="${uiFont}" fill="${ink}" fill-opacity="${M.opacity}"><tspan fill="${M.diamond}">◆ </tspan><tspan font-family="${brandFont}" font-size="${Math.round(M.size*1.35)}" font-weight="700" fill="${brandInk}">${brand}</tspan><tspan dx="${(M.size*0.3).toFixed(1)}">${rest}</tspan></text>`;
+  const pid=esc(id)+'-wm';
+  const useBg=bg && bg!=='none' && bg!=='transparent';
+  return `<g class="rf-wm" pointer-events="none" aria-hidden="true">`+
+    (useBg?`<rect x="0" y="0" width="${W}" height="${H}" fill="${bg}"/>`:'')+
+    `<defs><pattern id="${pid}" width="${T.w}" height="${T.h}" patternUnits="userSpaceOnUse" patternTransform="rotate(${T.angle} 0 0)">`+
+    word(8, Math.round(T.h*0.38), T.size)+word(8+T.w/2, Math.round(T.h*0.88), T.size)+
+    `</pattern></defs>`+
+    `<rect x="0" y="0" width="${W}" height="${H}" fill="url(#${pid})"/>`+
+    markWord+`</g>`;
+}
+
+/** Full-bleed Scheme-C watermark over every analysis card (大方块), not only the pie SVG. */
+function paintAnalysisCardWatermarks(){
+  const root=document.getElementById('viewAnalysis'); if(!root||!root.classList.contains('on')) return;
+  const cards=[...root.querySelectorAll(':scope > .card, :scope > .dimGrid > .card')];
+  cards.forEach((card,i)=>{
+    /* Tip/risk card: skip tiled brand text — it collides with 问题/建议 copy. */
+    if(card.querySelector('#riskTips')){
+      const dead=card.querySelector(':scope > .rf-wm-bleed');
+      if(dead) dead.remove();
+      return;
+    }
+    let el=card.querySelector(':scope > .rf-wm-bleed');
+    if(!el){ el=document.createElement('div'); el.className='rf-wm-bleed'; el.setAttribute('aria-hidden','true'); card.insertBefore(el, card.firstChild); }
+    const r=card.getBoundingClientRect();
+    const W=Math.max(1, Math.ceil(r.width)||card.clientWidth||800);
+    const H=Math.max(1, Math.ceil(r.height)||card.clientHeight||400);
+    el.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${wmSvgLayer('cardwm-'+i, W, H, 'transparent')}</svg>`;
+  });
+}
+let _wmRO=null;
+function scheduleAnalysisCardWatermarks(){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    paintAnalysisCardWatermarks();
+    const root=document.getElementById('viewAnalysis');
+    if(!_wmRO && typeof ResizeObserver!=='undefined' && root){
+      _wmRO=new ResizeObserver(()=>{ if(root.classList.contains('on')) paintAnalysisCardWatermarks(); });
+      root.querySelectorAll(':scope > .card, :scope > .dimGrid > .card').forEach(c=>_wmRO.observe(c));
+    }
+  }));
+}
+
 function sunburst(tree, title, key) {
   const W=1000,H=1000,cx=W/2,cy=H/2,R0=120,R1=228,R2=325,R3=492;
   const total=tree.reduce((t,n)=>t+Math.max(0,n.value),0)||1;
@@ -2408,16 +2717,16 @@ function renderCustStats(){
   catsCur.forEach((c,i)=>{ const g=groups[c], col=colMap[c];
     const items=Object.keys(g.items).sort((a,b)=>g.items[b]-g.items[a]);
     h+=`<tr style="cursor:pointer;font-weight:600" title="${t('cust.clickDetail')}" onclick="event.stopPropagation();cpPin('${esc(c).replace(/'/g,'&#39;')}',event)">
-      <td><span class="ccat" style="background:${col}">${esc(c)}</span> <span class="cpTog" title="${t('cust.tog')}" onclick="event.stopPropagation();this.closest('tr').parentNode.querySelectorAll('tr.cs${i}').forEach(r=>r.style.display=r.style.display==='none'?'':'none')">▸ ${t('cust.nPos',{n:items.length})}</span></td><td class="n" title="${fullNum(g.pct)}%">${fmtPct1(g.pct)}</td>
+      <td><span class="ccat" style="background:${col}">${esc(custCatLabel(c))}</span> <span class="cpTog" title="${t('cust.tog')}" onclick="event.stopPropagation();this.closest('tr').parentNode.querySelectorAll('tr.cs${i}').forEach(r=>r.style.display=r.style.display==='none'?'':'none')">▸ ${t('cust.nPos',{n:items.length})}</span></td><td class="n" title="${fullNum(g.pct)}%">${fmtPct1(g.pct)}</td>
       <td><span class="custBar" style="width:${Math.round(g.pct/mxp*120)}px;background:${col}"></span></td>${T?`<td class="n">${money(g.pct)}</td>`:''}</tr>`;
     items.forEach(cu=>{ h+=`<tr class="cs${i}" style="display:none"><td style="padding-left:34px">${esc(cu)}</td><td class="n" title="${fullNum(g.items[cu])}%">${fmtPct1(g.items[cu])}</td>
       <td><span class="custBar" style="width:${Math.round(g.items[cu]/mxp*120)}px;background:${col};opacity:.55"></span></td>${T?`<td class="n">${money(g.items[cu])}</td>`:''}</tr>`; });
   });
   h+='</table>';
-  const leftItems=catsCur.map(c=>({k:c,pct:groups[c].pct,col:colMap[c]}));
-  const rightItems=catsAll.filter(c=>(gTgt[c]&&gTgt[c].pct>0)).map(c=>({k:c,pct:gTgt[c].pct,col:colMap[c]}));
-  const left=dimDonutSvg(leftItems,t('donut.now'),{segClass:'cpSeg',dataCat:true,tip:it=>t('cp.pop.title',{cat:esc(it.k),pct:pct1(it.pct)})+(T?' · '+fmtMoney(T*it.pct/100):'')+' '+t('cust.tipDetail')});
-  const right=dimDonutSvg(rightItems,t('donut.tgt'),{segClass:'dmSegMute',emptyTip:t('donut.emptyTgt'),tip:it=>`${esc(it.k)} ${t('sun.tgt')} ${pct1(it.pct)}`});
+  const leftItems=catsCur.map(c=>({k:c,label:custCatLabel(c),pct:groups[c].pct,col:colMap[c]}));
+  const rightItems=catsAll.filter(c=>(gTgt[c]&&gTgt[c].pct>0)).map(c=>({k:c,label:custCatLabel(c),pct:gTgt[c].pct,col:colMap[c]}));
+  const left=dimDonutSvg(leftItems,t('donut.now'),{segClass:'cpSeg',dataCat:true,tip:it=>t('cp.pop.title',{cat:esc(it.label||it.k),pct:pct1(it.pct)})+(T?' · '+fmtMoney(T*it.pct/100):'')+' '+t('cust.tipDetail')});
+  const right=dimDonutSvg(rightItems,t('donut.tgt'),{segClass:'dmSegMute',emptyTip:t('donut.emptyTgt'),tip:it=>`${esc(it.label||it.k)} ${t('sun.tgt')} ${pct1(it.pct)}`});
   el.innerHTML=`<div class="dimCompare">${left}<div class="dimArrow" aria-hidden="true">➜</div>${right}</div>`+h;
 }
 /* ---- 托管分类明细面板 ---- */
@@ -2431,12 +2740,12 @@ function cpDetail(cat){
     const rows=g.rows.sort((a,b)=>(+b.node.actual||0)-(+a.node.actual||0)).map(x=>{ const n=x.node, pct=+n.actual||0, cur=n.currency==='OTHER'?(n.otherCode||t('other')):(n.currency||'');
       return `<tr class="cpR${ci}"><td style="padding-left:18px">${esc(x.path.split(' / ').join(' › '))}</td><td>${esc(n.symbol||'—')}</td><td>${esc(cur)}</td><td class="n">${money(n,pct)}</td><td class="n">${pct1(pct)}</td><td class="n">${catPct>0?pct1(pct/catPct*100):'—'}</td></tr>`; }).join('');
     return `<tr class="cpCu" onclick="event.stopPropagation();document.querySelectorAll('#sbPop tr.cpR${ci}').forEach(r=>r.style.display=r.style.display==='none'?'':'none')"><td><b>▾ ${esc(cu)}</b> <span class="muted">${t('cust.nItems',{n:g.rows.length})}</span></td><td></td><td></td><td class="n"><b>${T?fmtMoney(T*g.pct/100):'—'}</b></td><td class="n"><b>${pct1(g.pct)}</b></td><td class="n"><b>${catPct>0?pct1(g.pct/catPct*100):'—'}</b></td></tr>`+rows; }).join('');
-  return `<div class="sbPopHd"><b>${t('cp.pop.title',{cat:esc(cat),pct:pct1(catPct)})}${T?' · '+fmtMoney(T*catPct/100)+' '+esc(S.baseCurrency):''}</b><span class="sbX" onclick="sbClose()">✕</span></div>
+  return `<div class="sbPopHd"><b>${t('cp.pop.title',{cat:esc(custCatLabel(cat)),pct:pct1(catPct)})}${T?' · '+fmtMoney(T*catPct/100)+' '+esc(S.baseCurrency):''}</b><span class="sbX" onclick="sbClose()">✕</span></div>
     <div class="muted" style="font-size:12px;margin:2px 0 6px">${t('cp.pop.sub',{n:custs.length})}</div>
     <table class="sbTbl"><tr><th>${t('cp.th.path')}</th><th>${t('cp.th.code')}</th><th>${t('cp.th.cur')}</th><th>${t('cp.th.amt',{bc:esc(S.baseCurrency)})}</th><th>${t('cp.th.ofTot')}</th><th>${t('cp.th.ofCat')}</th></tr>${body||'<tr><td colspan="6" class="muted">'+t('cp.nodata')+'</td></tr>'}</table>`;
 }
 function cpTip(cat){ const T=portfolioTotal(); let p=0; const cs=new Set(); holdingNodes().forEach(x=>{ const cu=x.node.custody||t('opt.blank'); if((x.node.custody?custCat(cu):t('cust.blankCat'))!==cat) return; const v=+x.node.actual||0; if(v){p+=v;cs.add(cu);} });
-  return `<b>${t('cp.pop.title',{cat:esc(cat),pct:''}).replace(/\s*·\s*$/,'')}</b><div>${pct1(p)}${T?' · '+fmtMoney(T*p/100):''}</div><div style="font-size:12px">${[...cs].map(esc).join(UI.lang==='en'?', ':'、')}</div><div class="muted" style="font-size:12px">${t('cust.tipDetail')}</div>`; }
+  return `<b>${t('cp.pop.title',{cat:esc(custCatLabel(cat)),pct:''}).replace(/\s*·\s*$/,'')}</b><div>${pct1(p)}${T?' · '+fmtMoney(T*p/100):''}</div><div style="font-size:12px">${[...cs].map(esc).join(UI.lang==='en'?', ':'、')}</div><div class="muted" style="font-size:12px">${t('cust.tipDetail')}</div>`; }
 function cpPin(cat,ev){ const e=sbEl(); _sbPinned=true; e.className='sbPop big pinned'; e.innerHTML=cpDetail(cat); e.style.display='block'; sbPlace(e,ev?ev.clientX:200,ev?ev.clientY:200); }
 
 /* ---- 税务居民身份 ---- */
@@ -2445,38 +2754,148 @@ function taxRes(){ const t=taxSet(); return t.taxResidency==='其他'?(String(t.
 function isUsPerson(){ const t=taxSet(); return !!t.usPerson || t.taxResidency==='美国'; }
 function riskTipList() {
   const tips=[];
-  const add=(key,cls,title,adv,trig)=>{
+  const TIP_PROB={
+    conc_leaf:'单只持仓实际占比偏高，组合波动与回撤会更依赖这一两项资产。',
+    conc_crypto:'加密一类合计偏重，回撤时对整体净值冲击更大。',
+    conc_cat:'单一大类占比过高，分散效果不足，同涨同跌更明显。',
+    conc_mkt:'某个底层市场/地区（美股、港股、A股、日欧等）合计占比偏高，同涨同跌与政策冲击会更集中；敞口越大，组合对单一市场的依赖越强。',
+    def_low:'现金/类债等防御仓偏低，市场急跌时缓冲有限。',
+    corr_usg:'多只美股成长/科技持仓往往同涨同跌，相关度偏高。',
+    tax_unknown:'尚未选择税务居民身份，相关税务提示无法按你的情况生成。',
+    tax_fatca:'美国人持有非美账户或非美基金时，FATCA/PFIC 申报与税负可能很重。',
+    tax_crs:'非美金融机构持有境外资产时，CRS 会向税务居民地交换账户信息。',
+    tax_estate:'非美国人持有美国资产超过约 6 万美元时，可能涉及美国遗产税。',
+    tax_cn20:'中国大陆税务居民的境外所得一般按 20% 计征个税，需自行申报。',
+    crypto_cust:'冷钱包/自持私钥丢失后资产不可恢复，继承人亦难接手。',
+    alt_liq:'非标/实物资产急售常需折价，难以当作几天内可变现的应急资金。',
+    alt_val:'缺少每日市价，录入金额多为自估或历史成本，可能高估总资产。',
+    alt_cost:'买入、持有、出售、过户各环节税费与佣金高，净到手常明显低于账面。',
+    alt_key:'收入、资产甚至担保可能押在同一企业/行业，关键人风险集中。',
+    alt_cpty:'借出款、私募、信托、保单等依赖对手方履约与偿付能力。',
+    alt_succ:'产权、代持、受益人与跨境继承规则复杂，家人可能难以接手。',
+    rule_gap:'规则只覆盖常见资产；未分类与另类持仓可能漏掉关键风险。'
+  };
+  const SEV_RANK={critical:4,hi:3,warn:2,ok:1};
+  const add=(key,cls,title,adv,trig,prob,sev)=>{
     let t=tips.find(x=>x.key===key);
-    if(!t){t={key,cls,title,adv,trig:[]};tips.push(t);}
+    if(!t){t={key,cls,title,prob:prob||TIP_PROB[key]||'',adv,trig:[],sev:sev||undefined};tips.push(t);}
+    if(prob&&!t.prob) t.prob=prob;
+    if(!t.prob&&TIP_PROB[key]) t.prob=TIP_PROB[key];
     if(trig&&!t.trig.includes(trig)) t.trig.push(trig);
+    if(sev&&(!t.sev||(SEV_RANK[sev]||0)>(SEV_RANK[t.sev]||0))) t.sev=sev;
   };
   const leaves=holdingNodes();
   const A=allT('actual')||100;
 
+  /* conc_leaf: >15 warn 留意; ≥20 hi 需处理; >25 critical 重大风险 (RayFi / 马科维茨 sync) */
   leaves.forEach(x=>{
     const pct=+x.node.actual||0;
-    if(pct>25) add('conc_leaf','risk-item','单一资产集中度偏高',
-      '建议：单只持仓实际占比超过约 25%，波动可能较大，可考虑逐步再平衡或分散。',
-      `${x.path}（${dispNum(pct)}%）`);
+    if(!(pct>15)) return;
+    const en=UI.lang==='en';
+    let sev, adv;
+    if(pct>25){
+      sev='critical';
+      adv=en
+        ?'Suggestion: A single holding is already over about 25%—drawdown risk is extreme; prioritize rebalancing or diversifying.'
+        :'建议：单只持仓实际占比已超过约 25%，对组合存活与回撤冲击极大，应优先再平衡或分散。';
+    }else if(pct>=20){
+      sev='hi';
+      adv=en
+        ?'Suggestion: A single holding is already at or above about 20%. Rebalance or diversify.'
+        :'建议：单只持仓实际占比已达到约 20% 及以上，波动与回撤更依赖这一两项资产，应再平衡或分散。';
+    }else{
+      sev='warn';
+      adv=en
+        ?'Suggestion: A single holding is already above about 15%. Watch concentration; rebalance gradually vs target.'
+        :'建议：单只持仓实际占比已超过约 15%，留意集中度；可对照目标逐步再平衡或分散。';
+    }
+    const title=en?'High single-asset concentration':'单一资产集中度偏高';
+    const prob=en
+      ?'A single holding has high actual weight, so portfolio volatility and drawdowns lean more on one or two assets.'
+      :undefined;
+    add('conc_leaf','risk-item',title, adv,
+      en?`${x.path} (${dispNum(pct)}%)`:`${x.path}（${dispNum(pct)}%）`, prob, sev);
   });
+  let cryptoTot=0;
   S.categories.forEach(c=>{
     const pct=catT(c,'actual'), name=c.name||'';
-    if(/crypto|加密/i.test(name)&&pct>30)
-      add('conc_crypto','risk-item','加密资产整体偏重',
-        '建议：Crypto 一类合计超过约 30%，退休组合可评估是否降至更舒适的目标区间。',
-        `${name} 合计 ${dispNum(pct)}%`);
+    /* conc_crypto: same bands as leaf — >15 warn; ≥20 hi; >25 critical */
+    if(/crypto|加密/i.test(name)){
+      cryptoTot+=pct;
+      if(pct>15){
+        let sev, adv;
+        if(pct>25){
+          sev='critical';
+          adv='建议：Crypto 一类合计已超过约 25%，极端回撤可重创净值，应优先降至更舒适目标区间。';
+        }else if(pct>=20){
+          sev='hi';
+          adv='建议：Crypto 一类合计已达到约 20% 及以上，回撤时对整体净值冲击更大，应评估降至更舒适的目标区间。';
+        }else{
+          sev='warn';
+          adv='建议：Crypto 一类合计已超过约 15%，留意加密敞口；可对照目标逐步调整。';
+        }
+        add('conc_crypto','risk-item','加密资产整体偏重', adv,
+          `${name} 合计 ${dispNum(pct)}%`, undefined, sev);
+      }
+    }
+    /* conc_cat: ≥60% critical, (45,60) hi */
     if(pct>45)
-      add('conc_cat','risk-item','一级分类过于集中',
-        '建议：单一大类占比很高，不利分散；可对照目标配置逐步调整。',
-        `${name} 合计 ${dispNum(pct)}%`);
+      add('conc_cat','risk-item','类别分类过于集中',
+        pct>=60
+          ? '建议：单一大类占比已超过约 60%，分散失效风险很高，应对照目标优先下调。'
+          : '建议：单一大类占比很高，不利分散；可对照目标配置逐步调整。',
+        `${name} 合计 ${dispNum(pct)}%`, undefined, pct>=60?'critical':'hi');
   });
+
+  /* conc_mkt: aggregate by underlying region dim (底层资产), NOT custody broker.
+     Bands (RayFi final): ≤35 no tip; (35,40) warn 留意; [40,45] hi 需处理; >45 critical 重大风险. Skip 未分类. */
+  (function(){
+    const en=UI.lang==='en';
+    const by={};
+    leaves.forEach(x=>{
+      const rg=dimOf(x,'region').v;
+      if(!rg||rg==='未分类') return;
+      const p=+x.node.actual||0; if(!(p>0)) return;
+      (by[rg]=by[rg]||{pct:0,rows:[]});
+      by[rg].pct+=p; by[rg].rows.push(x);
+    });
+    const title=en?'Single-market concentration':'单一市场集中';
+    const prob=en
+      ?'One underlying market/region (US, HK, A-shares, JP/EU, etc.) takes a large share, so co-movement and policy shocks hit harder; the larger the sleeve, the more the portfolio depends on that single market.'
+      :(TIP_PROB.conc_mkt||'');
+    Object.keys(by).forEach(mkt=>{
+      const pct=by[mkt].pct;
+      if(!(pct>35)) return;
+      let sev, adv;
+      if(pct>45){
+        sev='critical';
+        adv=en
+          ?'Suggestion: This market exposure is already over about 45%—single-market concentration is a major portfolio risk; prioritize rebalancing into other underlying markets.'
+          :'建议：该市场敞口已超过约 45%，单一市场集中构成重大风险；优先再平衡到其他底层市场。';
+      }else if(pct>=40){
+        sev='hi';
+        adv=en
+          ?'Suggestion: This market exposure is already at or above about 40%. Regional concentration needs action; rebalance toward other regions vs target.'
+          :'建议：该市场敞口已达到约 40% 及以上，地区集中需处理；对照目标再平衡到其他地区。';
+      }else{
+        sev='warn';
+        adv=en
+          ?'Suggestion: This market exposure is already above about 35%. Watch co-movement and policy risk; gradually diversify toward other regions vs target.'
+          :'建议：该市场敞口已超过约 35%，留意同涨同跌与政策风险；可对照目标逐步分散到其他地区。';
+      }
+      const label=dispUncat(mkt);
+      add('conc_mkt','risk-item',title,adv,
+        en?`${label} ${dispNum(pct)}%`:`${label} 合计 ${dispNum(pct)}%`,
+        prob, sev);
+    });
+  })();
 
   let defPct=0;
   leaves.forEach(x=>{ if(!altKind(x)&&isDefensive(x.node.name)) defPct+=(+x.node.actual||0); });
   if(defPct<5 && A>0)
     add('def_low','risk-item def','防御性资产偏低',
       '建议：现金/类债等防御仓较低，市场波动时缓冲有限；可按目标保留一定 Cash 或短债。',
-      `当前识别约 ${dispNum(defPct)}%`);
+      `当前识别约 ${dispNum(defPct)}%`, undefined, 'hi');
 
   let growthPct=0; const growthHits=[];
   leaves.forEach(x=>{
@@ -2489,7 +2908,7 @@ function riskTipList() {
   if(growthPct>=8)
     add('corr_usg','risk-item corr','美股成长风格可能高度相关',
       '建议：VUG/VGT/SMH 等往往同涨同跌，可搭配价值、红利、商品或低相关资产。',
-      growthHits.join('、')+`，合计约 ${dispNum(growthPct)}%`);
+      growthHits.join('、')+`，合计约 ${dispNum(growthPct)}%`, undefined, 'warn');
 
   const trName=taxRes(), trKnown=!!trName, usPerson=isUsPerson();
   leaves.forEach(x=>{
@@ -2504,25 +2923,26 @@ function riskTipList() {
     const usTicker=/^(VUG|VGT|SMH|WTV|VOO|QQQ|SPY|IVV|VEA|VTI|SCHD|AAPL|MSFT|NVDA|GOOGL?|AMZN|META|TSLA|BRK[.\-]?B)$/i.test(String(x.node.symbol||'').trim())||/\b(VUG|VGT|SMH|WTV|VOO|QQQ|SPY|IVV|VTI|SCHD)\b/i.test(name);
     const overseas = ushk || cc==='美' || cc==='港' || usB || /^(us|hk)/i.test(String(x.node.symbol||''));
     if(!trKnown) { if(ushk||overseas) add('tax_unknown','risk-item tax','税务提示：未选择税务居民身份',
-        '请在输入页「👤 个人信息」卡片中选择「税务居民国籍/地区」（及是否美国公民/绿卡），以生成适用的 CRS、美国遗产税、FATCA、境外所得等提示。', path); }
+        '请在输入页「👤 个人信息」卡片中选择「税务居民国籍/地区」（及是否美国公民/绿卡），以生成适用的 CRS、美国遗产税、FATCA、境外所得等提示。', path, undefined, 'warn'); }
     else if(usPerson) {
       if(!usB && !/^(us)/i.test(String(x.node.symbol||'')) && !crypto && (cc==='港'||cc==='中'||nonUsB) && !isDefensive(name))
         add('tax_fatca','risk-item tax','FATCA / PFIC 提示（美国人持有非美账户或非美基金）',
-          '建议：美国人在非美金融机构的账户需按 FATCA/FBAR 申报；持有非美注册基金（含港股/A股 ETF、UCITS）可能被认定为 PFIC，税负与申报复杂。请咨询美国税务顾问。', path);
+          '建议：美国人在非美金融机构的账户需按 FATCA/FBAR 申报；持有非美注册基金（含港股/A股 ETF、UCITS）可能被认定为 PFIC，税负与申报复杂。请咨询美国税务顾问。', path, undefined, 'warn');
     } else {
       if(ushk && nonUsB)
         add('tax_crs','risk-item tax','CRS 税务申报提示（非美金融机构持有境外资产）',
-          '建议：非美金融机构会按 CRS 向你的税务居民地（'+trName+'）交换账户信息；境外收益须按当地规定申报。请咨询专业税务顾问。', path);
+          '建议：非美金融机构会按 CRS 向你的税务居民地（'+trName+'）交换账户信息；境外收益须按当地规定申报。请咨询专业税务顾问。', path, undefined, 'warn');
       if((ushk||usTicker) && (usB||usTicker))
         add('tax_estate','risk-item tax','美国遗产税风险（非美国人持有美国资产）',
-          '建议：非美国人持有美国本土资产（美股/美国注册 ETF，或美国券商账户）超过约 6 万美元可能涉及美国遗产税；可了解爱尔兰 UCITS 等结构。', path);
+          '建议：非美国人持有美国本土资产（美股/美国注册 ETF，或美国券商账户）超过约 6 万美元可能涉及美国遗产税；可了解爱尔兰 UCITS 等结构。', path, undefined, 'warn');
       if(trName==='中国大陆' && overseas)
         add('tax_cn20','risk-item tax','中国大陆境外所得 20% 个税提示',
-          '建议：中国大陆税务居民的境外股息、利息、财产转让所得等一般按 20% 计征个人所得税，需自行申报（可抵免境外已缴税）。请关注 CRS 信息交换并咨询税务顾问。', path);
+          '建议：中国大陆税务居民的境外股息、利息、财产转让所得等一般按 20% 计征个人所得税，需自行申报（可抵免境外已缴税）。请关注 CRS 信息交换并咨询税务顾问。', path, undefined, 'warn');
     }
+    /* crypto_cust: key loss = permanent zero → critical when crypto tot ≥30%, else warn */
     if(crypto && (/自持|冷钱包/.test(cust)||custCat(cust)==='链'))
       add('crypto_cust','risk-item','加密资产自持保管风险',
-        '建议：做好备份与继承人安排；丢失私钥不可恢复。此条侧重保管安全，与 CRS 无关。', path);
+        '建议：做好备份与继承人安排；丢失私钥不可恢复。此条侧重保管安全，与 CRS 无关。', path, undefined, cryptoTot>=30?'critical':'warn');
   });
 
   // ---- 另类 / 实物 / 非标资产（通用提示，按主题合并，避免刷屏）----
@@ -2530,39 +2950,89 @@ function riskTipList() {
   leaves.forEach(x=>{ const ak=altKind(x), pct=+x.node.actual||0; if(!ak||!pct) return; const cust=x.node.custody||'';
     const lab=`${x.path}${cust?' @ '+cust:''}（${ak.label} · ${dispNum(pct)}%）`; alts.push({x,ak,lab,pct});
     if(ak.k!=='vehicle') illPct+=pct; });
+  const altLiqSev=(illPct>=50&&defPct<5)?'critical':(illPct>=30?'hi':'warn');
   const A_LIQ='建议：非上市股权、厂房商铺、艺术收藏、私募/信托、保单、借出款等通常无法在几天内按公允价卖出，急售常需大幅折价；私募/信托/保单还有锁定期或退保损失。生活与应急资金应来自高流动性资产，非标资产不宜作为再平衡工具。';
   alts.forEach(({x,ak,lab})=>{ const k=ak.k, t=[x.node.name,x.sub,x.node.custody].join(' ');
-    if(k!=='vehicle') add('alt_liq','risk-item alt','低流动性 / 非标资产：急用钱时难以变现', A_LIQ+(illPct>=30?`当前此类合计约 ${dispNum(illPct)}%，占比偏高，请确认流动资产足够覆盖多年开支与突发需求。`:''), lab);
+    if(k!=='vehicle') add('alt_liq','risk-item alt','低流动性 / 非标资产：急用钱时难以变现', A_LIQ+(illPct>=30?`当前此类合计约 ${dispNum(illPct)}%，占比偏高，请确认流动资产足够覆盖多年开支与突发需求。`:''), lab, undefined, altLiqSev);
     if(k!=='ins') add('alt_val','risk-item alt','估值不透明或可能过时',
-      '建议：这类资产没有每日市价，录入金额多为自估或历史成本，可能明显高估。请记录估值日期与依据（评估报告、最近成交价、净资产、可比交易），至少每年更新一次；分析时按保守折价（如 20%~50%）看待，避免误判总资产和配置比例。', lab);
+      '建议：这类资产没有每日市价，录入金额多为自估或历史成本，可能明显高估。请记录估值日期与依据（评估报告、最近成交价、净资产、可比交易），至少每年更新一次；分析时按保守折价（如 20%~50%）看待，避免误判总资产和配置比例。', lab, undefined, 'warn');
     if(['pe','realty','art','vehicle'].includes(k)) add('alt_cost','risk-item alt tax','交易与持有成本高（税费、佣金、保管、折旧）',
       cn?'建议：实物与非标资产在买入、持有、出售、过户各环节税费高且复杂，以中国大陆为例（请核实最新规定）：商业地产/厂房转让涉及增值税、土地增值税、所得税、契税、印花税，持有期有房产税、城镇土地使用税；股权转让一般按「财产转让所得」20% 计个税；艺术品拍卖佣金及鉴定、保险、保管费用合计常达 10%~25%；车辆持续折旧。出售前先测算净到手金额。'
-        :'建议：实物与非标资产在买入、持有、出售、过户各环节通常有较高的税费（转让税、增值类税、资本利得税、印花税、持有税）以及佣金、鉴定、保险、保管成本，车辆还会持续折旧。请按你的税务居民地（'+(trName||'未选择')+'）和资产所在地规则测算净到手金额。', lab);
+        :'建议：实物与非标资产在买入、持有、出售、过户各环节通常有较高的税费（转让税、增值类税、资本利得税、印花税、持有税）以及佣金、鉴定、保险、保管成本，车辆还会持续折旧。请按你的税务居民地（'+(trName||'未选择')+'）和资产所在地规则测算净到手金额。', lab, undefined, 'warn');
     if(k==='pe'||(k==='realty'&&/厂房|工厂|车间|自用|公司|经营/.test(t))) add('alt_key','risk-item alt corr','关键人与自有企业集中风险',
-      '建议：如果这是你自己或家族经营的企业（含企业使用的厂房），你的收入、资产甚至担保责任可能都押在同一家企业和行业上，企业价值又高度依赖少数关键人。可考虑：通过分红、部分出售股权逐步把财富转为分散的流动资产；个人金融资产避开与本企业同行业、同周期的股票；避免个人为企业提供无限担保；提前安排接班和股权传承。', lab);
+      '建议：如果这是你自己或家族经营的企业（含企业使用的厂房），你的收入、资产甚至担保责任可能都押在同一家企业和行业上，企业价值又高度依赖少数关键人。可考虑：通过分红、部分出售股权逐步把财富转为分散的流动资产；个人金融资产避开与本企业同行业、同周期的股票；避免个人为企业提供无限担保；提前安排接班和股权传承。', lab, undefined, 'hi');
     if(['loan','pfund','ins'].includes(k)) add('alt_cpty','risk-item alt','对手方 / 信用风险（借出款、私募、信托、保单）',
-      '建议：借出款要看借款人的还款能力，保留书面合同、转账凭证，尽量有抵押或担保，并留意诉讼时效'+(cn?'（中国大陆一般 3 年，需核实）':'')+'；私募/信托请核实管理人登记备案、托管机构和底层资产，单一产品或单一管理人不宜过重；保单要关注保险公司偿付能力和当地保障机制，境外保单还受当地法律与外汇管理影响。', lab);
+      '建议：借出款要看借款人的还款能力，保留书面合同、转账凭证，尽量有抵押或担保，并留意诉讼时效'+(cn?'（中国大陆一般 3 年，需核实）':'')+'；私募/信托请核实管理人登记备案、托管机构和底层资产，单一产品或单一管理人不宜过重；保单要关注保险公司偿付能力和当地保障机制，境外保单还受当地法律与外汇管理影响。', lab, undefined, 'hi');
     if(k!=='vehicle') add('alt_succ','risk-item alt','继承与法律结构复杂',
-      '建议：确认产权与持有结构（个人/公司/代持/联名），保留完整权属证明；公司股权注意章程和股东协议对转让、继承的限制，代持有法律风险；保单核对投保人与受益人；借出款保留借条和凭证；艺术品保留来源与鉴定证书（文物类出境受限）。可通过遗嘱、指定受益人或家族信托提前安排，并给家人留一份资产清单。', lab);
+      '建议：确认产权与持有结构（个人/公司/代持/联名），保留完整权属证明；公司股权注意章程和股东协议对转让、继承的限制，代持有法律风险；保单核对投保人与受益人；借出款保留借条和凭证；艺术品保留来源与鉴定证书（文物类出境受限）。可通过遗嘱、指定受益人或家族信托提前安排，并给家人留一份资产清单。', lab, undefined, 'warn');
   });
   // ---- 规则覆盖不到的持仓 → 引导用 AI 提示词 ----
   const gap=[]; leaves.forEach(x=>{ if(!(+x.node.actual)) return; const miss=DIM_TAG_KEYS.filter(d=>dimOf(x,d).v==='未分类').map(d=>DIMS[d].name); if(miss.length) gap.push(`${x.path}（未分类：${miss.join('/')}）`); });
   alts.forEach(a=>gap.push(`${a.x.path}（${a.ak.label}，仅通用规则）`));
   if(gap.length){ const G=gap.length>10?gap.slice(0,10).concat([`…等共 ${gap.length} 项`]):gap;
     G.forEach(g=>add('rule_gap','risk-item ai','规则覆盖有限：建议用 AI 做全面分析',
-      '本页规则只能识别常见资产（美/港/A 股、ETF、加密、黄金、房产等），对另类资产只给通用提示，对「未分类」持仓可能完全没有覆盖。建议点击「🤖 生成 AI 分析提示词」，交给你常用的最新 AI 逐项识别并做全面分析；也可在输入页「🏷」手动设置分类。',g)); }
-  const order=['conc_leaf','conc_crypto','conc_cat','def_low','corr_usg','tax_unknown','tax_crs','tax_estate','tax_cn20','tax_fatca','crypto_cust','alt_liq','alt_val','alt_cost','alt_key','alt_cpty','alt_succ','rule_gap'];
+      '本页规则只能识别常见资产（美/港/A 股、ETF、加密、黄金、房产等），对另类资产只给通用提示，对「未分类」持仓可能完全没有覆盖。建议点击「🤖 生成 AI 分析提示词」，交给你常用的最新 AI 逐项识别并做全面分析；也可在输入页「🏷」手动设置分类。',g, undefined, 'warn')); }
+  const order=['conc_leaf','conc_crypto','conc_cat','conc_mkt','def_low','corr_usg','tax_unknown','tax_crs','tax_estate','tax_cn20','tax_fatca','crypto_cust','alt_liq','alt_val','alt_cost','alt_key','alt_cpty','alt_succ','rule_gap'];
   tips.sort((a,b)=>order.indexOf(a.key)-order.indexOf(b.key));
   return tips;
+}
+function tipSeverity(tip){
+  /* Prefer sev written at add-time; fallback only when missing */
+  if(tip&&tip.sev) return tip.sev;
+  const k=String(tip&&tip.key||'');
+  const cls=String(tip&&tip.cls||'');
+  const title=String(tip&&tip.title||'');
+  if(/\bok\b/.test(cls)||/^✓/.test(title)||/结构清爽|risk\.ok/.test(title)) return 'ok';
+  if(/^tax_/.test(k)) return 'warn';
+  if(k==='conc_leaf'||k==='conc_crypto'||k==='conc_cat') return 'hi';
+  if(k==='conc_mkt'||/单一市场集中|Single-market concentration/i.test(title)) return 'warn';
+  if(k==='corr_usg') return 'warn';
+  if(k==='def_low'||k==='alt_key'||k==='alt_cpty') return 'hi';
+  if(k==='crypto_cust'||k==='alt_liq') return 'warn';
+  if(/^alt_/.test(k)||k==='rule_gap') return 'warn';
+  /* struct titles (no key): map by wording */
+  if(/全部资产集中|All assets.*one custody|all.*single custody/i.test(title)) return 'critical';
+  if(/持仓数量过多|单一托管集中|Too many holdings|Single-custody|single custody concentration/i.test(title)) return 'hi';
+  if(/持仓数量偏多|持仓数量过少|托管账户\/位置过多|小仓位|目标设得太碎|同类小仓位重叠|Too many custody|many custody locations|small position|targets too granular|overlapping/i.test(title)) return 'warn';
+  if(/过多|集中|concentration|too many/i.test(title)) return 'hi';
+  return 'warn';
 }
 function renderRiskTips() {
   const el=document.getElementById('riskTips');
   const tips=riskTipList();
-  const one=tip=>`<div class="${tip.cls}"><strong>${esc(tip.title)}</strong><div class="adv">${esc(tip.adv)}</div>`+(tip.trig.length?`<div class="trig">${t('trig')}${tip.trig.map(esc).join(UI.lang==='en'?'; ':';')}</div>`:'')+(tip.key==='rule_gap'?'<button class="aiMini" onclick="aiOpen()">'+t('ai.mini')+'</button>':'')+`</div>`;
+  const stripAdv=s=>{
+    s=String(s||'').trim();
+    return s.replace(/^建议[：:]\s*/,'').replace(/^Suggestion:\s*/i,'').replace(/^Advise[d]?:\s*/i,'');
+  };
+  const tipHeadObj=tip=>{
+    const sev=tipSeverity(tip);
+    const lab=t('tip.sev.'+sev);
+    return `<div class="probHead"><span class="tipSev ${sev}">${esc(lab)}</span><div class="probTit">${esc(tip.title)}</div></div>`;
+  };
+  const tipProbTxt=tip=>{
+    const p=String(tip&&tip.prob||'').trim();
+    const title=String(tip&&tip.title||'').trim();
+    /* Never echo the title into 问题 — mockup E uses a distinct issue line. */
+    if(p&&p!==title) return p;
+    return p||'';
+  };
+  const tipLeft=(probTxt,adv)=>{
+    return `<div class="tipInner2"><div class="probCell"><div class="probLab">${t('tip.probLab')}</div><div class="probTxt">${esc(probTxt)}</div></div><div class="advCell"><div class="advLab">${t('tip.advLab')}</div><div class="adv">${esc(stripAdv(adv))}</div></div></div>`;
+  };
+  const tipBody=(probTxt,adv,trigArr,trigJoin)=>{
+    const left=tipLeft(probTxt,adv);
+    const arr=Array.isArray(trigArr)?trigArr:[];
+    const has=arr.length>0;
+    const body=has?arr.map(esc).join(trigJoin):'';
+    const right=`<div class="trigCol${has?'':' is-empty'}"><div class="trigLab">${t('tip.trigLab')}</div><div class="trig">${body}</div></div>`;
+    return `<div class="tipSplit">${left}${right}</div>`;
+  };
+  /* E+D: badge+short title; under it 问题|建议 with distinct 问题 copy; 触发项 right (width reserved when empty). */
+  const one=tip=>`<div class="${tip.cls}">${tipHeadObj(tip)}${tipBody(tipProbTxt(tip),tip.adv,tip.trig,UI.lang==='en'?'; ':';')}`+(tip.key==='rule_gap'?'<button class="aiMini" onclick="aiOpen()">'+t('ai.mini')+'</button>':'')+`</div>`;
   const base=tips.filter(t=>!/^alt_|^rule_gap$/.test(t.key)), alt=tips.filter(t=>/^alt_/.test(t.key)), gapT=tips.filter(t=>t.key==='rule_gap');
-  let stH=''; try{ const st=structTips(); stH=`<h3 class="tipGrp">🧩 结构与精简建议</h3>`+(st.length?st.map(t=>`<div class="risk-item struct"><strong>${esc(t.title)}</strong><div class="adv">${esc(t.adv)}</div>`+(t.trig.length?`<div class="trig">涉及：${t.trig.map(esc).join('；')}</div>`:'')+'</div>').join(''):'<div class="risk-item ok"><strong>✓ 结构清爽</strong><div class="adv">持仓数量、托管数量、小仓位、重叠均未触发阈值。</div></div>'); }catch(e){ console.error('structTips',e); }
+  let stH=''; try{ const st=structTips(); stH=`<h3 class="tipGrp">🧩 结构与精简建议</h3>`+(st.length?st.map(t=>`<div class="risk-item struct">${tipHeadObj(t)}${tipBody(tipProbTxt(t),t.adv,t.trig,'；')}</div>`).join(''):'<div class="risk-item ok">'+tipHeadObj({title:'✓ 结构清爽',cls:'risk-item ok',sev:'ok'})+tipBody('持仓数量、托管数量、小仓位与重叠均未触发结构类警报。','持仓数量、托管数量、小仓位、重叠均未触发警报。',[],'')+'</div>'); }catch(e){ console.error('structTips',e); }
   const altH=alt.length?`<h3 class="tipGrp">🏭 另类 / 实物 / 非标资产提示</h3>`+alt.map(one).join(''):'';
-  el.innerHTML=(base.length?base.map(one).join(''):'<div class="risk-item ok"><strong>'+t('risk.ok')+'</strong><div class="adv">'+t('risk.ok.sub')+'</div></div>')+altH+gapT.map(one).join('')+stH;
+  el.innerHTML=(base.length?base.map(one).join(''):'<div class="risk-item ok">'+tipHeadObj({title:t('risk.ok'),cls:'risk-item ok',sev:'ok'})+tipBody(t('risk.ok.sub'),t('risk.ok.sub'),[],'')+'</div>')+altH+gapT.map(one).join('')+stH;
 }
 
 function forEachHolding(fn){
@@ -2576,12 +3046,17 @@ function renameCustody(i,nv){
     S.custodyOptions.splice(i,1);
   } else S.custodyOptions[i]=nv;
   sortCustody();
-  let n=0; forEachHolding(h=>{ if(h.custody===old){ h.custody=nv; n++; } });
+  let n=0;
+  holdingNodes().forEach(x=>{ if(String(x.node.custody||'').trim()===old){ x.node.custody=nv; n++; } });
+  // 顺手清掉非叶子三级上的同名残留（UI 不展示）
+  S.categories.forEach(c=>c.strategies.forEach(s=>s.subs.forEach(u=>{ if(!isLeafSub(u)&&String(u.custody||'').trim()===old) u.custody=''; })));
   save();
   const st=document.getElementById('priceStatus'); if(st) st.innerHTML='<span class="price-ok">已将 '+n+' 项「'+esc(old)+'」改为「'+esc(nv)+'」</span>';
 }
 function delCustody(i){
-  const o=S.custodyOptions[i]; let n=0; forEachHolding(h=>{ if(h.custody===o) n++; });
+  const o=S.custodyOptions[i];
+  // 仅精确匹配叶子持仓的托管名；分类「其他」桶 / 前缀 / 空托管均不计入
+  let n=0; holdingNodes().forEach(x=>{ if(String(x.node.custody||'').trim()===o) n++; });
   if(n && !confirm(t('confirm.delCustUsed',{name:o,n:n}))) return;
   S.custodyOptions.splice(i,1); save();
 }
@@ -2599,10 +3074,10 @@ function mv(d,ci,si,ui,ai){ const [arr,i]=opsKey(ci,si,ui,ai), j=i+d; if(!arr||i
   [arr[i],arr[j]]=[arr[j],arr[i]]; save(); }
 function mvBtns(ci,si,ui,ai){ const [arr,i]=opsKey(ci,si,ui,ai); const k=[ci,si,ui,ai].join(',');
   const lv=ai>=0?4:ui>=0?3:si>=0?2:1;
-  const tip=lv===1?'拖动一级：调整一级之间的顺序'
-    :lv===2?'拖动二级：可挪到任意一级下做二级'
-    :lv===3?'拖动三级：可挪到任意二级下做三级'
-    :'拖动四级：可挪到任意三级下做四级';
+  const tip=lv===1?'拖动类别：调整类别之间的顺序'
+    :lv===2?'拖动子类别：可挪到任意类别下做子类别'
+    :lv===3?'拖动资产：可挪到任意子类别下做资产'
+    :'拖动子资产：可挪到任意资产下做子资产';
   return `<span class="dh" draggable="true" title="${tip}" ondragstart="dragStart(event,'${k}')">⋮⋮</span>`; }
 let _dragKey=null;
 function keyLv(v){ return v[1]<0?1:v[2]<0?2:v[3]<0?3:4; }
@@ -2636,7 +3111,7 @@ function ensureAssetsForDrop(u){
       migrated.target=0;
       if(u.tags) migrated.tags=Object.assign({},u.tags);
       u.assets.push(migrated);
-      u.actual=0; u.amount=''; u.qty=''; u.price='';
+      u.actual=0; u.amount=''; u.qty=''; u.price=''; u.custody='';
     }
   }
   return u.assets;
@@ -2701,9 +3176,10 @@ function addAsset(ci,si,ui){
       lastPrice:u.lastPrice||'', lastPriceAt:u.lastPriceAt||''
     }));
     u.assets[0].target=0; // 目标留在三级
-    u.actual=0; u.amount=''; u.qty=''; u.price='';
+    u.actual=0; u.amount=''; u.qty=''; u.price=''; u.custody='';
   } else {
-    u.assets.push(leaf(t('new.l4'),{actual:0,target:0,currency:u.currency||S.baseCurrency,custody:u.custody||'',symbol:''}));
+    const sibCust=(u.assets[0]&&u.assets[0].custody)||'';
+    u.assets.push(leaf(t('new.l4'),{actual:0,target:0,currency:u.currency||S.baseCurrency,custody:sibCust,symbol:''}));
   }
   save();
 }
@@ -2771,6 +3247,10 @@ function snap(){
   });
   document.getElementById('snapNote').value=''; save();
 }
+function fmtSnapTotal(v){
+  if(v===''||v==null||isNaN(+v)) return '';
+  return Math.round(+v).toLocaleString('en-US');
+}
 function renderSnaps(){
   const el=document.getElementById('snaps'); const sc=document.getElementById('snapCnt'); if(sc) sc.textContent=S.snapshots.length;
   if(!S.snapshots.length){el.innerHTML='<p class="muted">'+t('snap.none')+'</p>';const sc0=document.getElementById('snapCnt');if(sc0)sc0.textContent=0;return;}
@@ -2778,7 +3258,7 @@ function renderSnaps(){
     S.snapshots.map((s,i)=>`<tr>
       <td>${esc(s.date)}</td><td>${esc(s.note||'')}</td>
       <td>${(s.cats||[]).map(c=>esc(c.name)+' '+c.actual).join(UI.lang==='en'?'; ':';')}</td>
-      <td>${s.total?esc(s.total)+' '+esc(s.currency||''):''}</td>
+      <td>${s.total!=null&&s.total!==''?esc(fmtSnapTotal(s.total))+' '+esc(s.currency||''):''}</td>
       <td><button class="sm" onclick="viewSnap(${i})">${t('snap.detail')}</button>
         <button class="d" onclick="if(confirm(t('confirm.delSnap'))){S.snapshots.splice(${i},1);save()}">${t('snap.del')}</button></td>
     </tr><tr id="sd${i}" style="display:none"><td colspan="5" style="font-size:13px">${
@@ -2787,10 +3267,38 @@ function renderSnaps(){
 }
 function viewSnap(i){ const r=document.getElementById('sd'+i); r.style.display=r.style.display?'':'none'; }
 
-function exportJ(){
-  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download=(d=>{const z=n=>String(n).padStart(2,'0');return 'AA_'+d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+'.json'})(new Date()); a.click();
+function exportFileName(suffix){
+  const d=new Date(), z=n=>String(n).padStart(2,'0');
+  return 'AA_'+d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+(suffix||'')+'.json';
+}
+function exportBlob(){ return new Blob([JSON.stringify(S,null,2)],{type:'application/json'}); }
+function exportJDownload(name){
+  const blob=exportBlob(), a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=name||exportFileName();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} }, 2500);
+}
+/** JSON 导出：优先 File System Access「另存为」；不支持/被拒/file:// 等回退 <a download>。AbortError=用户取消（mustSave 时仍下载兜底）。UI 文案仍称「导出」。 */
+async function exportJ(opts){
+  const o=opts||{}, name=o.name||exportFileName(o.suffix||''), blob=exportBlob();
+  if(!o.forceDownload && typeof window.showSaveFilePicker==='function'){
+    try{
+      const handle=await window.showSaveFilePicker({
+        suggestedName:name,
+        types:[{description:'JSON',accept:{'application/json':['.json']}}]
+      });
+      const w=await handle.createWritable();
+      await w.write(blob); await w.close();
+      return 'picker';
+    }catch(e){
+      if(e&&e.name==='AbortError'){
+        if(o.mustSave){ exportJDownload(name); return 'download'; }
+        return 'abort';
+      }
+      // NotAllowedError / SecurityError / TypeError on file:// etc. → fallback
+    }
+  }
+  exportJDownload(name); return 'download';
 }
 document.getElementById('imp').onchange=e=>{
   const f=e.target.files[0]; if(!f) return;
@@ -2826,6 +3334,7 @@ function switchView(v){
   document.body.classList.toggle('anaOn',analysis);
   document.body.classList.toggle('communityOn',community);
   try{ localStorage.setItem(KEY+'_view', mode); }catch(e){}
+  if(analysis) scheduleAnalysisCardWatermarks();
 }
 
 document.getElementById('baseCur').onchange=e=>{S.baseCurrency=e.target.value;save();};
@@ -2893,36 +3402,37 @@ function stockFallback(n,ti,t){ // 个股兜底风格
 /* ---- 结构与精简建议（规则） ---- */
 function structTips(priv){
   const out=[], T=priv?0:portfolioTotal(), amt=p=>T?' · '+fmtMoney(T*p/100):'';
-  const add=(title,adv,trig)=>out.push({title,adv,trig:trig||[]});
+  const add=(title,adv,trig,prob,sev)=>out.push({title,adv,trig:trig||[],prob:prob||'',sev:sev||undefined});
   const H=holdingNodes().filter(x=>(+x.node.actual||0)>0), n=H.length;
-  if(n>50) add(`持仓数量过多（${n} 个）`,'建议：持仓超过 50 个会显著增加跟踪、调仓和报税的精力，且多数小仓位对整体收益影响很小。优先把同类小仓位合并到 1~2 个代表性持仓（如宽基/行业 ETF），目标控制在 15~30 个。');
-  else if(n>30) add(`持仓数量偏多（${n} 个）`,'建议：持仓超过 30 个时管理成本上升。可检查是否有同类重复或长期不足 1% 的仓位，逐步合并，目标 15~30 个。');
-  else if(n>0&&n<5) add(`持仓数量过少（${n} 个）`,'建议：持仓少于 5 个，单一资产出问题对整体影响很大。可考虑加入低相关的资产（如宽基指数、债券/现金、黄金）以分散风险。');
+  /* Titles stay short; counts / thresholds / custody stats live in tip.prob (问题). */
+  if(n>50) add('持仓数量过多','建议：持仓超过 50 个会显著增加跟踪、调仓和报税的精力，且多数小仓位对整体收益影响很小。优先把同类小仓位合并到 1~2 个代表性持仓（如宽基/行业 ETF），目标控制在 15~30 个。',[],`${n} 个持仓，超过 50 个，跟踪、调仓和报税负担明显加重，多数小仓位对收益贡献很小。`,'hi');
+  else if(n>30) add('持仓数量偏多','建议：持仓超过 30 个时管理成本上升。可检查是否有同类重复或长期不足 1% 的仓位，逐步合并，目标 15~30 个。',[],`${n} 个持仓，超过 30 个，管理成本上升，容易堆积同类重复或长期不足 1% 的仓位。`,'warn');
+  else if(n>0&&n<5) add('持仓数量过少','建议：持仓少于 5 个，单一资产出问题对整体影响很大。可考虑加入低相关的资产（如宽基指数、债券/现金、黄金）以分散风险。',[],`${n} 个持仓，少于 5 个，单一资产出问题对整体净值影响过大。`,'warn');
   const cs=new Set(H.map(x=>String(x.node.custody||'').trim()).filter(Boolean));
-  if(cs.size>6) add(`托管账户/位置过多（${cs.size} 个）`,'建议：账户越多，密码、税表、转账、继承手续越繁琐。可合并同类账户（如多个国内券商并为 1~2 个）；境外券商建议保留 2 个互为备份，其余逐步合并。',[...cs].slice(0,12));
-  else if(cs.size===1&&n>=3) add('全部资产集中在一个托管机构','建议：单一机构存在冻结、系统故障、对手方风险。建议至少分散到 2 家（境外券商建议 2 家互为备份），加密资产可考虑冷钱包自持。',[...cs]);
+  if(cs.size>6) add('托管账户/位置过多','建议：账户越多，密码、税表、转账、继承手续越繁琐。可合并同类账户（如多个国内券商并为 1~2 个）；境外券商建议保留 2 个互为备份，其余逐步合并。',[...cs].slice(0,12),`${cs.size} 个托管位置，密码、税表、转账与继承手续都会更繁琐。`,'warn');
+  else if(cs.size===1&&n>=3) add('全部资产集中在一个托管机构','建议：单一机构存在冻结、系统故障、对手方风险。建议至少分散到 2 家（境外券商建议 2 家互为备份），加密资产可考虑冷钱包自持。',[...cs],'全部持仓落在同一家机构，冻结、故障或对手方风险会一次性波及。','critical');
   // 单一托管集中
   try{ const by={}; H.forEach(x=>{ const c=String(x.node.custody||'').trim(); if(c) by[c]=(by[c]||0)+(+x.node.actual||0); });
     const T2=portfolioTotal(), tot=H.reduce((t,x)=>t+(+x.node.actual||0),0)||100, toUsd=v=>{const p=perUsd(S.baseCurrency||'USD')||0; return p>0?v/p:0;};
     Object.keys(by).forEach(c=>{ const p=by[c]/tot*100, usd=T2?toUsd(T2*by[c]/100):0, us=/美券商|美经纪|盈透|Fidelity|富达|Firstrade|第一证券|Robinhood|Vanguard|先锋|E\*?TRADE|Merrill|美/i.test(c);
-      if(p>50||(us&&usd>500000)) add(`单一托管集中：${c}（${pct1(p)}${T?' · 约 $'+dispNum(Math.round(usd)):''}）`,
-        '建议：'+(us?'美国券商受 SIPC 保护，上限为每个账户类别 50 万美元（其中现金最多 25 万）；银行存款受 FDIC 保护，每家银行每个账户类别 25 万美元。券商的客户证券依法与公司资产隔离，许多券商还购买了超额 SIPC 私人保险（具体额度请向券商核实）。':'单一机构出现冻结、系统故障或经营风险时影响面大。')+'建议把资产分散到至少 2 家机构。',[`${c}：${pct1(p)}${amt(by[c])}`]); }); }catch(e){}
+      if(p>50||(us&&usd>500000)) add('单一托管集中',
+        '建议：'+(us?'美国券商受 SIPC 保护，上限为每个账户类别 50 万美元（其中现金最多 25 万）；银行存款受 FDIC 保护，每家银行每个账户类别 25 万美元。券商的客户证券依法与公司资产隔离，许多券商还购买了超额 SIPC 私人保险（具体额度请向券商核实）。':'单一机构出现冻结、系统故障或经营风险时影响面大。')+'建议把资产分散到至少 2 家机构。',[`${c}：${pct1(p)}${amt(by[c])}`],`${c}（${pct1(p)}${T?' · 约 $'+dispNum(Math.round(usd)):''}），占比过高（或金额过大），一旦受限对组合影响面大。`,'hi'); }); }catch(e){}
   // 小仓位
   const small=[];
   S.categories.forEach(c=>c.strategies.forEach(s=>{ const l2m=l2TgtMode(s); s.subs.forEach(u=>{
     const ua=+subT(u,'actual')||0, ut=l2m?0:(+subT(u,'target')||0);
-    if(ua>0&&ua<2&&ut<2) small.push({lv:'三级',path:`${c.name} › ${s.name} › ${u.name}`,p:ua,par:s.name});
-    if(!isLeafSub(u)) u.assets.forEach(a=>{ const p=+a.actual||0; if(p>0&&p<1) small.push({lv:'四级',path:`${c.name} › ${s.name} › ${u.name} › ${a.name}`,p,par:u.name}); });
+    if(ua>0&&ua<2&&ut<2) small.push({lv:'资产',path:`${c.name} › ${s.name} › ${u.name}`,p:ua,par:s.name});
+    if(!isLeafSub(u)) u.assets.forEach(a=>{ const p=+a.actual||0; if(p>0&&p<1) small.push({lv:'子资产',path:`${c.name} › ${s.name} › ${u.name} › ${a.name}`,p,par:u.name}); });
   }); }));
   if(small.length){ small.sort((a,b)=>a.p-b.p);
-    add(`小仓位较多（${small.length} 个：三级 <2% 或四级 <1%，且目标也很小）`,'建议：这些仓位对整体收益影响很小却要花精力跟踪。可合并到同一二级/三级下相近的持仓，或直接清掉；若是刻意的“观察仓”，可忽略。',
-      small.slice(0,8).map(x=>`${x.lv} ${x.path}（${pct1(x.p)}${amt(x.p)}）`)); }
+    add('小仓位较多','建议：这些仓位对整体收益影响很小却要花精力跟踪。可合并到同一子类别/资产下相近的持仓，或直接清掉；若是刻意的“观察仓”，可忽略。',
+      small.slice(0,8).map(x=>`${x.lv} ${x.path}（${pct1(x.p)}${amt(x.p)}）`),`${small.length} 个：资产 <2% 或子资产 <1%，且目标也很小。多只资产/子资产仓位占比很低，对收益贡献有限却持续占用跟踪精力。`,'warn'); }
   const tiny=[]; S.categories.forEach(c=>c.strategies.forEach(s=>{ if(l2TgtMode(s)) return; s.subs.forEach(u=>{ const t=+u.target||0; if(t>0&&t<2) tiny.push(`${c.name} › ${s.name} › ${u.name}（目标 ${pct1(t)}）`); }); }));
-  if(tiny.length) add(`三级目标设得太碎（${tiny.length} 个目标 <2%）`,'配置太碎，影响不大却耗精力。建议把 2% 以下的目标并入同类三级，或干脆设为 0 逐步清掉。',tiny.slice(0,10));
+  if(tiny.length) add('资产目标设得太碎','配置太碎，影响不大却耗精力。建议把 2% 以下的目标并入同类资产，或干脆设为 0 逐步清掉。',tiny.slice(0,10),`${tiny.length} 个目标 <2%。多个资产目标低于 2%，配置过碎、对整体影响有限却耗精力。`,'warn');
   // 同类重叠
   try{ const g={}; H.forEach(x=>{ const st=dimOf(x,'style').v, rg=dimOf(x,'region').v; if(st==='未分类'||rg==='未分类') return; const p=+x.node.actual||0; if(p>=3) return; (g[st+'|'+rg]=g[st+'|'+rg]||[]).push(x); });
     Object.keys(g).forEach(k=>{ const L=g[k]; if(L.length<3) return; const [st,rg]=k.split('|'), tot=L.reduce((t,x)=>t+(+x.node.actual||0),0);
-      add(`同类小仓位重叠：${rg}·${st}（${L.length} 个，合计 ${pct1(tot)}）`,`建议：这些持仓风格和底层资产相同、单个都不到 3%，走势高度相关，分开持有分散效果有限。可合并为 1~2 个代表性持仓。`,L.map(x=>`${x.node.name}（${pct1(+x.node.actual||0)}）`)); }); }catch(e){}
+      add('同类小仓位重叠',`建议：这些持仓风格和底层资产相同、单个都不到 3%，走势高度相关，分开持有分散效果有限。可合并为 1~2 个代表性持仓。`,L.map(x=>`${x.node.name}（${pct1(+x.node.actual||0)}）`),`${rg}·${st}：共 ${L.length} 个，合计 ${pct1(tot)}。同一风格/地区下多只小仓位高度相关，分开持有分散效果有限。`,'warn'); }); }catch(e){}
   return out;
 }
 function structPromptTxt(priv){ try{ const t=structTips(priv); if(!t.length) return '### 结构与精简（工具规则检查）\n- 未触发持仓数量、托管数量、小仓位、重叠等预设阈值。\n'; return '### 结构与精简（工具规则检查结果，请在第 9 层逐条点评是否需要精简/合并）\n'+t.map(x=>`- **${x.title}**${x.trig.length?'：'+x.trig.join('；'):''}`).join('\n')+'\n'; }catch(e){ return ''; } }
@@ -3006,10 +3516,11 @@ function dimDonutSvg(items, centerLabel, opts){
     let attrs=`class="${segClass}" fill="${col}" stroke="#fff" stroke-width="2"`;
     if(opts.dataCat) attrs+=` data-cat="${esc(it.k)}"`;
     if(opts.onClick) attrs+=` onclick="event.stopPropagation();${opts.onClick(it.k)}"`;
-    const tip=(opts.tip?opts.tip(it):`${esc(it.k)} ${pct1(it.pct)}`);
+    const tip=(opts.tip?opts.tip(it):`${esc(it.label!=null?it.label:it.k)} ${pct1(it.pct)}`);
     segs+=`<path ${attrs} d="M${P(R1,a0)} A${R1},${R1} 0 ${lg} 1 ${P(R1,a1)} L${P(R0,a1)} A${R0},${R0} 0 ${lg} 0 ${P(R0,a0)}Z"><title>${tip}</title></path>`;
     const am=(a0+a1)/2, rr=(R0+R1)/2, arcL=(a1-a0)*rr, tc=lumOf(col)>0.42?'#12303a':'#fff', x=C+rr*Math.cos(am), y=C+rr*Math.sin(am);
-    if(arcL>=34) labs+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" fill="${tc}" font-weight="800"><tspan x="${x.toFixed(1)}" dy="-0.1em" font-size="${arcL>70?14:11}">${esc(it.k)}</tspan><tspan x="${x.toFixed(1)}" dy="1.15em" font-size="${arcL>70?12:10}">${pct1(it.pct)}</tspan></text>`;
+    const labTxt=it.label!=null?it.label:it.k;
+    if(arcL>=34) labs+=`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" fill="${tc}" font-weight="800"><tspan x="${x.toFixed(1)}" dy="-0.1em" font-size="${arcL>70?14:11}">${esc(labTxt)}</tspan><tspan x="${x.toFixed(1)}" dy="1.15em" font-size="${arcL>70?12:10}">${pct1(it.pct)}</tspan></text>`;
     else if(arcL>=12) labs+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" fill="${tc}" font-size="9" font-weight="800">${pct1(it.pct)}</text>`;
     a0+=span;
   });
@@ -3064,8 +3575,8 @@ function dimPromptTxt(bc,sym,priv){ const T=priv?0:portfolioTotal(); return DIM_
 try{ applyLang(); }catch(e){ console.error(e); }
 render();
 try{
-  const v=localStorage.getItem(KEY+'_view');
-  if(v==='analysis'||v==='input'||v==='guide'||v==='community') switchView(v);
+  // v1.128: cold/file open always lands on 输入页 (do not restore last tab)
+  switchView('input');
 }catch(e){}
 refreshFx();
 setTimeout(() => maybeAutoRefreshPrices(), 1200);
@@ -3073,40 +3584,40 @@ setInterval(() => maybeAutoRefreshPrices(), 60*60*1000);
 
 /* ---- 列头帮助弹窗（body 层，fixed 定位，不受表格 overflow 裁剪） ---- */
 const HELP={
- l1:['一级','<ul><li>最高层分组（如 美港股、Crypto、A股、商品）。</li><li>行内显示「一级小计」：实际%/目标% 为其下所有三级之和。</li><li>名称框后的 ▸/▾ 折叠或展开；按住 ⋮⋮ 拖动可在一级之间调整顺序。</li><li>「＋」新增二级，「✕」删除整个一级。</li></ul>'],
- l2:['二级','<ul><li>一级下的策略分组（如 成长、价值）。</li><li>「二级小计」= 其下三级之和。</li><li>名称框后可折叠；⋮⋮ 可拖到其他一级下，仍做二级（含子级一起移动）。</li></ul>'],
- l3:['三级','<ul><li>核心层：<b>目标% 只在三级设置</b>，再平衡也按三级计算。</li><li>没有四级时，三级本身就是持仓，所有字段可直接填写。</li><li>有四级时显示「三级小计」：实际%/金额由四级汇总，目标% 仍可在本行编辑。</li><li>「＋」在其下新增四级（原持仓信息移到第一个四级）。</li><li>⋮⋮ 可拖到其他二级下，仍做三级（含四级一起移动）。</li></ul>'],
- l4:['四级','<ul><li>可选的明细持仓（如同一策略下的多只股票）。</li><li>只填代码/数量/单价/金额等；<b>没有目标%</b>，差距与调仓在所属三级计算。</li><li>⋮⋮ 拖动：可挪到任意三级下（含其他一级/二级），级别仍是四级；也可拖到三级行挂到其末尾。</li></ul>'],
+ l1:['类别','<ul><li>最高层分组（如 美港股、Crypto、A股、商品）。</li><li>行内显示「类别小计」：实际%/目标% 为其下所有资产之和。</li><li>名称框后的 ▸/▾ 折叠或展开；按住 ⋮⋮ 拖动可在类别之间调整顺序。</li><li>「＋」新增子类别，「✕」删除整个类别。</li></ul>'],
+ l2:['子类别','<ul><li>类别下的策略分组（如 成长、价值）。</li><li>「子类别小计」= 其下资产之和。</li><li>名称框后可折叠；⋮⋮ 可拖到其他类别下，仍做子类别（含子级一起移动）。</li></ul>'],
+ l3:['资产','<ul><li>核心层：<b>目标% 只在资产设置</b>，再平衡也按资产计算。</li><li>没有子资产时，资产本身就是持仓，所有字段可直接填写。</li><li>有子资产时显示「资产小计」：实际%/金额由子资产汇总，目标% 仍可在本行编辑。</li><li>「＋」在其下新增子资产（原持仓信息移到第一个子资产）。</li><li>⋮⋮ 可拖到其他子类别下，仍做资产（含子资产一起移动）。</li></ul>'],
+ l4:['子资产','<ul><li>可选的明细持仓（如同一策略下的多只股票）。</li><li>只填代码/数量/单价/金额等；<b>没有目标%</b>，差距与调仓在所属资产计算。</li><li>⋮⋮ 拖动：可挪到任意资产下（含其他类别/子类别），级别仍是子资产；也可拖到资产行挂到其末尾。</li></ul>'],
  cur:['币种','<ul><li>持仓的计价货币：USD / CNY / HKD / JPY / EUR / 其他。</li><li>金额按自动获取的汇率折算到页面顶部「计价币种」。</li><li>填写可识别代码并刷新价格后，会按市场自动设定（美股 USD、港股 HKD、A股 CNY、日股 JPY、加密 USD、现金代码=该货币）。</li></ul>'],
  cust:['托管','<ul><li>资产存放位置（券商/银行/钱包），列表可在「托管位置列表」改名、增删。</li><li>约定：<b>名称第一个汉字 = 托管分类</b>，如 <code>美券商A</code>→美、<code>中银行D</code>→中、<code>港券商B</code>→港、<code>链冷钱包</code>→链。</li><li>分类用于分析页「按托管分类统计」和税务提示：美 → 美国遗产税提示；美/中/链 以外持有美港股 → CRS 提示；链/冷钱包 → 自持保管提示。无可识别分类时按名称关键词判断。</li></ul>'],
  custList:['托管位置列表','<ul><li><b>怎么用</b>：输入框写名字 →「＋添加」；点名字改、点 × 删。持仓行里再选同一个名字。</li><li><b>分析怎么分类</b>：取名字里<strong>第一个汉字</strong>。例：「中券商C」「中银行D」都进「中」；「美券商A」→「美」；「港券商B」→「港」；「链冷钱包」→「链」。</li><li>没有汉字，或以「其他」开头 →「其他」。每个条目左上角小标签就是分类预览。</li><li>持仓里用到的靠前、原色；没用到的排后面、灰色（导出仍会带上）。</li></ul>'],
- code:['代码（行情代码）','<ul><li><b>美股/ETF</b>：<code>VUG</code> <code>AAPL</code>，分级股 <code>BRK.B</code>/<code>BRK-B</code>，或 <code>usAAPL</code> → USD</li><li><b>港股</b>：<code>0700.HK</code>（自动补零）或 <code>hk00700</code> → HKD</li><li><b>A股</b>：<code>600519.SS</code>/<code>sh600519</code>、<code>000001.SZ</code>/<code>sz000001</code>、ETF <code>sh510300</code>、北交所 <code>430047.BJ</code>/<code>bj920047</code>；纯 6 位：5/6/9 开头→沪，92/4/8 开头→北交所，其余→深 → CNY</li><li><b>日股</b>：<code>7203.T</code> <code>7203.JP</code> <code>JP7203</code>（纯 4 位不识别）→ JPY</li><li><b>加密</b>：<code>BTC</code> <code>HYPE</code> <code>BTC-USD</code>，或指定 CoinGecko id <code>cg:hyperliquid</code>；在 Crypto/加密/币 一级下任何代码都按加密 → USD</li><li><b>黄金</b>：标准代码 <code>Au99.99</code>（或 <code>AU9999</code>）→ 金交所 <b>元/克</b>，数量填<b>克</b>，币种自动 CNY；<code>XAU</code> → 伦敦金 <b>美元/盎司</b>（按本行币种折算，数量填盎司）；<code>黄金</code> 为别名（CNY=元/克，否则每盎司）。<code>GOLD</code>/<code>AU</code> 是美股代码</li><li><b>国内期货</b>：品种+合约 <code>SR2705</code> <code>RU2705</code> <code>P2705</code> <code>CF2701</code> <code>I2705</code> <code>AU2706</code>（大小写不敏感，郑商所可写 3 位 <code>SR705</code>）→ CNY；刷新后<b>单价=行情价×合约乘数</b>（即每手名义金额；乘数例：SR/RU/P/M/Y/RB 10，CF/CU/AL/TA 5，I 100，AU 1000，AG 15，SC 1000，IF/IH 300，IC/IM 200…），<b>数量=手数</b>（空头填负数），金额=<b>数量×单价</b>。纯 <code>AU</code> 仍为美股</li><li><b>现金</b>：<code>USD</code> <code>CNY</code>/<code>RMB</code> <code>HKD</code> <code>JPY</code> <code>EUR</code> <code>GBP</code> <code>SGD</code>，<code>USDT</code>/<code>USDC</code>=USD；不查行情，单价=1</li></ul>大小写/空格不敏感；币种在刷新后自动设定。'],
+ code:['代码（行情代码）','<ul><li><b>美股/ETF</b>：<code>VUG</code> <code>AAPL</code>，分级股 <code>BRK.B</code>/<code>BRK-B</code>，或 <code>usAAPL</code> → USD</li><li><b>港股</b>：<code>0700.HK</code>（自动补零）或 <code>hk00700</code> → HKD</li><li><b>A股</b>：<code>600519.SS</code>/<code>sh600519</code>、<code>000001.SZ</code>/<code>sz000001</code>、ETF <code>sh510300</code>、北交所 <code>430047.BJ</code>/<code>bj920047</code>；纯 6 位：5/6/9 开头→沪，92/4/8 开头→北交所，其余→深 → CNY</li><li><b>日股</b>：<code>7203.T</code> <code>7203.JP</code> <code>JP7203</code>（纯 4 位不识别）→ JPY</li><li><b>加密</b>：<code>BTC</code> <code>HYPE</code> <code>BTC-USD</code>，或指定 CoinGecko id <code>cg:hyperliquid</code>；在 Crypto/加密/币 类别下任何代码都按加密 → USD</li><li><b>黄金</b>：标准代码 <code>Au99.99</code>（或 <code>AU9999</code>）→ 金交所 <b>元/克</b>，数量填<b>克</b>，币种自动 CNY；<code>XAU</code> → 伦敦金 <b>美元/盎司</b>（按本行币种折算，数量填盎司）；<code>黄金</code> 为别名（CNY=元/克，否则每盎司）。<code>GOLD</code>/<code>AU</code> 是美股代码</li><li><b>国内期货</b>：品种+合约 <code>SR2705</code> <code>RU2705</code> <code>P2705</code> <code>CF2701</code> <code>I2705</code> <code>AU2706</code>（大小写不敏感，郑商所可写 3 位 <code>SR705</code>）→ CNY；刷新后<b>单价=行情价×合约乘数</b>（即每手名义金额；乘数例：SR/RU/P/M/Y/RB 10，CF/CU/AL/TA 5，I 100，AU 1000，AG 15，SC 1000，IF/IH 300，IC/IM 200…），<b>数量=手数</b>（空头填负数），金额=<b>数量×单价</b>。纯 <code>AU</code> 仍为美股</li><li><b>现金</b>：<code>USD</code> <code>CNY</code>/<code>RMB</code> <code>HKD</code> <code>JPY</code> <code>EUR</code> <code>GBP</code> <code>SGD</code>，<code>USDT</code>/<code>USDC</code>=USD；不查行情，单价=1</li></ul>大小写/空格不敏感；币种在刷新后自动设定。'],
  qty:['数量','<ul><li>持有股数/币数/现金金额，可含小数，按原值保存与计算。</li><li>显示四舍五入为整数（极小值保留 2 位有效数字），点进输入框显示完整值。</li><li>填了数量和单价后，金额 = 数量 × 单价 自动锁定。</li></ul>'],
  px:['单价','<ul><li>点「刷新价格」自动获取；打开页面时若上次拉价超过 24 小时会自动刷新。</li><li>来源：美/港/日股 腾讯+CNBC 交叉核对（相差 >5% 采用 CNBC 并提示）；A股 腾讯；加密 CoinGecko+OKX（备用 Hyperliquid/Kraken/Gate）；现金代码 单价=1。</li><li>也可手填；获取失败时保留原价。</li></ul>'],
  amt:['金额','<ul><li>有数量和单价时 = 数量 × 单价（锁定）；否则可直接手填金额。</li><li>以本行币种计；显示取整并带千分位，悬停/点击看完整值。</li><li>只要有金额，实际% 就按金额自动计算。</li></ul>'],
  act:['实际%','<ul><li>有金额时：按所有持仓折算到计价币种后的金额自动计算（锁定）。</li><li>都没有金额时可手填百分比。</li><li>上级行为下级之和；合计应为 100%。</li></ul>'],
- tgt:['目标%','<ul><li>通常在<b>三级</b>设置（无四级的三级行，或三级小计行）；<b>四级没有目标%</b>。</li><li>默认显示 <b>1 位小数</b>（如 20.0%）；点进输入框可看完整值。</li><li>若某个二级下<b>所有三级目标都为空或 0</b>，该二级的目标% 变为可编辑，可只设到二级；此时其下三级的差距/目标金额/调仓显示为「—」。</li><li>只要任一三级填了大于 0 的目标，二级即恢复为三级之和（只读，之前填的二级值保留但不使用）。</li><li>一级和合计 = 其下二级（自身值或三级之和）相加。删除数值 = 留空（未设）。</li><li>用于计算差距、目标金额/调仓金额，以及旭日图目标环。</li><li>目标合计应为 100%。</li></ul>'],
- gap:['目标差距','<ul><li>差距 = <b>目标% − 实际%</b>（位于「目标金额」之后，无总资产时紧跟目标%）。</li><li><span style="color:#1e8449">绿色 +</span> = 低配，需<b>买入</b>；<span style="color:#c0392b">红色 −</span> = 超配，需<b>卖出</b>；0 不着色。与「调仓金额」颜色一致。</li><li>目标只设到二级时，其下三级显示「—」。</li></ul>'],
- money:['实际金额 / 目标金额 / 调仓金额','<ul><li>有总资产（填写或由金额自动汇总）时显示。</li><li>实际金额 = 总资产 × 实际%；目标金额 = 总资产 × 目标%。</li><li>调仓 = 目标 − 实际：「买入」绿色、「卖出」红色；四级不显示，由所属三级计算。</li></ul>'],
- ops:['操作','<ul><li><b>⋮⋮</b> 按住拖动调整顺序：同级可跨父级移动（二级→其他一级下仍做二级；三级→其他二级下仍做三级；四级→任意三级下仍做四级）。也可拖到上一级行，挂到该父节点末尾。一级仅在一级之间排序。</li><li><b>＋</b> 新增下一级（一级→二级→三级→四级）。</li><li><b>↑三级</b> 把四级提升为同二级下独立的三级行（目标% 置 0，不挪用原三级目标）。</li><li><b>↓四级</b> 把无子级的三级降为四级，并入上一个三级（若无则并入下一个）；同二级仅一行时会提示先新增三级。</li><li><b>✕</b> 删除该行及其下级（会确认）。</li><li>工具栏另有「按金额排序」「自动排序」「全部展开/折叠」。</li></ul>']
+ tgt:['目标%','<ul><li>通常在<b>资产</b>设置（无子资产的资产行，或资产小计行）；<b>子资产没有目标%</b>。</li><li>默认显示 <b>1 位小数</b>（如 20.0%）；点进输入框可看完整值。</li><li>若某个子类别下<b>所有资产目标都为空或 0</b>，该子类别的目标% 变为可编辑，可只设到子类别；此时其下资产的差距/目标金额/调仓显示为「—」。</li><li>只要任一资产填了大于 0 的目标，子类别即恢复为资产之和（只读，之前填的子类别值保留但不使用）。</li><li>类别和合计 = 其下子类别（自身值或资产之和）相加。删除数值 = 留空（未设）。</li><li>用于计算差距、目标金额/调仓金额，以及旭日图目标环。</li><li>目标合计应为 100%。</li></ul>'],
+ gap:['目标差距','<ul><li>差距 = <b>目标% − 实际%</b>（位于「目标金额」之后，无总资产时紧跟目标%）。</li><li><span style="color:#1e8449">绿色 +</span> = 低配，需<b>买入</b>；<span style="color:#c0392b">红色 −</span> = 超配，需<b>卖出</b>；0 不着色。与「调仓金额」颜色一致。</li><li>目标只设到子类别时，其下资产显示「—」。</li></ul>'],
+ money:['实际金额 / 目标金额 / 调仓金额','<ul><li>有总资产（填写或由金额自动汇总）时显示。</li><li>实际金额 = 总资产 × 实际%；目标金额 = 总资产 × 目标%。</li><li>调仓 = 目标 − 实际：「买入」绿色、「卖出」红色；子资产不显示，由所属资产计算。</li></ul>'],
+ ops:['操作','<ul><li><b>⋮⋮</b> 按住拖动调整顺序：同级可跨父级移动（子类别→其他类别下仍做子类别；资产→其他子类别下仍做资产；子资产→任意资产下仍做子资产）。也可拖到上一级行，挂到该父节点末尾。类别仅在类别之间排序。</li><li><b>＋</b> 新增下一级（类别→子类别→资产→子资产）。</li><li><b>↑资产</b> 把子资产提升为同子类别下独立的资产行（目标% 置 0，不挪用原资产目标）。</li><li><b>↓子资产</b> 把无子级的资产降为子资产，并入上一个资产（若无则并入下一个）；同子类别仅一行时会提示先新增资产。</li><li><b>✕</b> 删除该行及其下级（会确认）。</li><li>工具栏另有「按金额排序」「自动排序」「全部展开/折叠」。</li></ul>']
 };
 const HELP_EN={
- l1:['Level 1','<ul><li>Top grouping (e.g. US/HK equities, Crypto, A-shares, commodities).</li><li>Row shows “L1 subtotal”: actual%/target% = sum of all Level 3 under it.</li><li>▸/▾ after the name collapses/expands; drag ⋮⋮ to reorder among Level 1.</li><li>“＋” adds Level 2; “✕” deletes the whole Level 1.</li></ul>'],
- l2:['Level 2','<ul><li>Strategy group under Level 1 (e.g. Growth, Value).</li><li>“L2 subtotal” = sum of its Level 3 children.</li><li>Collapsible after the name; ⋮⋮ can move under another Level 1 (still Level 2, children move with it).</li></ul>'],
- l3:['Level 3','<ul><li>Core layer: <b>target % is set only at Level 3</b>; rebalance uses Level 3.</li><li>With no Level 4, Level 3 itself is the holding — all fields editable.</li><li>With Level 4, shows “L3 subtotal”: actual%/amount roll up from L4; target % still editable here.</li><li>“＋” adds a Level 4 (existing holding fields move to the first L4).</li><li>⋮⋮ can move under another Level 2 (still Level 3, with its L4).</li></ul>'],
- l4:['Level 4','<ul><li>Optional detail holdings (e.g. several stocks under one strategy).</li><li>Fill symbol/qty/price/amount; <b>no target %</b> — gap & rebalance are on the parent Level 3.</li><li>⋮⋮ drag under any Level 3 (across L1/L2); stays Level 4. Can also drop on an L3 row to append.</li></ul>'],
+ l1:['Category','<ul><li>Top grouping (e.g. US/HK equities, Crypto, A-shares, commodities).</li><li>Row shows “Category subtotal”: actual%/target% = sum of all Asset under it.</li><li>▸/▾ after the name collapses/expands; drag ⋮⋮ to reorder among Category.</li><li>“＋” adds Subcategory; “✕” deletes the whole Category.</li></ul>'],
+ l2:['Subcategory','<ul><li>Strategy group under Category (e.g. Growth, Value).</li><li>“Subcategory subtotal” = sum of its Asset children.</li><li>Collapsible after the name; ⋮⋮ can move under another Category (still Subcategory, children move with it).</li></ul>'],
+ l3:['Asset','<ul><li>Core layer: <b>target % is set only at Asset</b>; rebalance uses Asset.</li><li>With no Sub-asset, Asset itself is the holding — all fields editable.</li><li>With Sub-asset, shows “Asset subtotal”: actual%/amount roll up from Sub-asset; target % still editable here.</li><li>“＋” adds a Sub-asset (existing holding fields move to the first Sub-asset).</li><li>⋮⋮ can move under another Subcategory (still Asset, with its Sub-asset).</li></ul>'],
+ l4:['Sub-asset','<ul><li>Optional detail holdings (e.g. several stocks under one strategy).</li><li>Fill symbol/qty/price/amount; <b>no target %</b> — gap & rebalance are on the parent Asset.</li><li>⋮⋮ drag under any Asset (across Category/Subcategory); stays Sub-asset. Can also drop on an Asset row to append.</li></ul>'],
  cur:['Currency','<ul><li>Holding quote currency: USD / CNY / HKD / JPY / EUR / Other.</li><li>Amounts convert via auto FX into the page “Base currency”.</li><li>After a recognizable symbol + Refresh, market sets currency (US→USD, HK→HKD, A→CNY, JP→JPY, crypto→USD, cash code=that currency).</li></ul>'],
- cust:['Custody','<ul><li>Where assets sit (broker/bank/wallet). Edit the list under “Custody locations”.</li><li>Convention: <b>first Chinese character of the name = custody category</b>, e.g. <code>美券商A</code>→美, <code>中银行D</code>→中, <code>港券商B</code>→港, <code>链冷钱包</code>→链.</li><li>Used on Analysis “By custody” and tax tips: 美 → US estate-tax tip; non-美/中/链 holding US/HK stocks → CRS tip; 链/cold wallet → self-custody tip. Otherwise keyword heuristics apply.</li></ul>'],
- custList:['Custody locations','<ul><li><b>How to use</b>: type a name → Add; edit the text to rename; × removes it. Pick the same name on each holding row.</li><li><b>How Analysis groups them</b>: by the <strong>first Chinese character</strong> in the name. Examples: <code>中券商C</code> / <code>中银行D</code> → both 中; <code>美券商A</code> → 美; <code>港券商B</code> → 港; <code>链冷钱包</code> → 链.</li><li>No Chinese characters (e.g. plain <code>Schwab</code>), or a name starting with 其他 → Other. Want the US bucket? Prefix with 美, like <code>美Schwab</code>. The small tag on each chip shows the category.</li><li>Used on a holding: normal color, listed first. Unused: gray, at the end (still included in export).</li></ul>'],
- code:['Symbol (quote code)','<ul><li><b>US stock/ETF</b>: <code>VUG</code> <code>AAPL</code>, share class <code>BRK.B</code>/<code>BRK-B</code>, or <code>usAAPL</code> → USD</li><li><b>HK</b>: <code>0700.HK</code> (zero-padded) or <code>hk00700</code> → HKD</li><li><b>A-share</b>: <code>600519.SS</code>/<code>sh600519</code>, <code>000001.SZ</code>/<code>sz000001</code>, ETF <code>sh510300</code>, BJ <code>430047.BJ</code>/<code>bj920047</code>; 6 digits: 5/6/9→SH, 92/4/8→BJ, else SZ → CNY</li><li><b>Japan</b>: <code>7203.T</code> <code>7203.JP</code> <code>JP7203</code> (plain 4 digits not recognized) → JPY</li><li><b>Crypto</b>: <code>BTC</code> <code>HYPE</code> <code>BTC-USD</code>, or CoinGecko id <code>cg:hyperliquid</code>; under Crypto/加密/币 Level 1 any code is crypto → USD</li><li><b>Gold</b>: <code>Au99.99</code>/<code>AU9999</code> → SGE <b>CNY/gram</b>, qty in grams; <code>XAU</code> → London <b>USD/oz</b>; alias <code>黄金</code>. <code>GOLD</code>/<code>AU</code> are US tickers</li><li><b>CN futures</b>: product+contract <code>SR2705</code> etc. → CNY; after refresh <b>price = quote × multiplier</b> (notional per lot), <b>qty = lots</b> (short = negative). Plain <code>AU</code> remains US equity</li><li><b>Cash</b>: <code>USD</code> <code>CNY</code>/<code>RMB</code> <code>HKD</code> <code>JPY</code> <code>EUR</code> <code>GBP</code> <code>SGD</code>, <code>USDT</code>/<code>USDC</code>=USD; no quote, price=1</li></ul>Case/space insensitive; currency auto-set after refresh.'],
+ cust:['Custody','<ul><li>Where assets sit (broker/bank/wallet). Edit the list under “Custody locations”.</li><li>Convention: Analysis groups <b>by custody-name category</b>, e.g. <code>美券商A</code>→US, <code>中银行D</code>→CN, <code>港券商B</code>→HK, <code>链冷钱包</code>→Crypto.</li><li>Used on Analysis “By custody” and tax tips: US → US estate-tax tip; non-US/CN/Crypto holding US/HK stocks → CRS tip; Crypto/cold wallet → self-custody tip. Otherwise keyword heuristics apply.</li></ul>'],
+ custList:['Custody locations','<ul><li><b>How to use</b>: type a name → Add; edit the text to rename; × removes it. Pick the same name on each holding row.</li><li><b>How Analysis groups them</b>: by <strong>custody-name category</strong>. Examples: <code>中券商C</code> / <code>中银行D</code> → both CN; <code>美券商A</code> → US; <code>港券商B</code> → HK; <code>链冷钱包</code> → Crypto.</li><li>No category marker (e.g. plain <code>Schwab</code>), or a name starting with 其他 → Other. Want the US bucket? Use a name like <code>美Schwab</code> (美·… style). The small tag on each chip shows the category.</li><li>Used on a holding: normal color, listed first. Unused: gray, at the end (still included in export).</li></ul>'],
+ code:['Symbol (quote code)','<ul><li><b>US stock/ETF</b>: <code>VUG</code> <code>AAPL</code>, share class <code>BRK.B</code>/<code>BRK-B</code>, or <code>usAAPL</code> → USD</li><li><b>HK</b>: <code>0700.HK</code> (zero-padded) or <code>hk00700</code> → HKD</li><li><b>A-share</b>: <code>600519.SS</code>/<code>sh600519</code>, <code>000001.SZ</code>/<code>sz000001</code>, ETF <code>sh510300</code>, BJ <code>430047.BJ</code>/<code>bj920047</code>; 6 digits: 5/6/9→SH, 92/4/8→BJ, else SZ → CNY</li><li><b>Japan</b>: <code>7203.T</code> <code>7203.JP</code> <code>JP7203</code> (plain 4 digits not recognized) → JPY</li><li><b>Crypto</b>: <code>BTC</code> <code>HYPE</code> <code>BTC-USD</code>, or CoinGecko id <code>cg:hyperliquid</code>; under Crypto/加密/币 Category any code is crypto → USD</li><li><b>Gold</b>: <code>Au99.99</code>/<code>AU9999</code> → SGE <b>CNY/gram</b>, qty in grams; <code>XAU</code> → London <b>USD/oz</b>; alias <code>黄金</code>. <code>GOLD</code>/<code>AU</code> are US tickers</li><li><b>CN futures</b>: product+contract <code>SR2705</code> etc. → CNY; after refresh <b>price = quote × multiplier</b> (notional per lot), <b>qty = lots</b> (short = negative). Plain <code>AU</code> remains US equity</li><li><b>Cash</b>: <code>USD</code> <code>CNY</code>/<code>RMB</code> <code>HKD</code> <code>JPY</code> <code>EUR</code> <code>GBP</code> <code>SGD</code>, <code>USDT</code>/<code>USDC</code>=USD; no quote, price=1</li></ul>Case/space insensitive; currency auto-set after refresh.'],
  qty:['Quantity','<ul><li>Shares/coins/cash amount; decimals kept for calc.</li><li>Display rounds to integer (tiny values keep 2 sig figs); focus shows full value.</li><li>With qty and price, amount = qty × price (locked).</li></ul>'],
  px:['Price','<ul><li>“Refresh prices” fetches quotes; auto-refresh if last fetch > 24h on open.</li><li>Sources: US/HK/JP Tencent+CNBC cross-check; A-share Tencent; crypto CoinGecko+OKX (Hyperliquid/Kraken/Gate backup); cash price=1.</li><li>Manual entry OK; failed fetch keeps prior price.</li></ul>'],
  amt:['Amount','<ul><li>With qty & price = qty × price (locked); else enter amount directly.</li><li>In row currency; display rounded with thousands separators.</li><li>Any amount drives actual % automatically.</li></ul>'],
  act:['Actual %','<ul><li>With amounts: auto from holdings converted to base currency (locked).</li><li>If no amounts, enter % manually.</li><li>Parents = sum of children; total should be 100%.</li></ul>'],
- tgt:['Target %','<ul><li>Usually set at <b>Level 3</b> (leaf L3 or L3 subtotal); <b>Level 4 has no target %</b>.</li><li>Shows <b>1 decimal</b> by default; focus shows full value.</li><li>If all L3 targets under an L2 are empty/0, that L2 target becomes editable; its L3 gap/target$/rebalance show “—”.</li><li>Any L3 target > 0 restores L2 as sum of L3 (read-only).</li><li>L1 and total = sum of L2. Clear = unset.</li><li>Used for gap, target/rebalance amounts, and sunburst target ring. Target total should be 100%.</li></ul>'],
- gap:['Gap','<ul><li>Gap = <b>target % − actual %</b> (after “Target amount”; if no total, right after target %).</li><li><span style="color:#1e8449">Green +</span> = underweight → <b>Buy</b>; <span style="color:#c0392b">Red −</span> = overweight → <b>Sell</b>; 0 uncolored. Matches rebalance amount colors.</li><li>When target is only at L2, child L3 shows “—”.</li></ul>'],
- money:['Actual / Target / Rebalance amount','<ul><li>Shown when total assets exist (entered or auto-summed).</li><li>Actual = total × actual %; Target = total × target %.</li><li>Rebalance = target − actual: “Buy” green / “Sell” red; not shown on L4 (parent L3).</li></ul>'],
- ops:['Actions','<ul><li><b>⋮⋮</b> drag to reorder / move across parents (L2 stays L2 under another L1; L3 under another L2; L4 under any L3). Drop on a parent row to append. L1 only reorders among L1.</li><li><b>＋</b> add child level (L1→L2→L3→L4).</li><li><b>↑ L3</b> promote L4 to sibling L3 (target % = 0).</li><li><b>↓ L4</b> demote leaf L3 into previous L3 as L4 (or next if none); sole L3 under L2 prompts to add another L3 first.</li><li><b>✕</b> delete row and children (confirms).</li><li>Toolbar also has Sort by amount, Auto-sort, Expand/Collapse all.</li></ul>']
+ tgt:['Target %','<ul><li>Usually set at <b>Asset</b> (leaf Asset or Asset subtotal); <b>Sub-asset has no target %</b>.</li><li>Shows <b>1 decimal</b> by default; focus shows full value.</li><li>If all Asset targets under a Subcategory are empty/0, that Subcategory target becomes editable; its Asset gap/target$/rebalance show “—”.</li><li>Any Asset target > 0 restores Subcategory as sum of Asset (read-only).</li><li>Category and total = sum of Subcategory. Clear = unset.</li><li>Used for gap, target/rebalance amounts, and sunburst target ring. Target total should be 100%.</li></ul>'],
+ gap:['Gap','<ul><li>Gap = <b>target % − actual %</b> (after “Target amount”; if no total, right after target %).</li><li><span style="color:#1e8449">Green +</span> = underweight → <b>Buy</b>; <span style="color:#c0392b">Red −</span> = overweight → <b>Sell</b>; 0 uncolored. Matches rebalance amount colors.</li><li>When target is only at Subcategory, child Asset shows “—”.</li></ul>'],
+ money:['Actual / Target / Rebalance amount','<ul><li>Shown when total assets exist (entered or auto-summed).</li><li>Actual = total × actual %; Target = total × target %.</li><li>Rebalance = target − actual: “Buy” green / “Sell” red; not shown on Sub-asset (parent Asset).</li></ul>'],
+ ops:['Actions','<ul><li><b>⋮⋮</b> drag to reorder / move across parents (Subcategory stays Subcategory under another Category; Asset under another Subcategory; Sub-asset under any Asset). Drop on a parent row to append. Category only reorders among Category.</li><li><b>＋</b> add child level (Category→Subcategory→Asset→Sub-asset).</li><li><b>↑ Asset</b> promote Sub-asset to sibling Asset (target % = 0).</li><li><b>↓ Sub-asset</b> demote leaf Asset into previous Asset as Sub-asset (or next if none); sole Asset under Subcategory prompts to add another Asset first.</li><li><b>✕</b> delete row and children (confirms).</li><li>Toolbar also has Sort by amount, Auto-sort, Expand/Collapse all.</li></ul>']
 };
 let _hpTh=null;
 function hpEl(){ let e=document.getElementById('helpPop'); if(!e){ e=document.createElement('div'); e.id='helpPop';
@@ -3161,9 +3672,8 @@ function resetStep2(){
   inp.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!go.disabled) resetDo(); });
   setTimeout(()=>{ if(inp) inp.focus(); },50);
 }
-function resetDo(){
-  try{ const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download=(d=>{const z=n=>String(n).padStart(2,'0');return 'AA_'+d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+' '+z(d.getHours())+':'+z(d.getMinutes())+'_reset-backup.json'})(new Date()); document.body.appendChild(a); a.click(); a.remove(); }catch(e){}
+async function resetDo(){
+  try{ await exportJ({suffix:'_reset-backup', mustSave:true}); }catch(e){}
   const f=S.fx; S=seed(); S.fx=f||S.fx; save(); rstClose();
 }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&document.getElementById('rstModal').style.display==='flex') rstClose(); });
@@ -3220,13 +3730,13 @@ function buildAiPrompt(withSnaps,priv){
   const custRows=Object.keys(cg).sort((a,b)=>cg[b].p-cg[a].p).map(k=>`| ${k} | ${Object.keys(cg[k].items).join('、')} | ${p1(cg[k].p)} |${priv?'':` ${money(cg[k].p)} |`}`).join('\n');
   let snapTxt='';
   if(withSnaps&&S.snapshots&&S.snapshots.length){
-    snapTxt=`\n### 快照历史（时间点记录）\n| 日期 | 备注 |${priv?'':' 总资产 |'} 一级分类实际% |\n|---|---|${priv?'':'---|'}---|\n`+S.snapshots.map(s=>`| ${s.date||''} | ${s.note||''} |${priv?'':` ${s.total?s.total+' '+(s.currency||''):'—'} |`} ${(s.cats||[]).map(c=>c.name+' '+c.actual+'%').join('；')} |`).join('\n')+'\n';
+    snapTxt=`\n### 快照历史（时间点记录）\n| 日期 | 备注 |${priv?'':' 总资产 |'} 类别分类实际% |\n|---|---|${priv?'':'---|'}---|\n`+S.snapshots.map(s=>`| ${s.date||''} | ${s.note||''} |${priv?'':` ${s.total!=null&&s.total!==''?fmtSnapTotal(s.total)+' '+(s.currency||''):'—'} |`} ${(s.cats||[]).map(c=>c.name+' '+c.actual+'%').join('；')} |`).join('\n')+'\n';
   }
   const lev=leverageItems();
   const levTxt=lev.length?`| 路径 | 代码 |${priv?'':' 数量×单价 | 记录金额('+bc+') |'} 实际% | 识别依据 |\n|---|---|${priv?'':'---|---|'}---|---|\n`+lev.map(x=>{const n=x.n,b=leafBase(n);return `| ${x.path} | ${n.symbol||''} |${priv?'':` ${hasQty(n)?fmtNum(n.qty):'—'}${hasPrice(n)?'×'+fmtPrice(n.price):''} | ${b!=null?sym+dispNum(b):money(+n.actual||0)} |`} ${p1(+n.actual||0)} | ${x.why.join('；')} |`;}).join('\n')+'\n\n> 注：期货/期权记录的可能是保证金而非名义本金，请按合约乘数还原**名义价值**计算敞口（不确定请标注“需核实”）。\n':'未从数据中自动识别到期货、期权、空头（负数量）、融资/保证金等杠杆或衍生品持仓。\n';
   return `# 角色设定
 你是一位顶尖的**全球资产配置与家族财富顾问**，精通跨境资产配置、多币种与汇率管理、跨境税务与传承规划、另类资产（非上市股权、不动产、私募、收藏品等）评估，以及风险管理（杠杆、衍生品、流动性）。
-下面的数据与配置框架（一级大类 › 二级策略 › 三级持仓 › 四级明细，目标% / 实际% / 再平衡）来自 **「资产配置大师 by RayFi」**（RayFi /《全球资产配置躺赚群》/ www.rayfi.top）。请专业、坦率、具体：直接指出问题，不说套话，尽量给出可执行的数字与步骤。
+下面的数据与配置框架（类别 › 子类别 › 资产 › 子资产，目标% / 实际% / 再平衡）来自 **「资产配置大师 by RayFi」**（RayFi /《全球资产配置躺赚群》/ www.rayfi.top）。请专业、坦率、具体：直接指出问题，不说套话，尽量给出可执行的数字与步骤。
 
 ## 0. 工作原则
 1. **先识别、再分析**：工具的分类标签只是按名称/代码自动推断，可能有错漏，「未分类」表示工具不认识。请根据名称、代码、托管、币种**逐项重新识别**每个持仓的真实资产类型和底层风险，不要照搬工具标签。
@@ -3277,7 +3787,7 @@ function buildAiPrompt(withSnaps,priv){
 4. **逐层分析**：第 1~9 层，每层给出结论和关键数字
 5. **问题清单（按严重度排序）**：| 严重度（高/中/低）| 问题 | 涉及持仓 | 影响 | 建议 |
 6. **压力测试表**：| 情景 | 组合回撤 | 主要拖累 | 流动性/保证金影响 | 恢复时间 | 事前对策 |
-7. **建议目标配置表**：| 一级 | 二级 | 当前% | 建议% | 理由 |
+7. **建议目标配置表**：| 类别 | 子类别 | 当前% | 建议% | 理由 |
 8. **行动清单**：| 顺序 | 时间（如第1周/第1月）| 动作（买/卖/转仓/合并/补材料）| 持仓 | ${priv?'百分比':'金额或百分比'} | 节奏/触发条件 | 理由 |
 9. **需补充的信息**：只列确实会改变结论的（最多 5 条），并说明会影响哪个结论
 10. **免责声明**：仅供参考，不构成投资、税务或法律建议；涉税、法律事项请咨询持牌专业人士
@@ -3289,7 +3799,7 @@ function buildAiPrompt(withSnaps,priv){
 - 使用汇率：1 USD = ${fx.toFixed(4)} CNY（自动获取）
 - 税务居民国籍/地区：${tr}；美国公民/绿卡（US Person）：${usp}
 - 实际% 合计 ${p1(A)}，目标% 合计 ${p1(G)}；目标差距 = 目标% − 实际%（正 = 低配需买入，负 = 超配需卖出）
-- 层级：L1 一级大类 › L2 二级策略 › L3 三级持仓（设目标）› L4 四级明细（无目标）；「代码」为行情代码（如有）
+- 层级：L1 类别 › L2 子类别 › L3 资产（设目标）› L4 子资产（无目标）；「代码」为行情代码（如有）
 
 | 层级 | 名称 | 代码 | 币种 | 托管 |${priv?'':` 金额(${bc}) |`} 实际% | 目标% | 目标差距 |
 |---|---|---|---|---|${priv?'':'---|'}---|---|---|

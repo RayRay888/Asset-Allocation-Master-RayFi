@@ -2,6 +2,10 @@
 
 本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
 
+## v1.139
+- 快照列表总资产：整数显示并加千分位（无小数）
+- Tip advances from published v1.122 → v1.139 (local stages v1.123–v1.138 included in this HTML; full list in-app)
+
 ## v1.122
 - 托管列表：已用保持原样式并靠前，未用置后灰色；导出保留全部，导入整表替换不合并默认
 
