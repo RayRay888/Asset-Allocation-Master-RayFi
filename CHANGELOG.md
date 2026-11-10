@@ -1,6 +1,14 @@
 # Changelog — 资产配置大师 by RayFi
 
-本仓库版本更新记录。每版成品 HTML 见对应 [Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases)。官网介绍可选：https://www.rayfi.top
+本仓库只记录各版本更新说明，不提供成品 HTML 下载。[Releases](https://github.com/RayRay888/Asset-Allocation-Master-RayFi/releases) 同样只发说明、不附带文件。可在官网在线使用：https://www.rayfi.top/rayfi-asset-allocation-analyzer/
+
+Release notes only — no downloadable HTML. Use the tool online at the link above.
+
+## v1.191（2026-11-09）
+- 使用说明改版：这是什么 → 功能一览 → 怎么用（六步，原「隐私与备份」并入第 6 步）→ 进阶
+- 落地页主入口改为固定地址「点击进入」在线打开
+- 自 v1.140 以来的网站迭代汇总到 v1.191；中间号没有独立分享快照，故不逐号虚构记录
+- 公开库改为只展示更新说明，不再提供成品 HTML 下载（付费功能尚未上线）
 
 ## v1.140
 - 官网固定 URL 在线打开：同源 localStorage 升版不断档；落地页主入口改「在线打开」，下载 HTML 作离线备用
